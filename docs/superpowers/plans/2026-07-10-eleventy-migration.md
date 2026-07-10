@@ -1468,8 +1468,6 @@ git commit -m "feat: add Contact / File a Dispatch page"
 ---
 layout: base.njk
 title: null
-eleventyComputed:
-  latest: "{{ collections.all }}"
 ---
 {% set sorted = collections.all | sort(attribute="date") | reverse %}
 {% set featured = sorted[0] %}
