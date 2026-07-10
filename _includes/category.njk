@@ -7,7 +7,7 @@
     <div>
       <p class="kicker">Filed under</p>
       <h1>{{ cat.label }}</h1>
-      <p>{{ cat.description }}</p>
+      {{ collections.categoryIndex[cat.key].templateContent | safe }}
     </div>
     <div class="cat-mark">{{ cat.glyphSvg | safe }}</div>
   </div>

@@ -1,0 +1,15 @@
+{% extends "base.njk" %}
+{% block content %}
+{% set project = collections.projectsBySlug[projectSlug] %}
+<div class="breadcrumb">
+  <div class="wrap"><div class="inner"><a href="/projects/">Projects</a> / <a href="{{ project.url }}">{{ project.data.title }}</a> / {{ title }}</div></div>
+</div>
+<main class="wrap">
+  <div class="art-body">
+    <p class="accession">Journal entry No. {{ no }} · {{ project.data.title }}</p>
+    <h1>{{ title }}</h1>
+    {{ content | safe }}
+    <p><a href="{{ project.url }}">&larr; Back to {{ project.data.title }}</a></p>
+  </div>
+</main>
+{% endblock %}

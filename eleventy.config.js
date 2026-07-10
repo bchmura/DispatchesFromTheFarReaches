@@ -1,3 +1,5 @@
+const path = require("node:path");
+
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "assets": "assets" });
 
@@ -12,7 +14,7 @@ module.exports = function (eleventyConfig) {
   };
   for (const [dir, slug] of Object.entries(categoryDirs)) {
     eleventyConfig.addPassthroughCopy({
-      [`DFTFR-Obsidian/Website/${dir}/*.{jpg,jpeg,png,gif,webp}`]: slug,
+      [`DFTFR-Obsidian/Website/${dir}/**/*.{jpg,jpeg,png,gif,webp}`]: slug,
     });
   }
 
@@ -34,12 +36,19 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addFilter("indexOfPost", (arr, url) => arr.findIndex((item) => item.url === url));
 
+  // A "real post" carries a `category` but is neither a category-index page
+  // (Task-14 addition: per-category description content, e.g.
+  // Professional/index.md) nor a project journal entry (Task-14 addition:
+  // Projects/<slug>/<entry>.md) — both have their own dedicated collections
+  // below and must not leak into post listings, the home feed, or the tag
+  // cloud.
+  const isRealPost = (item) => item.data.category && !item.data.isCategoryIndex && !item.data.isJournalEntry;
+
   eleventyConfig.addCollection("postsByCategory", (collectionApi) => {
     const byCategory = {};
     for (const item of collectionApi.getAll()) {
-      const category = item.data.category;
-      if (!category) continue;
-      (byCategory[category] ??= []).push(item);
+      if (!isRealPost(item)) continue;
+      (byCategory[item.data.category] ??= []).push(item);
     }
     for (const key of Object.keys(byCategory)) {
       byCategory[key].sort((a, b) => b.date - a.date);
@@ -47,12 +56,12 @@ module.exports = function (eleventyConfig) {
     return byCategory;
   });
 
-  // Real content entries only (excludes about/contact, which have no
-  // `category` field), sorted newest first — used by the home page for the
-  // featured slot and the "continues" list.
+  // Real content entries only (excludes about/contact, category-index
+  // pages, and project journal entries), sorted newest first — used by the
+  // home page for the featured slot and the "continues" list.
   eleventyConfig.addCollection("posts", (collectionApi) =>
     collectionApi.getAll()
-      .filter((item) => item.data.category)
+      .filter(isRealPost)
       .sort((a, b) => b.date - a.date)
   );
 
@@ -62,7 +71,7 @@ module.exports = function (eleventyConfig) {
   // extracting a start/end range, so it can't be used for this in-template.
   eleventyConfig.addCollection("continuesPosts", (collectionApi) =>
     collectionApi.getAll()
-      .filter((item) => item.data.category)
+      .filter(isRealPost)
       .sort((a, b) => b.date - a.date)
       .slice(1, 8)
   );
@@ -72,7 +81,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addCollection("tagCloud", (collectionApi) => {
     const counts = {};
     for (const item of collectionApi.getAll()) {
-      if (!item.data.category) continue;
+      if (!isRealPost(item)) continue;
       for (const tag of item.data.tags || []) {
         counts[tag] = (counts[tag] || 0) + 1;
       }
@@ -80,6 +89,49 @@ module.exports = function (eleventyConfig) {
     return Object.entries(counts)
       .map(([name, count]) => ({ name, count }))
       .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));
+  });
+
+  // One category-index page per category (e.g. Professional/index.md),
+  // keyed by category — supplies the description text rendered under each
+  // category's <h1>, per constraint #3: layout/content lives in vault
+  // markdown, not in _data.
+  eleventyConfig.addCollection("categoryIndex", (collectionApi) => {
+    const byCategory = {};
+    for (const item of collectionApi.getAll()) {
+      if (item.data.isCategoryIndex) byCategory[item.data.category] = item;
+    }
+    return byCategory;
+  });
+
+  // Project journal entries (Projects/<project-slug>/<entry>.md), keyed by
+  // project slug (the entry's parent directory name) and sorted oldest
+  // first, matching the mockup's chronological journal order. Each
+  // project's own overview page (Projects/<project-slug>/index.md) reads
+  // its entries from here rather than a frontmatter list.
+  eleventyConfig.addCollection("journalEntriesByProject", (collectionApi) => {
+    const byProject = {};
+    for (const item of collectionApi.getAll()) {
+      if (!item.data.isJournalEntry) continue;
+      const projectSlug = path.basename(path.dirname(item.inputPath));
+      (byProject[projectSlug] ??= []).push(item);
+    }
+    for (const key of Object.keys(byProject)) {
+      byProject[key].sort((a, b) => a.date - b.date);
+    }
+    return byProject;
+  });
+
+  // Project overview pages (Projects/<project-slug>/index.md), keyed by
+  // their own fileSlug (== the project's directory/slug) — lets a journal
+  // entry page look up its parent project's title and URL.
+  eleventyConfig.addCollection("projectsBySlug", (collectionApi) => {
+    const bySlug = {};
+    for (const item of collectionApi.getAll()) {
+      if (item.data.category === "projects" && !item.data.isJournalEntry && !item.data.isCategoryIndex) {
+        bySlug[item.page.fileSlug] = item;
+      }
+    }
+    return bySlug;
   });
 
   return {

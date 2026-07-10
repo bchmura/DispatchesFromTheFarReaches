@@ -8,15 +8,6 @@ status: Afoot
 accession: "MS-P-11 · Instrument file"
 tags: ["diy", "radio"]
 isDraft: false
-journal:
-  - no: 1
-    date: 2025-08-28
-    title: "Dead on arrival, as expected"
-    body: "Chassis is intact, dial glass is cracked but readable. Every visible capacitor has the telltale bulge of a unit that gave up decades ago."
-  - no: 2
-    date: 2025-09-02
-    title: "First replaced capacitor, first sign of life"
-    body: "Swapped the largest electrolytic. Tubes now glow on power-up, though nothing comes through the speaker yet."
 resources:
   - title: "Vintage Radio Capacitor Reference Chart"
     note: "Cross-reference for original part values"

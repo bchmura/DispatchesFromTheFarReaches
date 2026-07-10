@@ -20,14 +20,14 @@
   <div class="proj-content">
     <div class="journal">
       <h2 class="section-head">Journal</h2>
-      {% for entry in journal %}
+      {% for entry in collections.journalEntriesByProject[page.fileSlug] %}
       <article>
         <div class="entry-head">
-          <h3>{{ entry.title }}</h3>
-          <span class="date-hover"><span class="dispatch-no">No. {{ entry.no }}</span> · {{ entry.date | date("d MMMM yyyy") }}</span>
+          <h3>{{ entry.data.title }}</h3>
+          <span class="date-hover"><span class="dispatch-no">No. {{ entry.data.no }}</span> · {{ entry.date | date("d MMMM yyyy") }}</span>
         </div>
-        <p>{{ entry.body }}</p>
-        <div class="entry-actions"><a href="#">View this journal entry</a></div>
+        {{ entry.templateContent | safe }}
+        <div class="entry-actions"><a href="{{ entry.url }}">View this journal entry</a></div>
       </article>
       {% endfor %}
     </div>
