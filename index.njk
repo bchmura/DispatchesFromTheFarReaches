@@ -1,0 +1,99 @@
+---
+title: null
+---
+{% extends "base.njk" %}
+{% block content %}
+{% set featured = collections.posts[0] %}
+{% set rest = collections.continuesPosts %}
+<section class="hero">
+  <div class="wrap">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="kicker">Dispatches, sent irregularly</p>
+      <h1 class="title">Reports from work, thought, and the <em>far reaches</em> in between.</h1>
+      <p class="sub">Filed under whichever heading fits best, the way a field log is kept: not tidy, but findable.</p>
+    </div>
+    <div class="hero-mark">
+      <svg viewBox="0 0 200 200" fill="none" stroke="#c19a4b" stroke-width="1" role="img" aria-label="Illustration of a worn map fragment with a plotted route and a compass rose">
+        <g transform="rotate(-4 100 100)">
+          <path d="M28 34 L166 22 L178 158 L36 172 Z" opacity=".5"/>
+          <path d="M40 150 Q80 120 95 90 Q115 60 150 45" stroke-dasharray="3 6" opacity=".7"/>
+          <circle cx="40" cy="150" r="3" fill="#c19a4b" stroke="none"/>
+          <circle cx="95" cy="90" r="3" fill="#c19a4b" stroke="none"/>
+          <path d="M150 45 l-6 -10 l12 0 Z" fill="#c19a4b" opacity=".9" stroke="none"/>
+        </g>
+        <g transform="translate(138 132)">
+          <circle cx="0" cy="0" r="16" opacity=".5"/>
+          <path d="M0 -18v5M0 13v5M-18 0h5M13 0h5" opacity=".5"/>
+          <path d="M0 -9l4 9-4 9-4-9z" fill="#c19a4b" opacity=".8" stroke="none"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  </div>
+</section>
+<main class="wrap">
+  <div class="posts" style="margin-top:8px;">
+    <div class="featured">
+      <div class="featured-media">
+        <svg viewBox="0 0 480 220" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a lantern-lit camp beneath a mountain range at night">
+          <rect width="480" height="220" fill="#0f1109"/>
+          <circle cx="58" cy="28" r="1.3" fill="#c19a4b" opacity=".5"/>
+          <circle cx="138" cy="16" r="1" fill="#c19a4b" opacity=".4"/>
+          <circle cx="402" cy="24" r="1.4" fill="#c19a4b" opacity=".5"/>
+          <circle cx="200" cy="12" r="1" fill="#c19a4b" opacity=".4"/>
+          <circle cx="330" cy="148" r="72" fill="#c19a4b" opacity=".05"/>
+          <circle cx="330" cy="148" r="40" fill="#c19a4b" opacity=".09"/>
+          <circle cx="330" cy="148" r="17" fill="#c19a4b" opacity=".2"/>
+          <path d="M0 192 L58 118 L108 164 L168 88 L228 168 L278 128 L338 192 L398 138 L480 188 L480 220 L0 220 Z" fill="#1c2416" stroke="#33392a" stroke-width="1"/>
+          <line x1="0" y1="192" x2="480" y2="192" stroke="#33392a" stroke-width="1.5"/>
+          <path d="M302 192 L330 150 L358 192 Z" fill="#20291d" stroke="#8a6d34" stroke-width="1.2"/>
+          <circle cx="330" cy="148" r="6" fill="#c19a4b"/>
+        </svg>
+      </div>
+      <div class="featured-body">
+        <span class="tag">{{ categoryLabels[featured.data.category] }}</span>
+        <h3>{{ featured.data.title }}</h3>
+        <p class="meta">{{ featured.date | date("d MMMM yyyy") }}</p>
+        <p>{{ featured.data.description }}</p>
+        <a class="readlink" href="{{ featured.url }}">Read the entry <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+    <div class="aside-stack">
+      <aside class="tag-aside">
+        <h2 class="section-head">Browse by tag</h2>
+        <div class="cloud">
+          {% for tag in collections.tagCloud %}
+          <a href="#"{% if tag.count > 1 %} class="freq-2"{% endif %}>{{ tag.name }}</a>
+          {% endfor %}
+        </div>
+      </aside>
+      <aside class="search-aside">
+        <p class="search-label">Search these writings via our compuscanner</p>
+        <label class="search-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><circle cx="12" cy="12" r="3"/></svg>
+          <input type="text" id="site-search" placeholder="Type a word, name, or year..." aria-label="Search these writings">
+        </label>
+        <div class="search-results" id="site-search-results"></div>
+      </aside>
+    </div>
+    <div class="list continues">
+      {% for entry in rest %}
+      <article>
+        <div class="entry-head">
+          <span class="tag">{{ categoryLabels[entry.data.category] }}</span>
+          <div class="entry-right">
+            <div class="entry-tags-inline">{% for t in entry.data.tags %}<a href="#">{{ t }}</a>{% endfor %}</div>
+            <span class="date-hover"><span class="dispatch-no">No. {{ entry.data.dispatchNo }}</span> · {{ entry.date | date("d MMMM yyyy") }}</span>
+          </div>
+        </div>
+        <h3>{{ entry.data.title }}</h3>
+        <p>{{ entry.data.description }}</p>
+        <div class="entry-actions"><a href="{{ entry.url }}">View the account</a></div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</main>
+<script src="/assets/js/search.js" type="module"></script>
+{% endblock %}
