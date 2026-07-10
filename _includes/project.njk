@@ -1,0 +1,41 @@
+{% extends "base.njk" %}
+{% block content %}
+<div class="breadcrumb">
+  <div class="wrap"><div class="inner"><a href="/projects/">Projects</a> / {{ title }}</div></div>
+</div>
+<section class="proj-header">
+  <div class="wrap">
+  <div class="inner">
+    <div>
+      <span class="status status-{{ status | lower }}">{{ status }}</span>
+      <h1>{{ title }}</h1>
+      <p>{{ description }}</p>
+    </div>
+  </div>
+  </div>
+</section>
+<main class="wrap">
+  <div class="proj-content">
+    <div class="journal">
+      <h2 class="section-head">Journal</h2>
+      {% for entry in journal %}
+      <article>
+        <div class="entry-head">
+          <h3>{{ entry.title }}</h3>
+          <span class="date-hover"><span class="dispatch-no">No. {{ entry.no }}</span> · {{ entry.date | date("d MMMM yyyy") }}</span>
+        </div>
+        <p>{{ entry.body }}</p>
+      </article>
+      {% endfor %}
+    </div>
+    <aside class="resources">
+      <h2 class="section-head">Resources</h2>
+      <ul>
+        {% for r in resources %}
+        <li><a href="{{ r.url }}"><span class="rtitle">{{ r.title }}</span><span class="rnote">{{ r.note }}</span></a></li>
+        {% endfor %}
+      </ul>
+    </aside>
+  </div>
+</main>
+{% endblock %}
