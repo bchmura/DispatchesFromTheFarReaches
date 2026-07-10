@@ -3,9 +3,18 @@
 <section class="art-header">
   <div class="wrap">
   <div class="inner">
+    <svg class="stamp-mark" viewBox="0 0 120 120" fill="none" stroke="currentColor" aria-hidden="true">
+      <defs><path id="stampring-{{ dispatchNo }}" d="M60 60 m-43 0 a43 43 0 1 1 86 0 a43 43 0 1 1 -86 0"/></defs>
+      <circle cx="60" cy="60" r="54" stroke-width="1.4"/>
+      <circle cx="60" cy="60" r="45" stroke-width="1"/>
+      <text><textPath href="#stampring-{{ dispatchNo }}" startOffset="0">MISKATONIC UNIVERSITY · SPECIAL COLLECTIONS · </textPath></text>
+      <path d="M60 45v30M45 60h30" stroke-width="1"/>
+      <path d="M60 49l4 11-4 11-4-11z" fill="currentColor" stroke="none"/>
+    </svg>
+    <p class="accession">Miskatonic University · Special Collections · MS-{{ dispatchNo }}</p>
     <div class="art-meta-row">
       <span class="cat-pill">{{ categoryLabels[category] }}</span>
-      <span class="art-date"><span class="dispatch-no">No. {{ dispatchNo }}</span> · {{ date | date("d MMMM yyyy") }}</span>
+      <span class="art-date"><span class="dispatch-no">No. {{ dispatchNo }}</span> · {{ date | date("d MMMM yyyy") }} · {{ content | readingTime }} min</span>
     </div>
     <h1>{{ title }}</h1>
   </div>
@@ -13,7 +22,7 @@
 </section>
 <main class="wrap">
   <div class="art-body">
-    {{ content | safe }}
+    {{ content | addLedeClass | safe }}
   </div>
   <div class="art-foot">
     {% if tags.length %}
