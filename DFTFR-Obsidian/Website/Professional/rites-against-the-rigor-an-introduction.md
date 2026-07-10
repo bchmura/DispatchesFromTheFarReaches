@@ -1,29 +1,28 @@
 ---
 title: "Rites Against the Rigor: An Introduction"
+category: professional
+dispatchNo: 217
 description: "The first of four dispatches on fighting corporate rigor mortis through small, deliberate experiments instead of sweeping change."
 date: 2022-10-01T01:03:03-04:00
-layout: 
-permalink: 
+layout: post.njk
 tags: ["business"]
-isDraft: true
+isDraft: false
 ---
 
 The focus can be on creating a culture where people can make a change... as needed. 
 
-<!--more-->
-
 This is a series of four related posts:
 
-* [part one]({{< ref "rites-against-the-rigor-an-introduction" >}} "part one") introduces the experiment
-* [part two]({{< ref "rites-against-the-rigor-five-steps-to-begin-the-ritual" >}} "part two") shows 5 steps to implement
-* [part three]({{< ref "rites-against-the-rigor-the-obstacles-along-the-way" >}} "part three") discusses challenges
-* [part four]({{< ref "rites-against-the-rigor-the-grimoire-of-documentation" >}} "part four") illustrates the documentation
+* [part one](/professional/rites-against-the-rigor-an-introduction/ "part one") introduces the experiment
+* [part two](/professional/rites-against-the-rigor-five-steps-to-begin-the-ritual/ "part two") shows 5 steps to implement
+* [part three](/professional/rites-against-the-rigor-the-obstacles-along-the-way/ "part three") discusses challenges
+* [part four](/professional/rites-against-the-rigor-the-grimoire-of-documentation/ "part four") illustrates the documentation
 
 ## Introducing the experiment
 
 When we talk about Rigor Corpus, the slow painful process of growing companies becoming inflexible, we worry about making big change.  Maybe small is what we need.
 
-To help you down this road {{< plink "https://www.estherderby.com/" >}}I give you an idea from Ester Derby{{< /plink >}}, one of the best agile coaches I've found.  She codified "The Experiment", a process that gets everyone comfortable with small quick changes.  It is easy to follow and lends some scientific rigor to making things better.  
+To help you down this road [I give you an idea from Ester Derby](https://www.estherderby.com/), one of the best agile coaches I've found.  She codified "The Experiment", a process that gets everyone comfortable with small quick changes.  It is easy to follow and lends some scientific rigor to making things better.  
 
 Gather up your team, come up with some ways to make your lives better, try some out, and see what happens.  It takes the right people and you are one of the best experts at your company on how to do your job.  
 

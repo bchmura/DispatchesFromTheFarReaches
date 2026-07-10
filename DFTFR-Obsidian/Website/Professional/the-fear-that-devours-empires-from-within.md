@@ -1,15 +1,14 @@
 ---
 title: "The Fear That Devours Empires From Within"
+category: professional
+dispatchNo: 216
 description: "An exploration of how fear — ancient, creeping, inherited from the top — calcifies organizations and strangles the will to change."
 date: 2022-09-30T01:03:03-04:00
-layout: 
-permalink: 
+layout: post.njk
 tags: ["business"]
-isDraft: true
+isDraft: false
 ---
 I am not the first to wonder about maintaining a start-up mentality into later growth cycles.  A company rarely can. I postulate fear is one of the core issues.
-
-<!--more-->
 
 ## Fear
 
@@ -32,7 +31,7 @@ Startups do not have much to lose in comparison.  They focus on making a breakth
 
 Large companies have shareholders or other investors they report to.  How the stock market views the company affects the value of the company.  Executives may hold large amounts of stock as part of their compensation.  They may fear their net-worth dropping.  Or they may be avoiding having to bring bad news to the board.
 
-{{< randompic >}}On the whole, the stock market is not a great judge of how well a company is going to do in the long term.  They are very adept at determining how much profit a company will have in the short term.   At the end of the day, a shares price rises and falls with demand.  We have seen share prices rise when a company lays off workers.  A few indexes aside, a company's value is driven by its profits.  This can create a mindset at the top of the company in which the C-Suite is averse to messing with a good thing.  They become inflexible to big change and that attitude flows down.
+On the whole, the stock market is not a great judge of how well a company is going to do in the long term.  They are very adept at determining how much profit a company will have in the short term.   At the end of the day, a shares price rises and falls with demand.  We have seen share prices rise when a company lays off workers.  A few indexes aside, a company's value is driven by its profits.  This can create a mindset at the top of the company in which the C-Suite is averse to messing with a good thing.  They become inflexible to big change and that attitude flows down.
 
 ## Fear flows into the sub organizations
 
@@ -44,7 +43,7 @@ The fear here is also one of career progression.  But it is also entwined with t
 
 ## Fear flows down into the teams
 
-{{< randompic >}}You can almost tell how engaged employees are by the number of changes they propose making.  At this level, the fear from above has taught the teams not to bother.  An employee who believes that any change they recommend will be difficult to get through will not only stop making recommendations, they will stop seeing them.  When they perceive they are unable to have any control over their environment, morale will take a hit.  They keep doing the work, but the engagement drops.
+You can almost tell how engaged employees are by the number of changes they propose making.  At this level, the fear from above has taught the teams not to bother.  An employee who believes that any change they recommend will be difficult to get through will not only stop making recommendations, they will stop seeing them.  When they perceive they are unable to have any control over their environment, morale will take a hit.  They keep doing the work, but the engagement drops.
 
 ## Will companies try big changes when they need to?
 

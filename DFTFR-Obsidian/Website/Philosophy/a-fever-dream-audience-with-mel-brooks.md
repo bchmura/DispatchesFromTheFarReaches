@@ -1,20 +1,19 @@
 ---
 title: "A Fever-Dream Audience With Mel Brooks"
+category: philosophy
+dispatchNo: 202
 description: "A vivid, comic dream starring Mel Brooks and his security detail, followed by a detour into why dreams may exist to keep the mind flexible."
 date: 2022-09-15T01:03:03-04:00
-layout: 
-permalink: 
+layout: post.njk
 tags: ["dreams", "random"]
-isDraft: true
+isDraft: false
 ---
 
 I don't often remember my dreams.  When I do they feel like something in my subconscious stirring around.   Having a vivid dream is notable, having one about Mel Brooks is something else.  
 
-<!--more-->
-
 It was not very long, at least the parts remembered, since what we remember quickly fades away when we wake up.  
 
-We were at {{< plink "https://bushnell.org" >}}the Bushnell{{< /plink >}}, a performing arts center - off broadway, stuff like that... lot of good stuff goes there.  Specifically it was one of the {{< plink "https://bushnell.org/TheBushnell/media/Bushnell-Media/Development/Ovations12_022-1.jpg" >}}rooms upstairs or one much like it{{< /plink >}}.   Maybe not even the Bushnell, but that sort of fancy place.
+We were at [the Bushnell](https://bushnell.org), a performing arts center - off broadway, stuff like that... lot of good stuff goes there.  Specifically it was one of the [rooms upstairs or one much like it](https://bushnell.org/TheBushnell/media/Bushnell-Media/Development/Ovations12_022-1.jpg).   Maybe not even the Bushnell, but that sort of fancy place.
 
 Mel Brooks was there, full tux, flanked by several very serious looking men in dark suits with those obvious security earbuds.  Why on earth security would still block one ear when bone conduction is so much better for that sort of thing... maybe it makes for good visual in movies.  They had set up  siege around a coat check room and were rummaging through pockets of coats.  After a comically large pile of coats had accumulated on the floor Brooks let out a big "THERE YOU ARE, THIS IS IT BOYS!" holding up a small black address book.  His security remained completely nonplussed. For those of you younger, before smart phones people would collect phone numbers in tiny black books.  He started, comedically of course, leafing through the pages muttering each letter lounder than the last. a, b, c, D, **E**, **F** - "Hah, there you are you little bugger!"  He meticulously tore out the tab identifying that page as "F".  He held the tiny tab up to his eyes, studying it for a moment, popped it in his mouth and made a big show of swallowing.
 
@@ -27,8 +26,8 @@ Over humanities existence there has been a lot of trying to explain them.  Giant
  Dreams mix all that up and let the brain process it in addition to the repeatedness of life to keep up flexible. This lets the mind not become locked in on a single version of events and remain flexible.  This is terrible.  I would recommend the following for a good explanation:    
 
 
-{{< plink "https://www.medicalnewstoday.com/articles/does-the-weirdness-of-dreams-help-keep-the-brain-flexible" >}}How dreams help restore the brain’s flexibility{{< /plink >}}<br/>
+[How dreams help restore the brain’s flexibility](https://www.medicalnewstoday.com/articles/does-the-weirdness-of-dreams-help-keep-the-brain-flexible)<br/>
 
 
-{{< plink "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8134940/" >}}The overfitted brain: Dreams evolved to assist generalization{{< /plink >}}<br/>
+[The overfitted brain: Dreams evolved to assist generalization](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8134940/)<br/>
 

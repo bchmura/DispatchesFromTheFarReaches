@@ -1,16 +1,15 @@
 ---
 title: "The Ancestral Ham and the Rites We Never Question"
+category: professional
+dispatchNo: 207
 description: "A parable about inherited habits and unquestioned tradition, and a call to trace your own rituals back to their forgotten origins."
 date: 2022-09-21T01:03:03-04:00
-layout: 
-permalink: 
+layout: post.njk
 tags: ["business"]
-isDraft: true
+isDraft: false
 ---
 
 There is a cautionary tale that has stuck with me over the years. I've used it often enough that I should have a picture on my wall.  It tells us to question our beliefs.
-<!--more-->
-
 As I recall it:
 
 > A mother was teaching her daughter how to bake the families traditional holiday ham. Mothers passed it to daughters' generation after generation.

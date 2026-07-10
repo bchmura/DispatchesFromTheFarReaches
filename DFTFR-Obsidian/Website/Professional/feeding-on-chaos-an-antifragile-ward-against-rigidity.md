@@ -1,18 +1,17 @@
 ---
 title: "Feeding on Chaos: An Antifragile Ward Against Rigidity"
+category: professional
+dispatchNo: 209
 description: "Applying Nassim Taleb's antifragility to corporate inflexibility, with a confession of one process that needed to grow stronger from its own failures."
 date: 2022-09-23T01:03:03-04:00
-layout: 
-permalink: 
+layout: post.njk
 tags: ["rigorcorpus", "business"]
-isDraft: true
+isDraft: false
 ---
 
 A look at Nassim Taleb's concept of Antifragility as a remedy or preventive measure against Rigor Corpus (corporate inflexibility).  An example of one of my own mistakes.
 
-<!--more-->
-
-In his book "{{< plink "https://www.amazon.com/Antifragile-Things-That-Disorder-Incerto/dp/0812979680" >}}Antifragile: Things that Gain from Disorder{{< /plink >}}" Nassim Taleb makes a great argument for systems that are beyond resilient... systems that grow stronger from adversity.    Taleb takes that concept and applies it to the world... businesses, banking, systems... everything.  It is a fantastic book.
+In his book "[Antifragile: Things that Gain from Disorder](https://www.amazon.com/Antifragile-Things-That-Disorder-Incerto/dp/0812979680)" Nassim Taleb makes a great argument for systems that are beyond resilient... systems that grow stronger from adversity.    Taleb takes that concept and applies it to the world... businesses, banking, systems... everything.  It is a fantastic book.
 
 Thinking in antifragile terms is a prescription to help fight corporate rigidity.
 
@@ -26,7 +25,7 @@ Taleb discusses three categories:
 
 **Resilient**:   If you drop a heavy object onto an exercise mat it will deform to absorb the shape and its impact.  When you remove the object, the indentation will expand back to its original shape.  This is great until something unexpected occurs... like an ax.
 
-**Antifragile**:  {{< randompic >}}When you lift weights you develop micro-tears in your muscles.  When your body heals it comes back stronger than before.  This is antifragile.  Threats do not destroy the system but result in a stronger system.
+**Antifragile**:  When you lift weights you develop micro-tears in your muscles.  When your body heals it comes back stronger than before.  This is antifragile.  Threats do not destroy the system but result in a stronger system.
 
 **Fixing my own mistakes**
 
@@ -42,12 +41,12 @@ This was also fragile.  If you needed something not on the list, you were stuck.
 
 Let's revisit the process thinking in both antifragile and flexible terms.
 
-The foundation on which we built the process does not hold up to scrutiny.  Standardizing on equipment has benefits, for example ordering in large quantities.  In this case we are just [cutting the ham at both ends]({{< ref "the-ancestral-ham-and-the-rites-we-never-question" >}}) - doing something without thinking why. We don't order anything at a scale that there would be a cost savings.  Once we understand that, we can move forward.
+The foundation on which we built the process does not hold up to scrutiny.  Standardizing on equipment has benefits, for example ordering in large quantities.  In this case we are just [cutting the ham at both ends](/professional/the-ancestral-ham-and-the-rites-we-never-question/) - doing something without thinking why. We don't order anything at a scale that there would be a cost savings.  Once we understand that, we can move forward.
 
 **Change 1:**  Allow flexible input.
 Our existing process forces the selection from a few items.  It is very unforgiving on asking for something unique.  A better way would be to simplify the choices and let the requestor provide their own request.  The front end can now easily handle any sort of request... not just what is on the checklist.  The system has become flexible from the user’s point of view, at the same time it can handle any input so it is at least resilient.  
 
-**Change 2:**  {{< randompic >}}Use general heuristics over hard rules
+**Change 2:**  Use general heuristics over hard rules
 We create rules because it is easier than conveying the reasoning behind the rules.  Easier up front, but less effective when facing difficulties.
 
 There are problems with equipment sourcing due to scarcity on the backend of the process.  We can solve this by using some simple heuristics instead of a hard list of items they can order.  Compare these two rules and think about how they would work for the person ordering:
@@ -62,7 +61,7 @@ Those changes would make the system more resilient and flexible.  But what if we
 
 **Change 3:**  Getting stronger through adversity
 
-Now we cross over into another fantastic concept - [continous improvement]({{< ref "the-ritual-of-continuous-improvement" >}}).  This is the idea that we make improvements on a consistent basis. See this post for a background.  We can make a process where every week we review all the requests.  During that meeting we have an agenda to discuss:
+Now we cross over into another fantastic concept - [continous improvement](/professional/the-ritual-of-continuous-improvement/).  This is the idea that we make improvements on a consistent basis. See this post for a background.  We can make a process where every week we review all the requests.  During that meeting we have an agenda to discuss:
 
 * If any abnormal request is common enough to be added to the pre-made listing, we can work it into the form.
 

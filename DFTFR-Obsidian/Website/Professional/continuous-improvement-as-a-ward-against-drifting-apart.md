@@ -1,22 +1,21 @@
 ---
 title: "Continuous Improvement as a Ward Against Drifting Apart"
+category: professional
+dispatchNo: 213
 description: "Why continuous improvement isn't just about efficiency, but a way to release built-up pressure between departments before it erupts."
 date: 2022-09-27T01:03:03-04:00
-layout: 
-permalink: 
+layout: post.njk
 tags: ["business"]
-isDraft: true
+isDraft: false
 ---
 
 Let's assume your continuous improvement program helps your team reach 100% effectiveness.  How long does that last?  Not long.  The world around you is a moving target.  Here is how to address it.
-
-<!--more-->
 
 Recently I covered how to implement a simple C.I. program in your environment.  That discussion focused on the "how" and why it will help with efficiency.  
 
 As you get more comfortable with a C.I. program you will realize that it is not only about your team.  Within your own area is the easiest place to make improvements, the low hanging fruit so to speak.  You do not need approvals and the changes benefit your own team.  This is normal and, in some cases, an essential first step in building up confidence in the process.
 
-{{< randompic >}}At some point the easy gains will have been had.  When the conversation dies down it's time to look externally.  Your team is connected to the larger company with inputs and outputs.  If the pain points are great enough you may have already discussed them.  Some teams may need some prodding.   Working externally is harder - it takes negotiating with other teams.  It may mean bringing in your own management to help with those discussions.  But it is critical for an internal organization to evolve and remain flexible.
+At some point the easy gains will have been had.  When the conversation dies down it's time to look externally.  Your team is connected to the larger company with inputs and outputs.  If the pain points are great enough you may have already discussed them.  Some teams may need some prodding.   Working externally is harder - it takes negotiating with other teams.  It may mean bringing in your own management to help with those discussions.  But it is critical for an internal organization to evolve and remain flexible.
 
 Here is the kicker.  This is a great way to maintain alignment with the business.  
 
@@ -28,7 +27,7 @@ To be clear, you do not want executives solving your problems.  I've been there.
 
 Back to continuous improvement for a solution.  A continuous improvement program can make micro corrections to maintain alignment.  Teams can pick up on these small tremors and make corrections.  This will release pressure continuously instead of building up to an executive correction.
 
-{{< randompic >}}The biggest challenge to make this work is changing the team’s view.  Before this, every change was very self-serving.  Everything benefited them the way they wanted.  Now they need to take a holistic view... what is best for both sides and negotiate.
+The biggest challenge to make this work is changing the team’s view.  Before this, every change was very self-serving.  Everything benefited them the way they wanted.  Now they need to take a holistic view... what is best for both sides and negotiate.
 
 Tips to aim your continuous improvement process in this direction
 

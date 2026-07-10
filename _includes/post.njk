@@ -1,0 +1,31 @@
+{% extends "base.njk" %}
+{% block content %}
+<section class="art-header">
+  <div class="wrap">
+  <div class="inner">
+    <div class="art-meta-row">
+      <span class="cat-pill">{{ categoryLabels[category] }}</span>
+      <span class="art-date"><span class="dispatch-no">No. {{ dispatchNo }}</span> · {{ date | date("d MMMM yyyy") }}</span>
+    </div>
+    <h1>{{ title }}</h1>
+  </div>
+  </div>
+</section>
+<main class="wrap">
+  <div class="art-body">
+    {{ content | safe }}
+  </div>
+  <div class="art-foot">
+    {% if tags.length %}
+    <div class="cross-filed">
+      <span class="cf-label">Cross-filed under</span>
+      {% for tag in tags %}<a href="#">{{ tag }}</a>{% endfor %}
+    </div>
+    {% endif %}
+    <div class="art-contact">
+      <p>Correspondence regarding this file is welcome, though replies may be slow to arrive.</p>
+      <a href="/contact/">Send word <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+  </div>
+</main>
+{% endblock %}

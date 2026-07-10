@@ -1,18 +1,17 @@
 ---
 title: "The Cult That Gathers Where the Feed Never Sleeps"
+category: misc
+dispatchNo: 200
 description: "A warning against binding your organization's voice to a platform you do not control, where algorithms watch and engagement demands its tribute."
 date: 2021-09-01T01:03:03-04:00
-layout: 
-permalink: 
+layout: post.njk
 tags: ["foo", "bar", "social"]
-isDraft: true
+isDraft: false
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
 incididunt ut labore et dolore magna aliqua. Pellentesque eu tincidunt tortor 
 aliquam nulla facilisi cras fermentum odio. A erat nam at lectus urna duis. 
-
-<!--more-->
 
 Ac ut consequat semper viverra nam. Hac habitasse platea dictumst vestibulum 
 rhoncus. Amet porttitor eget dolor morbi non. Justo eget magna fermentum 

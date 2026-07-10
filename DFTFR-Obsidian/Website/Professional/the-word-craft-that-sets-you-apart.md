@@ -1,16 +1,15 @@
 ---
 title: "The Word-Craft That Sets You Apart"
+category: professional
+dispatchNo: 206
 description: "A case for developers to sharpen their writing as much as their code, and why the written word carries the furthest."
 date: 2022-09-20T01:03:03-04:00
-layout: 
-permalink: 
+layout: post.njk
 tags: ["writing", "business"]
-isDraft: true
+isDraft: false
 ---
 
 Even the best software developers ignore writing skills. Improving how to communicate what is in their heads with others through the written word.  
-
-<!--more-->
 
 Writing is one of the best ways to help you move into or farther up management. Yes, perfecting your craft of writing code is important, but not in a way that gets you promoted into management.
 
@@ -54,4 +53,4 @@ Find a communication that has at least a paragraph or two. Put on your refactori
 * Don't say "it" when using that word could be confusing.
 
 
-When you are happy with it, paste it into {{< plink "https://hemingwayapp.com" >}}The Hemingway writing app{{< /plink >}} and see if it makes some more suggestions.
+When you are happy with it, paste it into [The Hemingway writing app](https://hemingwayapp.com) and see if it makes some more suggestions.

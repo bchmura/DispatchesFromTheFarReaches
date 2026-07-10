@@ -1,16 +1,15 @@
 ---
 title: "Five Truths Before You Enter the AltMBA Crucible"
+category: professional
+dispatchNo: 215
 description: "An honest accounting of Seth Godin's intense AltMBA program — the toll it takes, who it suits, and why it isn't for everyone."
 date: 2022-09-29T01:03:03-04:00
-layout: 
-permalink: 
+layout: post.njk
 tags: ["business"]
-isDraft: true
+isDraft: false
 ---
 
 A few years ago I took Seth Godin's AltMBA program.  If you are considering the AltMBA please read.  The course is awesome but not for everyone.
-<!--more-->
-
 Note: this is a refreshed version of the original review written in 2017.  I am sure the course has changed over time but I am going to assume it is still generally the same
 
 Seth Godin’s altMBA program is difficult to describe.  Officially the  description was:  _“… an intensive, 4-week online workshop designed by Seth Godin for high-performing individuals who want to level up and lead”_.  I found it to be  the most effective four weeks I have ever spent in training or education.  Would I recommend it to everyone?  Heck no!  Read on and see if it sounds like a good fit for you.

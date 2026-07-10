@@ -1,22 +1,21 @@
 ---
 title: "Rigor Corpus: The Stiffening of a Living Company"
+category: professional
+dispatchNo: 205
 description: "An introduction to Rigor Corpus — the slow, creeping inflexibility that sets into growing companies — and a vow to document its spread."
 date: 2022-09-19T01:03:03-04:00
-layout: 
-permalink: 
+layout: post.njk
 tags: ["business"]
-isDraft: true
+isDraft: false
 ---
 
 Rigor Corpus is my term to reflect what happens to companies as they grow.  Like a body, the grow inflexible and all progress slows. Like Rigor Mortis... get it?
-
-<!--more-->
 
 In 2021 I left my job with a Fortune 100 company for a small company. It put me in an incredible spot to relive the rise of the first company, looking for the signs of inflexibility that ground progress to a halt.  Maybe I could make a difference this time.
 
 My old company had 80,000 employees. 16 years prior this massive organization had purchased a small business I worked for.  At that time, we had about 50 people and the main org had about 20,000.  Our small business was in a field the massive org wanted to move into.  At first, the larger company viewed us as being an agile alternative.  We would provide solutions much faster than the larger corporate structures could.  We became a sort of lab where ideas could be explored.  Over time, more and more services became provided and controlled by the parent company.  Each change created a bit more friction against progress.  When I resigned: the corporation had 80,000 employees, the original small business had been completely assimilated, and all vestiges of agility gone. 
 
-{{< randompic >}}In contrast, my new company was much smaller, almost back to the beginning.  We had 125 employees, many of which were field service workers.  This new company has a very aggressive growth model and in my first year we more than doubled in size.  Part of the growth comes from acquisitions.  We would regularly purchase and merge in smaller entities.
+In contrast, my new company was much smaller, almost back to the beginning.  We had 125 employees, many of which were field service workers.  This new company has a very aggressive growth model and in my first year we more than doubled in size.  Part of the growth comes from acquisitions.  We would regularly purchase and merge in smaller entities.
 
 I realized this gave me a great opportunity.  I could bring my experience with becoming rigid to my current situation.  Our small company is rapidly assimilating others and I can watch for signs of increasing friction.  Because of our small scale, I can actually see all the parts and how they are reacting to the change.  I am also on the other side of the acquisitions.  Best of all I can try to devise ways around it.  My goal is to keep the agility of the startup going as long as possible.
 

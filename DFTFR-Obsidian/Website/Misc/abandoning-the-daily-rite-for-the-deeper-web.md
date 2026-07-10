@@ -1,18 +1,17 @@
 ---
 title: "Abandoning the Daily Rite for the Deeper Web"
+category: misc
+dispatchNo: 221
 description: "On stepping back from daily publishing to pursue a Zettelkasten practice, trading raw output for slower, connected thought."
 date: 2022-10-22
-layout: 
-permalink: 
+layout: post.njk
 tags: ["personal"]
-isDraft: true
+isDraft: false
 ---
 
 I'm no longer following my plan of publishing every day.  There are some good reasons for this.
 
-<!--more-->
-
-{{< randompic >}}This blog exists because I decided I wanted to write every day. From that need I made two rules for the site:
+This blog exists because I decided I wanted to write every day. From that need I made two rules for the site:
 
   
 
@@ -48,7 +47,7 @@ I had a good run. Posting daily without fail. It was a sprint, an unbroken chain
 >
 >www.Zettelkasten.de
 
-{{< photo src="ZettelkastenNodes.png" size="half" >}}Linked ideas in my ZK{{< /photo >}}
+![Linked ideas in my ZK](/misc/ZettelkastenNodes.png)
 
 [A Zettelkasten is a way to capture ideas and combine them over time](https://zettelkasten.de/introduction/). I had been using [Obsidian](https://www.obsidian.md), software that supports the ZK approach, for over a year. But for editing and organizing, not in the true capacity of a ZK. During my break I tinkered with some changes to fix that. Early on in the ZK process I made a new connection between two concepts, sparking a brand new idea. That was the most exciting thing to happen this entire time. This is the point of the ZK, but until it happens you are operating on faith. It was invigorating.
 

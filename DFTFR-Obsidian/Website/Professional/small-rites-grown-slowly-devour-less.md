@@ -1,16 +1,15 @@
 ---
 title: "Small Rites, Grown Slowly, Devour Less"
+category: professional
+dispatchNo: 212
 description: "On resisting the urge to build sprawling, over-engineered processes from the start, and why small rituals that grow over time survive longer."
 date: 2022-09-26T01:03:03-04:00
-layout: 
-permalink: 
+layout: post.njk
 tags: ["business"]
-isDraft: true
+isDraft: false
 ---
 
 Too often we try to solve things in one big swoop.  The seldom results in a really good process and more often wastes a lot of time. Here are some ways to do it better. 
-
-<!--more-->
 
 There are a few reasons why we tend to over-complicate our processes.
 
@@ -26,7 +25,7 @@ Fear of change.   There is a peculiar concept that if your work is not getting s
 
 **The pareto principle**.  In general, 80% of the benefit will come from 20% of the system.  By keeping your new system small, you are more likely to have the key parts in place.  Everything you add beyond that adds unneeded complexity. 
 
-**You can start using the system sooner**.  One of the most valuable things businesses often ignore is early feedback.  Quickly deploying a simple system allows you to learn how it will be used (spoiler alert: it's often not how you intended).  This an {{< plink "https://en.wikipedia.org/wiki/OODA_loop" >}}OODA loop{{< /plink >}} that can inform  what is working, what is not, and what is missing. 
+**You can start using the system sooner**.  One of the most valuable things businesses often ignore is early feedback.  Quickly deploying a simple system allows you to learn how it will be used (spoiler alert: it's often not how you intended).  This an [OODA loop](https://en.wikipedia.org/wiki/OODA_loop) that can inform  what is working, what is not, and what is missing. 
 
 **It is much easier to add something onto a process than remove something**.  People, in general, are loss adverse and at some level this affects decision making like this.  Asking them to give up something they have is a harder ask that giving them something new.  If a process has been around for a long time we may not be sure what is using a specific part.  We can find out, but that makes the change harder.  If we want to add something, we don't have these concerns.
 
@@ -42,5 +41,5 @@ This part requires the participants to be candid with each other.  If you cannot
 
 ## This does not excuse you from thinking big.
 
-You need to have a lighthouse in the distance to aim for.  This helps you maintain the direction at each iteration, but letting you ask the question "does this change bring us closer to or father from our lighthouse?"  At some point I will write about {{< plink "https://www.amazon.com/Toyota-Kata-Managing-Improvement-Adaptiveness/dp/0071635238" >}}the Toyota Kata{{< /plink >}} which is another one of my favorites.
+You need to have a lighthouse in the distance to aim for.  This helps you maintain the direction at each iteration, but letting you ask the question "does this change bring us closer to or father from our lighthouse?"  At some point I will write about [the Toyota Kata](https://www.amazon.com/Toyota-Kata-Managing-Improvement-Adaptiveness/dp/0071635238) which is another one of my favorites.
 

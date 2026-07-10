@@ -1,23 +1,22 @@
 ---
 title: "Rites Against the Rigor: Five Steps to Begin the Ritual"
+category: professional
+dispatchNo: 218
 description: "Five steps to set up a recurring cycle of small experiments that keep an organization from calcifying."
 date: 2022-10-05
-layout: 
-permalink: 
+layout: post.njk
 tags: ["business"]
-isDraft: true
+isDraft: false
 ---
 
 These five steps get you ready to start the experiment cycle. This is only done once with a team, although anything decided here can be adjusted as needed.
 
-<!--more-->
-
 This is a series of four related posts:
 
-* [part one]({{< ref "rites-against-the-rigor-an-introduction" >}} "part one") introduces the experiment
-* [part two]({{< ref "rites-against-the-rigor-five-steps-to-begin-the-ritual" >}} "part two") shows 5 steps to implement
-* [part three]({{< ref "rites-against-the-rigor-the-obstacles-along-the-way" >}} "part three") discusses challenges
-* [part four]({{< ref "rites-against-the-rigor-the-grimoire-of-documentation" >}} "part four") illustrates the documentation
+* [part one](/professional/rites-against-the-rigor-an-introduction/ "part one") introduces the experiment
+* [part two](/professional/rites-against-the-rigor-five-steps-to-begin-the-ritual/ "part two") shows 5 steps to implement
+* [part three](/professional/rites-against-the-rigor-the-obstacles-along-the-way/ "part three") discusses challenges
+* [part four](/professional/rites-against-the-rigor-the-grimoire-of-documentation/ "part four") illustrates the documentation
 
 
 

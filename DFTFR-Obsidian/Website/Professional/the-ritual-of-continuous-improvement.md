@@ -1,22 +1,21 @@
 ---
 title: "The Ritual of Continuous Improvement"
+category: professional
+dispatchNo: 208
 description: "A practical guide to standing up a recurring continuous improvement cycle, and the conditions that keep it safe to speak honestly within."
 date: 2022-09-22T01:03:03-04:00
-layout: 
-permalink: 
+layout: post.njk
 tags: ["business"]
-isDraft: true
+isDraft: false
 ---
 
 Today I am going to give a quick overview of how to implement a simple continuous improvement protocol.  It is one of the best things you can do in your organization.  Especially if things are going well.  
-
-<!--more-->
 
 There are a lot of ways to define continual improvement.  Since this is my blog, let's use mine. "Continual Improvement is a repeating process which makes improvements over time."  Developers may recognize this from Scrum... same thing only applied everywhere.
 
 **Have the right expectations**
 
-{{< randompic >}}Don't worry about having a huge impact with changes.  I've coached people to focus on small improvements.  If you can get 1% better each week you will be 52% better by the end of the year, and that ignores the compounding effect.
+Don't worry about having a huge impact with changes.  I've coached people to focus on small improvements.  If you can get 1% better each week you will be 52% better by the end of the year, and that ignores the compounding effect.
 
 The suggestions from the C.I. team will reflect improvements to the work they do.  They can make small changes to their processes without fear.  They will not have the proper view to adjust processes around their department.  
 
@@ -39,7 +38,7 @@ It sounds silly but you need to create a safe environment.  In short, people nee
 
 **Overcome fear and have the hard discussions**
 
-{{< randompic >}}Understand this will take time to come up to speed.  Trust must be established.  A good indicator is if group members can be candid with other members.  If the recipient can see that point of view without getting angry... you have established trust. 
+Understand this will take time to come up to speed.  Trust must be established.  A good indicator is if group members can be candid with other members.  If the recipient can see that point of view without getting angry... you have established trust. 
 
 **Meeting format**
 

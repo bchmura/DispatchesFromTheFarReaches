@@ -1,23 +1,22 @@
 ---
 title: "Rites Against the Rigor: The Grimoire of Documentation"
+category: professional
+dispatchNo: 220
 description: "The final dispatch in the series, laying out the documentation that turns a small experiment into a repeatable ritual."
 date: 2022-10-21
-layout: 
-permalink: 
+layout: post.njk
 tags: ["business"]
-isDraft: true
+isDraft: false
 ---
 
 I describe the documentation needed to facilitate a good experiment.  This is the final post in this series.
 
-<!--more-->
-
 This is a series of four related posts:
 
-* [part one]({{< ref "rites-against-the-rigor-an-introduction" >}} "part one") introduces the experiment
-* [part two]({{< ref "rites-against-the-rigor-five-steps-to-begin-the-ritual" >}} "part two") shows 5 steps to implement
-* [part three]({{< ref "rites-against-the-rigor-the-obstacles-along-the-way" >}} "part three") discusses challenges
-* [part four]({{< ref "rites-against-the-rigor-the-grimoire-of-documentation" >}} "part four") illustrates the documentation
+* [part one](/professional/rites-against-the-rigor-an-introduction/ "part one") introduces the experiment
+* [part two](/professional/rites-against-the-rigor-five-steps-to-begin-the-ritual/ "part two") shows 5 steps to implement
+* [part three](/professional/rites-against-the-rigor-the-obstacles-along-the-way/ "part three") discusses challenges
+* [part four](/professional/rites-against-the-rigor-the-grimoire-of-documentation/ "part four") illustrates the documentation
 
 
 Documentation is a necessary evil. Writing forces us to clarify our thinking in a way we cannot in our heads. But sometimes writing turns into busy work or worse, fancy-business-writing. The best writing strikes the right balance for your needs and those of your reader. Be direct with what you are saying and use the least amount of words possible to convey your meaning. Yes, writing less words takes longer.

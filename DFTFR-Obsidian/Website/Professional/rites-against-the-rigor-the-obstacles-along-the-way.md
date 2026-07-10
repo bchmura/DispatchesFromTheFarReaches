@@ -1,23 +1,22 @@
 ---
 title: "Rites Against the Rigor: The Obstacles Along the Way"
+category: professional
+dispatchNo: 219
 description: "Challenges to expect when introducing a culture of small experiments, from learned helplessness to the weight of leadership's words."
 date: 2022-10-14
-layout: 
-permalink: 
+layout: post.njk
 tags: ["business"]
-isDraft: true
+isDraft: false
 ---
 
 This section covers some challenges you may face during the implementation of an experiment framework.
 
-<!--more-->
-
 This is a series of four related posts:
 
-* [part one]({{< ref "rites-against-the-rigor-an-introduction" >}} "part one") introduces the experiment
-* [part two]({{< ref "rites-against-the-rigor-five-steps-to-begin-the-ritual" >}} "part two") shows 5 steps to implement
-* [part three]({{< ref "rites-against-the-rigor-the-obstacles-along-the-way" >}} "part three") discusses challenges
-* [part four]({{< ref "rites-against-the-rigor-the-grimoire-of-documentation" >}} "part four") illustrates the documentation
+* [part one](/professional/rites-against-the-rigor-an-introduction/ "part one") introduces the experiment
+* [part two](/professional/rites-against-the-rigor-five-steps-to-begin-the-ritual/ "part two") shows 5 steps to implement
+* [part three](/professional/rites-against-the-rigor-the-obstacles-along-the-way/ "part three") discusses challenges
+* [part four](/professional/rites-against-the-rigor-the-grimoire-of-documentation/ "part four") illustrates the documentation
 
 
 
@@ -42,7 +41,7 @@ Sometimes opportunities for change are hard to find. Especially in a more mature
 
   
 
-Tip: I find that learning the {{< plink "https://leanopedia.com/8-types-of-waste/" >}}8 types of waste from lean manufacturing{{< /plink >}} helps. Pick one type of waste. Discuss what it means as it applies to the environment around you. The 8 types of waste apply to any type of team, not just manufacturing. I find it invaluable.
+Tip: I find that learning the [8 types of waste from lean manufacturing](https://leanopedia.com/8-types-of-waste/) helps. Pick one type of waste. Discuss what it means as it applies to the environment around you. The 8 types of waste apply to any type of team, not just manufacturing. I find it invaluable.
   
 
 >Tip: Create a friction-less collection point for ideas. Create a way that anytime someone notices a type of waste, has an idea, or encounters a pain point, they can easily offload it before they forget. For example, I have a lot of good ideas, I think. I tend to forget about them pretty quick. To help with this, I created an email address just to collect ideas. If I have one, as long as I have access to email from where-ever I am, I can record it. Once a week, I go through it and move them into a more permanent list.
@@ -75,7 +74,7 @@ Bob, a solid contributor to his team, often works after hours on deployments was
 Bob's co-worker may receive the flying finger of friendship in return to his comment. The same comment, no matter how nicely or jokingly phrased from the bosses boss will have an impact. It is subtle, but it will stick with Bob for some time.
   
 
-Don't dwell on failure. There will be experiments that do not work as intended. And sometimes bad things will happen. Micro messaging also plays a part here. An offhanded comment like "Gee, would have been so much better if we realized X" can be misunderstood. Stick to supportive phrases like "Can we salvage the experiment?", "Is there anything I can do to help?", "What did we learn?". Be supportive, and remember no one needs to be reminded [hindsight is infallible]({{< ref "hindsight-the-infallible-oracle" >}}).
+Don't dwell on failure. There will be experiments that do not work as intended. And sometimes bad things will happen. Micro messaging also plays a part here. An offhanded comment like "Gee, would have been so much better if we realized X" can be misunderstood. Stick to supportive phrases like "Can we salvage the experiment?", "Is there anything I can do to help?", "What did we learn?". Be supportive, and remember no one needs to be reminded [hindsight is infallible](/professional/hindsight-the-infallible-oracle/).
 
   
 

@@ -1,16 +1,15 @@
 ---
 title: "A Reckoning After Two Weeks in the Dark"
+category: professional
+dispatchNo: 214
 description: "A candid retrospective on two weeks of daily writing, cataloguing what fed the habit and what threatened to consume it."
 date: 2022-09-28T01:03:03-04:00
-layout: 
-permalink: 
+layout: post.njk
 tags: ["blogging"]
-isDraft: true
+isDraft: false
 ---
 
 Today is the two-week anniversary of my writing and posting every day.  I've been reflecting on it... this is mostly for me, but there may be some value for you.
-
-<!--more-->
 
 Today is a low value post for you, but reflection and process improvement area critical.  I will be following a continuous improvement format.  It is my go-to for discussions like this and you may want an example to go with the other posts.
 
@@ -32,7 +31,7 @@ Today is a low value post for you, but reflection and process improvement area c
 
 * I am spending more time than anticipated writing, on average 3 hours a day.  This is not sustainable.  _Changes: (5) Write smaller posts, less formal. When I started my blog I decided any content would be okay, this was for me.  (6) Do separate planning time to reduce the writing time. (7) Do more voice dictation for the initial draft.  I tried this using my phone a few times and it worked great._
 
-* My use of Obsidian is suboptimal, only using it as a markdown editor.   Its real purpose is using it as a {{< plink "https://en.wikipedia.org/wiki/Zettelkasten" >}}zettlekasten{{< /plink >}}.  This will be more work upfront, but will pay off down the line.  _Changes: (8) Start breaking up and tagging content.  (9) Review some approaches to the starting a good {{< plink "https://en.wikipedia.org/wiki/Zettelkasten" >}}zettlekasten{{< /plink >}}._   
+* My use of Obsidian is suboptimal, only using it as a markdown editor.   Its real purpose is using it as a [zettlekasten](https://en.wikipedia.org/wiki/Zettelkasten).  This will be more work upfront, but will pay off down the line.  _Changes: (8) Start breaking up and tagging content.  (9) Review some approaches to the starting a good [zettlekasten](https://en.wikipedia.org/wiki/Zettelkasten)._   
 
 ## Conclusion
 
