@@ -35,6 +35,16 @@
       <p>Correspondence regarding this file is welcome, though replies may be slow to arrive.</p>
       <a href="/contact/">Send word <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
+    {% set siblings = collections.postsByCategory[category] %}
+    {% set idx = siblings | indexOfPost(page.url) %}
+    <div class="art-nav">
+      {% if siblings[idx + 1] %}
+      <a href="{{ siblings[idx + 1].url }}" class="prev"><span class="dir">Previous</span><h4>{{ siblings[idx + 1].data.title }}</h4></a>
+      {% endif %}
+      {% if siblings[idx - 1] %}
+      <a href="{{ siblings[idx - 1].url }}" class="next"><span class="dir">Next</span><h4>{{ siblings[idx - 1].data.title }}</h4></a>
+      {% endif %}
+    </div>
   </div>
 </main>
 {% endblock %}

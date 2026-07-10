@@ -1,0 +1,12 @@
+---
+pagination:
+  data: categories
+  size: 1
+  alias: cat
+permalink: "/{{ cat.slug }}/"
+layout: category.njk
+eleventyExcludeFromCollections: true
+eleventyComputed:
+  category: "{{ cat.key }}"
+  permalink: "/{{ cat.slug }}/"
+---

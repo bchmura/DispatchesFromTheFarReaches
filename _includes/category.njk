@@ -1,0 +1,30 @@
+{% extends "base.njk" %}
+{% block content %}
+<section class="cat-header">
+  <div class="wrap">
+  <div class="inner">
+    <div>
+      <p class="kicker">Filed under</p>
+      <h1>{{ pagination.items[0].label }}</h1>
+    </div>
+  </div>
+  </div>
+</section>
+<main class="wrap">
+  <div class="article-index">
+    <div class="list">
+      {% for entry in collections.postsByCategory[pagination.items[0].key] %}
+      <article>
+        <div class="entry-head">
+          <div class="entry-tags">{% for t in entry.data.tags %}<a href="#">{{ t }}</a>{% endfor %}</div>
+          <span class="date-hover"><span class="dispatch-no">No. {{ entry.data.dispatchNo }}</span> · {{ entry.date | date("d MMMM yyyy") }}</span>
+        </div>
+        <h3>{{ entry.data.title }}</h3>
+        <p>{{ entry.data.description }}</p>
+        <div class="entry-actions"><a href="{{ entry.url }}">View the account</a></div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</main>
+{% endblock %}
