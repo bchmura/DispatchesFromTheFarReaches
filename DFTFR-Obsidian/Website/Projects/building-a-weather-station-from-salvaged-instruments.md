@@ -5,6 +5,7 @@ date: 2025-08-23
 layout: project.njk
 category: projects
 status: Catalogued
+accession: "MS-P-07 · Instrument file"
 tags: ["diy", "instruments"]
 isDraft: false
 journal:

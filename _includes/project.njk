@@ -7,10 +7,12 @@
   <div class="wrap">
   <div class="inner">
     <div>
+      <p class="accession">Miskatonic University · Special Collections · {{ accession }}</p>
       <span class="status status-{{ status | lower }}">{{ status }}</span>
       <h1>{{ title }}</h1>
       <p>{{ description }}</p>
     </div>
+    <div class="proj-media" style="background:#0f1109;"></div>
   </div>
   </div>
 </section>
@@ -25,6 +27,7 @@
           <span class="date-hover"><span class="dispatch-no">No. {{ entry.no }}</span> · {{ entry.date | date("d MMMM yyyy") }}</span>
         </div>
         <p>{{ entry.body }}</p>
+        <div class="entry-actions"><a href="#">View this journal entry</a></div>
       </article>
       {% endfor %}
     </div>

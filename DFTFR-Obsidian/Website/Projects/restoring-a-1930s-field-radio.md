@@ -5,6 +5,7 @@ date: 2025-09-02
 layout: project.njk
 category: projects
 status: Afoot
+accession: "MS-P-11 · Instrument file"
 tags: ["diy", "radio"]
 isDraft: false
 journal:
