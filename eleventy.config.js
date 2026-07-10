@@ -1,6 +1,21 @@
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "assets": "assets" });
 
+  const categoryDirs = {
+    Professional: "professional",
+    Philosophy: "philosophy",
+    Projects: "projects",
+    Exposures: "exposures",
+    Family: "family",
+    Fiction: "fiction",
+    Misc: "misc",
+  };
+  for (const [dir, slug] of Object.entries(categoryDirs)) {
+    eleventyConfig.addPassthroughCopy({
+      [`DFTFR-Obsidian/Website/${dir}/*.{jpg,jpeg,png,gif,webp}`]: slug,
+    });
+  }
+
   eleventyConfig.addFilter("date", (value, format) => {
     const d = new Date(value);
     const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
