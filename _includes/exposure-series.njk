@@ -1,0 +1,58 @@
+{% extends "base.njk" %}
+{% block content %}
+<div class="breadcrumb">
+  <div class="wrap"><div class="inner"><a href="/exposures/">Exposures</a> / {{ title }}</div></div>
+</div>
+<section class="set-header">
+  <div class="wrap">
+  <div class="inner">
+    <svg class="stamp-mark" viewBox="0 0 120 120" fill="none" stroke="currentColor" aria-hidden="true">
+      <defs><path id="stampring-ex-{{ accession | slugify }}" d="M60 60 m-43 0 a43 43 0 1 1 86 0 a43 43 0 1 1 -86 0"/></defs>
+      <circle cx="60" cy="60" r="54" stroke-width="1.4"/>
+      <circle cx="60" cy="60" r="45" stroke-width="1"/>
+      <text><textPath href="#stampring-ex-{{ accession | slugify }}" startOffset="0">MISKATONIC UNIVERSITY · SPECIAL COLLECTIONS · </textPath></text>
+      <path d="M60 45v30M45 60h30" stroke-width="1"/>
+      <path d="M60 49l4 11-4 11-4-11z" fill="currentColor" stroke="none"/>
+    </svg>
+    <p class="accession">Miskatonic University · Special Collections · {{ accession }}</p>
+    <span class="plate-meta"><span class="n">{{ exposures.length }} exposures</span> · {{ date | date("MMMM yyyy") }}</span>
+    <h1>{{ title }}</h1>
+    <p>{{ description }}</p>
+  </div>
+  </div>
+</section>
+<main class="wrap">
+  <div class="plates">
+    {% for ex in exposures %}
+    <div class="plate">
+      <button class="plate-open" data-dialog-target="dlg-{{ loop.index }}" aria-label="View capture details for Exposure {{ ex.num }}: {{ ex.title }}">
+        <div class="plate-media" style="background:#0f1109;"></div>
+      </button>
+      <div class="plate-text">
+        <div>
+          <span class="plate-num">Exposure {{ ex.num }}</span>
+          <h3>{{ ex.title }}</h3>
+          <p>{{ ex.body }}</p>
+        </div>
+        <div class="plate-tags">{% for t in ex.tags %}<a href="#">{{ t }}</a>{% endfor %}</div>
+      </div>
+    </div>
+    <dialog id="dlg-{{ loop.index }}" class="plate-dialog">
+      <button class="dialog-close" data-dialog-close aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="dialog-media" style="background:#0f1109;"></div>
+      <div class="dialog-specs">
+        <div><span>Camera</span><b>{{ ex.camera }}</b></div>
+        <div><span>Lens</span><b>{{ ex.lens }}</b></div>
+        <div><span>Exposure</span><b>{{ ex.exposureTime }}</b></div>
+        <div><span>Aperture</span><b>{{ ex.aperture }}</b></div>
+        <div><span>ISO</span><b>{{ ex.iso }}</b></div>
+        <div><span>Captured</span><b>{{ ex.captured }}</b></div>
+      </div>
+    </dialog>
+    {% endfor %}
+  </div>
+</main>
+<script src="/assets/js/dialog.js"></script>
+{% endblock %}
