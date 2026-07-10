@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Backyard Observatory — Dispatches from the Far Reaches</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#14150f; --bg-raised:#1b2318; --bg-raised-2:#20291d;
+    --ink:#e7e1cf; --ink-dim:#a89f89; --ink-faint:#6f6a57;
+    --brass:#c19a4b; --brass-dim:#8a6d34; --rule:#2e3324; --indent:36px;
+    --serif-display: 'IM Fell English','Iowan Old Style',Palatino,serif;
+    --serif-body: 'EB Garamond',Georgia,serif;
+    --mono: 'Fragment Mono',ui-monospace,'Cascadia Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif-body);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px;}
+
+  @keyframes lanternFlicker{0%,100%{opacity:1}16%{opacity:.94}33%{opacity:.995}49%{opacity:.9}64%{opacity:.97}82%{opacity:.93}}
+  @media (prefers-reduced-motion:reduce){body::after{animation:none!important;}}
+  body::after{
+    content:"";position:fixed;inset:0;z-index:6;pointer-events:none;animation:lanternFlicker 9s ease-in-out infinite;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(circle at 82% 6%, rgba(200,161,86,.10) 0%, rgba(200,161,86,.03) 26%, transparent 56%),
+      radial-gradient(ellipse 120% 112% at 70% 26%, transparent 55%, rgba(0,0,0,.24) 86%, rgba(0,0,0,.38) 100%);
+    background-size:140px 140px, 100% 100%, 100% 100%;
+    background-repeat:repeat, no-repeat, no-repeat;
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  header.site{border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--bg);z-index:20;}
+  nav.bar{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:1180px;margin:0 auto;padding:0 24px;}
+  .brand{font-family:var(--serif-display);font-size:1.1rem;letter-spacing:.02em;display:flex;align-items:center;gap:10px;white-space:nowrap;}
+  .brand svg{width:26px;height:26px;flex:none;}
+  .navlinks{display:flex;gap:18px;font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;}
+  .navlinks a{color:var(--ink-dim);border-bottom:1px solid transparent;padding-bottom:4px;transition:color .15s,border-color .15s;white-space:nowrap;}
+  .navlinks a:hover,.navlinks a:focus-visible,.navlinks a.current{color:var(--brass);border-color:var(--brass-dim);}
+  .navtoggle{display:none;background:none;border:1px solid var(--rule);color:var(--ink);width:40px;height:40px;border-radius:2px;flex:none;}
+  .navtoggle span{display:block;width:18px;height:1px;background:var(--ink);margin:4px auto;}
+  @media (max-width:960px){
+    .navlinks{position:absolute;top:72px;left:0;right:0;background:var(--bg-raised);flex-direction:column;gap:0;border-bottom:1px solid var(--rule);max-height:0;overflow:hidden;transition:max-height .25s ease;}
+    .navlinks.open{max-height:400px;}
+    .navlinks a{display:block;padding:14px 24px;border-bottom:1px solid var(--rule);}
+    .navtoggle{display:block;}
+  }
+  @media (prefers-reduced-motion:reduce){ .navlinks{transition:none;} }
+
+  .breadcrumb{padding:20px 0;border-bottom:1px solid var(--rule);}
+  .breadcrumb .inner{padding-left:var(--indent);font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);}
+  .breadcrumb a{color:var(--ink-dim);}
+  .breadcrumb a:hover{color:var(--brass);}
+  @media (max-width:600px){ .breadcrumb .inner{padding-left:16px;} }
+
+  .set-header{border-bottom:1px solid var(--rule);padding:44px 0 40px;
+    background:radial-gradient(ellipse 80% 120% at 94% 6%, rgba(193,154,75,.11) 0%, rgba(193,154,75,.04) 40%, transparent 70%),var(--bg);
+  }
+  .set-header .inner{padding-left:var(--indent);position:relative;}
+  .accession{font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--brass-dim);margin:0 0 12px;}
+  .stamp-mark{position:absolute;top:-2px;right:0;width:112px;height:112px;color:var(--brass-dim);opacity:.17;transform:rotate(-11deg);pointer-events:none;}
+  .stamp-mark text{font-family:var(--mono);font-size:8.1px;letter-spacing:1px;}
+  @media (max-width:760px){ .stamp-mark{display:none;} }
+  .set-header .plate-meta{font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px;display:block;}
+  .set-header .plate-meta .n{color:var(--brass-dim);}
+  .set-header h1{font-family:var(--serif-display);font-weight:400;font-size:clamp(1.9rem,3.8vw,2.7rem);line-height:1.15;margin:0 0 14px;text-wrap:balance;}
+  .set-header p{color:var(--ink-dim);font-size:1.02rem;max-width:62ch;margin:0;}
+  @media (max-width:600px){ .set-header .inner{padding-left:16px;} }
+
+  main.wrap{padding:52px 24px 40px;}
+  .plates{display:flex;flex-direction:column;gap:56px;margin:0 0 0 var(--indent);}
+  @media (max-width:600px){ .plates{margin-left:16px;} }
+
+  .plate{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;}
+  @media (max-width:760px){ .plate{grid-template-columns:1fr;} }
+
+  .plate-open{display:block;border:none;background:none;padding:0;cursor:zoom-in;width:100%;text-align:left;}
+  .plate-media{border:1px solid var(--rule);border-radius:2px;overflow:hidden;aspect-ratio:4/3;transition:border-color .15s;}
+  .plate-open:hover .plate-media,.plate-open:focus-visible .plate-media{border-color:var(--brass-dim);}
+  .plate-media svg{width:100%;height:100%;display:block;}
+
+  .plate-text{height:100%;display:flex;flex-direction:column;}
+  .plate-num{font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--brass-dim);display:block;margin-bottom:10px;}
+  .plate h3{font-family:var(--serif-display);font-weight:400;font-size:1.25rem;margin:0 0 10px;text-wrap:balance;}
+  .plate p{color:var(--ink-dim);font-size:.95rem;margin:0;}
+
+  .plate-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:14px;}
+  .plate-tags a{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);border:1px solid var(--rule);padding:4px 9px;border-radius:1px;transition:color .15s,border-color .15s,background-color .15s;}
+  .plate-tags a:hover,.plate-tags a:focus-visible{color:var(--brass);border-color:var(--brass-dim);background:var(--bg-raised);}
+  @media (max-width:760px){ .plate-text{height:auto;} .plate-tags{margin-top:0;} }
+
+  /* ---------- Plate detail dialog (click a plate to see capture specs) ---------- */
+  dialog.plate-dialog{
+    position:relative;border:1px solid var(--brass-dim);background:var(--bg-raised);color:var(--ink);
+    border-radius:2px;padding:0;max-width:920px;width:94vw;max-height:88vh;
+  }
+  dialog.plate-dialog::backdrop{background:rgba(6,7,4,.82);}
+  .dialog-media{aspect-ratio:16/9;}
+  .dialog-media svg{width:100%;height:100%;display:block;}
+  .dialog-specs{display:grid;grid-template-columns:repeat(6,1fr);gap:16px 22px;padding:26px 30px;border-top:1px solid var(--rule);}
+  .dialog-specs div{font-family:var(--mono);font-size:.78rem;color:var(--ink-faint);}
+  .dialog-specs div span{display:block;font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);opacity:.7;margin-bottom:4px;}
+  .dialog-specs div b{color:var(--ink-dim);font-weight:400;}
+  .dialog-close{position:absolute;top:16px;right:16px;width:38px;height:38px;border:1px solid var(--rule);background:var(--bg-raised-2);color:var(--ink-dim);border-radius:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .dialog-close:hover,.dialog-close:focus-visible{color:var(--brass);border-color:var(--brass-dim);}
+  .dialog-close svg{width:18px;height:18px;}
+  @media (max-width:760px){ .dialog-specs{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:480px){ .dialog-specs{grid-template-columns:1fr 1fr;padding:20px 22px;} }
+
+  .cats{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-top:56px;background:var(--bg-raised-2);}
+  .cats-inner{display:flex;gap:0;overflow-x:auto;}
+  .cats a{flex:1 0 auto;min-width:120px;padding:22px 14px;text-align:center;border-right:1px solid var(--rule);font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);transition:color .15s,background .15s;}
+  .cats a:last-child{border-right:none;}
+  .cats a:hover,.cats a:focus-visible,.cats a.current{color:var(--brass);background:var(--bg-raised);}
+
+  footer{color:var(--ink-faint);font-size:.85rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  footer.wrap{padding:38px 24px 42px;}
+  footer .foot-credit,footer .fnav{font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;}
+  footer .foot-credit{display:flex;align-items:center;gap:16px;font-size:1.1rem;color:var(--ink-dim);}
+  footer .stamp{width:42px;height:42px;flex:none;color:var(--brass-dim);opacity:.6;transform:rotate(-8deg);}
+  footer .fnav{display:flex;gap:18px;font-size:.72rem;}
+  footer .fnav a:hover{color:var(--brass);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="bar">
+    <a class="brand" href="style-1-archive-claudedesign.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.5"/>
+        <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/>
+        <path d="M12 6.5l2.4 5.5-2.4 5.5-2.4-5.5z" fill="currentColor" stroke="none"/>
+      </svg>
+      Dispatches from the Far Reaches
+    </a>
+    <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false" onclick="var n=document.getElementById('navlinks');var open=n.classList.toggle('open');this.setAttribute('aria-expanded',open);">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navlinks" id="navlinks">
+      <a href="style-1-archive-professional-claudedesign.html">Professional</a>
+      <a href="style-1-archive-category-claudedesign.html">Philosophy</a>
+      <a href="style-1-archive-projects-claudedesign.html">Projects</a>
+      <a href="style-1-archive-photos-claudedesign.html" class="current">Exposures</a>
+      <a href="style-1-archive-family-claudedesign.html">Family</a>
+      <a href="style-1-archive-fiction-claudedesign.html">Fiction</a>
+      <a href="style-1-archive-misc-claudedesign.html">Misc</a>
+    </div>
+  </nav>
+</header>
+
+<div class="breadcrumb">
+  <div class="wrap">
+  <div class="inner"><a href="style-1-archive-photos-claudedesign.html">Exposures</a> / The Backyard Observatory</div>
+  </div>
+</div>
+
+<section class="set-header">
+  <div class="wrap">
+  <div class="inner">
+    <svg class="stamp-mark" viewBox="0 0 120 120" fill="none" stroke="currentColor" aria-hidden="true">
+      <defs><path id="stampring" d="M60 60 m-43 0 a43 43 0 1 1 86 0 a43 43 0 1 1 -86 0"/></defs>
+      <circle cx="60" cy="60" r="54" stroke-width="1.4"/>
+      <circle cx="60" cy="60" r="45" stroke-width="1"/>
+      <text><textPath href="#stampring" startOffset="0">MISKATONIC UNIVERSITY · SPECIAL COLLECTIONS · </textPath></text>
+      <path d="M60 45v30M45 60h30" stroke-width="1"/>
+      <path d="M60 49l4 11-4 11-4-11z" fill="currentColor" stroke="none"/>
+    </svg>
+    <p class="accession">Miskatonic University · Special Collections · EX-08</p>
+    <span class="plate-meta"><span class="n">6 exposures</span> · August 2025</span>
+    <h1>The Backyard Observatory</h1>
+    <p>Long exposures of the yard telescope across a week of unusually clear nights, plus everything that went wrong along the way.</p>
+  </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="plates">
+
+    <div class="plate">
+      <button class="plate-open" onclick="document.getElementById('dlg-plate-1').showModal()" aria-label="View capture details for Exposure I: First Light Test">
+        <div class="plate-media">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a telescope aimed at the night sky during an alignment test">
+            <rect width="400" height="300" fill="#0f1109"/>
+            <circle cx="60" cy="40" r="1.6" fill="#c19a4b" opacity=".5"/>
+            <circle cx="320" cy="30" r="1.2" fill="#c19a4b" opacity=".4"/>
+            <circle cx="250" cy="55" r="1.4" fill="#c19a4b" opacity=".5"/>
+            <path d="M110 240 a90 90 0 01180 0z" fill="none" stroke="#8a6d34" stroke-width="1.4"/>
+            <rect x="188" y="120" width="18" height="90" fill="#c19a4b" opacity=".8" transform="rotate(-22 197 165)"/>
+            <line x1="40" y1="260" x2="360" y2="260" stroke="#33392a" stroke-width="1.5"/>
+          </svg>
+        </div>
+      </button>
+      <div class="plate-text">
+        <div>
+          <span class="plate-num">Exposure I</span>
+          <h3>First Light Test</h3>
+          <p>Checking the mount alignment before committing to anything longer than a thirty-second exposure. Slightly crooked, but pointed at the right part of the sky.</p>
+        </div>
+        <div class="plate-tags"><a href="#">astronomy</a><a href="#">alignment</a></div>
+      </div>
+    </div>
+
+    <dialog id="dlg-plate-1" class="plate-dialog">
+      <button class="dialog-close" onclick="this.closest('dialog').close()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="dialog-media">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a telescope aimed at the night sky during an alignment test">
+          <rect width="400" height="300" fill="#0f1109"/>
+          <circle cx="60" cy="40" r="1.6" fill="#c19a4b" opacity=".5"/>
+          <circle cx="320" cy="30" r="1.2" fill="#c19a4b" opacity=".4"/>
+          <circle cx="250" cy="55" r="1.4" fill="#c19a4b" opacity=".5"/>
+          <path d="M110 240 a90 90 0 01180 0z" fill="none" stroke="#8a6d34" stroke-width="1.4"/>
+          <rect x="188" y="120" width="18" height="90" fill="#c19a4b" opacity=".8" transform="rotate(-22 197 165)"/>
+          <line x1="40" y1="260" x2="360" y2="260" stroke="#33392a" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="dialog-specs">
+        <div><span>Camera</span><b>35mm DSLR, unmodified</b></div>
+        <div><span>Lens</span><b>50mm f/1.8</b></div>
+        <div><span>Exposure</span><b>30s</b></div>
+        <div><span>Aperture</span><b>f/2.8</b></div>
+        <div><span>ISO</span><b>800</b></div>
+        <div><span>Captured</span><b>3 Aug, 10:52 PM</b></div>
+      </div>
+    </dialog>
+
+    <div class="plate">
+      <button class="plate-open" onclick="document.getElementById('dlg-plate-2').showModal()" aria-label="View capture details for Exposure II: The Waxing Gibbous, Slightly Overexposed">
+        <div class="plate-media">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a slightly overexposed gibbous moon">
+            <rect width="400" height="300" fill="#0f1109"/>
+            <circle cx="200" cy="150" r="70" fill="#c19a4b" opacity=".22"/>
+            <circle cx="200" cy="150" r="55" fill="#c19a4b" opacity=".3"/>
+            <circle cx="185" cy="140" r="4" fill="#0f1109" opacity=".5"/>
+            <circle cx="215" cy="165" r="3" fill="#0f1109" opacity=".4"/>
+          </svg>
+        </div>
+      </button>
+      <div class="plate-text">
+        <div>
+          <span class="plate-num">Exposure II</span>
+          <h3>The Waxing Gibbous, Slightly Overexposed</h3>
+          <p>Went two stops too bright chasing detail in the maria and lost the terminator entirely. Keeping it anyway, mostly out of stubbornness.</p>
+        </div>
+        <div class="plate-tags"><a href="#">astronomy</a><a href="#">lunar</a></div>
+      </div>
+    </div>
+
+    <dialog id="dlg-plate-2" class="plate-dialog">
+      <button class="dialog-close" onclick="this.closest('dialog').close()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="dialog-media">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a slightly overexposed gibbous moon">
+          <rect width="400" height="300" fill="#0f1109"/>
+          <circle cx="200" cy="150" r="70" fill="#c19a4b" opacity=".22"/>
+          <circle cx="200" cy="150" r="55" fill="#c19a4b" opacity=".3"/>
+          <circle cx="185" cy="140" r="4" fill="#0f1109" opacity=".5"/>
+          <circle cx="215" cy="165" r="3" fill="#0f1109" opacity=".4"/>
+        </svg>
+      </div>
+      <div class="dialog-specs">
+        <div><span>Camera</span><b>35mm DSLR, unmodified</b></div>
+        <div><span>Lens</span><b>200mm f/4</b></div>
+        <div><span>Exposure</span><b>1/250s</b></div>
+        <div><span>Aperture</span><b>f/5.6</b></div>
+        <div><span>ISO</span><b>200</b></div>
+        <div><span>Captured</span><b>4 Aug, 11:20 PM</b></div>
+      </div>
+    </dialog>
+
+    <div class="plate">
+      <button class="plate-open" onclick="document.getElementById('dlg-plate-3').showModal()" aria-label="View capture details for Exposure III: Jupiter and Two of Its Moons, If You Squint">
+        <div class="plate-media">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a small bright planet with two faint points beside it">
+            <rect width="400" height="300" fill="#0f1109"/>
+            <circle cx="200" cy="150" r="10" fill="#c19a4b" opacity=".9"/>
+            <circle cx="200" cy="150" r="24" fill="#c19a4b" opacity=".12"/>
+            <circle cx="235" cy="152" r="1.6" fill="#c19a4b" opacity=".7"/>
+            <circle cx="165" cy="148" r="1.4" fill="#c19a4b" opacity=".6"/>
+          </svg>
+        </div>
+      </button>
+      <div class="plate-text">
+        <div>
+          <span class="plate-num">Exposure III</span>
+          <h3>Jupiter and Two of Its Moons, If You Squint</h3>
+          <p>The mount tracking finally paid off. Both moons are real. The third dot near the edge of the frame is a sensor artifact, not a discovery.</p>
+        </div>
+        <div class="plate-tags"><a href="#">astronomy</a><a href="#">jupiter</a></div>
+      </div>
+    </div>
+
+    <dialog id="dlg-plate-3" class="plate-dialog">
+      <button class="dialog-close" onclick="this.closest('dialog').close()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="dialog-media">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a small bright planet with two faint points beside it">
+          <rect width="400" height="300" fill="#0f1109"/>
+          <circle cx="200" cy="150" r="10" fill="#c19a4b" opacity=".9"/>
+          <circle cx="200" cy="150" r="24" fill="#c19a4b" opacity=".12"/>
+          <circle cx="235" cy="152" r="1.6" fill="#c19a4b" opacity=".7"/>
+          <circle cx="165" cy="148" r="1.4" fill="#c19a4b" opacity=".6"/>
+        </svg>
+      </div>
+      <div class="dialog-specs">
+        <div><span>Camera</span><b>35mm DSLR, unmodified</b></div>
+        <div><span>Lens</span><b>200mm f/4 + 2x extender</b></div>
+        <div><span>Exposure</span><b>1s</b></div>
+        <div><span>Aperture</span><b>f/8</b></div>
+        <div><span>ISO</span><b>1600</b></div>
+        <div><span>Captured</span><b>6 Aug, 1:14 AM</b></div>
+      </div>
+    </dialog>
+
+    <div class="plate">
+      <button class="plate-open" onclick="document.getElementById('dlg-plate-4').showModal()" aria-label="View capture details for Exposure IV: The Neighbor's Porch Light, Ruining Everything">
+        <div class="plate-media">
+          <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a night sky ruined by a bright porch light in the corner of the frame">
+            <rect width="400" height="300" fill="#0f1109"/>
+            <circle cx="70" cy="40" r="1.6" fill="#c19a4b" opacity=".4"/>
+            <circle cx="260" cy="30" r="1.2" fill="#c19a4b" opacity=".3"/>
+            <circle cx="340" cy="260" r="46" fill="#c19a4b" opacity=".35"/>
+            <circle cx="340" cy="260" r="26" fill="#c19a4b" opacity=".5"/>
+            <circle cx="340" cy="260" r="10" fill="#c19a4b" opacity=".9"/>
+          </svg>
+        </div>
+      </button>
+      <div class="plate-text">
+        <div>
+          <span class="plate-num">Exposure IV</span>
+          <h3>The Neighbor's Porch Light, Ruining Everything</h3>
+          <p>Forty minutes into a wide-field exposure, a motion sensor decided otherwise. Included as a record of what light pollution actually looks like up close.</p>
+        </div>
+        <div class="plate-tags"><a href="#">light-pollution</a><a href="#">mishap</a></div>
+      </div>
+    </div>
+
+    <dialog id="dlg-plate-4" class="plate-dialog">
+      <button class="dialog-close" onclick="this.closest('dialog').close()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="dialog-media">
+        <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a night sky ruined by a bright porch light in the corner of the frame">
+          <rect width="400" height="300" fill="#0f1109"/>
+          <circle cx="70" cy="40" r="1.6" fill="#c19a4b" opacity=".4"/>
+          <circle cx="260" cy="30" r="1.2" fill="#c19a4b" opacity=".3"/>
+          <circle cx="340" cy="260" r="46" fill="#c19a4b" opacity=".35"/>
+          <circle cx="340" cy="260" r="26" fill="#c19a4b" opacity=".5"/>
+          <circle cx="340" cy="260" r="10" fill="#c19a4b" opacity=".9"/>
+        </svg>
+      </div>
+      <div class="dialog-specs">
+        <div><span>Camera</span><b>35mm DSLR, unmodified</b></div>
+        <div><span>Lens</span><b>24mm f/2.8</b></div>
+        <div><span>Exposure</span><b>90s</b></div>
+        <div><span>Aperture</span><b>f/4</b></div>
+        <div><span>ISO</span><b>1600</b></div>
+        <div><span>Captured</span><b>8 Aug, 12:41 AM</b></div>
+      </div>
+    </dialog>
+
+  </div>
+</main>
+
+<section class="cats">
+  <div class="wrap cats-inner">
+    <a href="style-1-archive-professional-claudedesign.html">Professional</a>
+    <a href="style-1-archive-category-claudedesign.html">Philosophy</a>
+    <a href="style-1-archive-projects-claudedesign.html">Projects</a>
+    <a href="style-1-archive-photos-claudedesign.html" class="current">Exposures</a>
+    <a href="style-1-archive-family-claudedesign.html">Family</a>
+    <a href="style-1-archive-fiction-claudedesign.html">Fiction</a>
+    <a href="style-1-archive-misc-claudedesign.html">Misc</a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span class="foot-credit">
+    <svg class="stamp" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+      <circle cx="20" cy="20" r="17"/>
+      <circle cx="20" cy="20" r="12.5"/>
+      <path d="M20 9v4M20 27v4M9 20h4M27 20h4"/>
+      <path d="M20 14l3 6-3 6-3-6z" fill="currentColor" stroke="none"/>
+    </svg>
+    Expeditions supported by Miskatonic University (Arkham, MA)
+  </span>
+  <span class="fnav"><a href="#">RSS</a><a href="style-1-archive-about-claudedesign.html">About</a><a href="style-1-archive-contact-claudedesign.html">File a Dispatch</a></span>
+</footer>
+
+</body>
+</html>

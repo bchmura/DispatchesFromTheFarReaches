@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>On the Taxonomy of Dreams — Dispatches from the Far Reaches</title>
+<style>
+  :root{
+    --bg:#14150f;
+    --bg-raised:#1b2318;
+    --bg-raised-2:#20291d;
+    --ink:#e7e1cf;
+    --ink-dim:#a89f89;
+    --ink-faint:#6f6a57;
+    --brass:#c19a4b;
+    --brass-dim:#8a6d34;
+    --rule:#2e3324;
+    --indent:36px;
+    --serif-display: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,serif;
+    --serif-body: Georgia,'Iowan Old Style',serif;
+    --mono: ui-monospace,'Cascadia Mono','Segoe UI Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif-body);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px;}
+
+  body::after{
+    content:"";position:fixed;inset:0;z-index:6;pointer-events:none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse 70% 70% at 50% 38%, transparent 40%, rgba(0,0,0,.6) 100%);
+    background-size:140px 140px, 100% 100%;
+    background-repeat:repeat, no-repeat;
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  header.site{border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--bg);z-index:20;}
+  nav.bar{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:1180px;margin:0 auto;padding:0 24px;}
+  .brand{font-family:var(--serif-display);font-size:1.1rem;letter-spacing:.02em;display:flex;align-items:center;gap:10px;white-space:nowrap;}
+  .brand svg{width:26px;height:26px;flex:none;}
+  .navlinks{display:flex;gap:18px;font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;}
+  .navlinks a{color:var(--ink-dim);border-bottom:1px solid transparent;padding-bottom:4px;transition:color .15s,border-color .15s;white-space:nowrap;}
+  .navlinks a:hover,.navlinks a:focus-visible,.navlinks a.current{color:var(--brass);border-color:var(--brass-dim);}
+  .navtoggle{display:none;background:none;border:1px solid var(--rule);color:var(--ink);width:40px;height:40px;border-radius:2px;flex:none;}
+  .navtoggle span{display:block;width:18px;height:1px;background:var(--ink);margin:4px auto;}
+  @media (max-width:960px){
+    .navlinks{position:absolute;top:72px;left:0;right:0;background:var(--bg-raised);flex-direction:column;gap:0;border-bottom:1px solid var(--rule);max-height:0;overflow:hidden;transition:max-height .25s ease;}
+    .navlinks.open{max-height:400px;}
+    .navlinks a{display:block;padding:14px 24px;border-bottom:1px solid var(--rule);}
+    .navtoggle{display:block;}
+  }
+  @media (prefers-reduced-motion:reduce){ .navlinks{transition:none;} }
+
+  /* ---------- Article header ---------- */
+  .art-header{border-bottom:1px solid var(--rule);padding:52px 0 40px;
+    background:radial-gradient(ellipse 80% 120% at 94% 6%, rgba(193,154,75,.11) 0%, rgba(193,154,75,.04) 40%, transparent 70%),var(--bg);
+  }
+  .art-header .inner{margin:0 0 0 var(--indent);}
+  .art-meta-row{display:flex;align-items:center;gap:16px;margin-bottom:18px;flex-wrap:wrap;}
+  .cat-pill{font-family:var(--mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;color:var(--brass);border:1px solid var(--brass-dim);padding:4px 10px;border-radius:1px;}
+  .art-date{font-family:var(--mono);font-size:.7rem;letter-spacing:.03em;color:var(--ink-faint);}
+  .art-date .dispatch-no{color:var(--brass-dim);}
+  .art-header h1{font-family:var(--serif-display);font-weight:400;font-size:clamp(2rem,4.2vw,2.9rem);line-height:1.15;margin:0 0 16px;text-wrap:balance;}
+  .art-tags{display:flex;flex-wrap:wrap;gap:8px;}
+  .art-tags a{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);border:1px solid var(--rule);padding:4px 9px;border-radius:1px;transition:color .15s,border-color .15s,background-color .15s;}
+  .art-tags a:hover,.art-tags a:focus-visible{color:var(--brass);border-color:var(--brass-dim);background:var(--bg-raised);}
+  @media (max-width:600px){ .art-header .inner{padding-left:16px;} }
+
+  /* ---------- Article body ---------- */
+  main{padding:0;}
+  main.wrap{padding:0 24px;}
+  .art-body{margin:0 0 0 var(--indent);padding:52px 0 8px;}
+  .art-body p,.art-body blockquote{max-width:75ch;}
+  @media (max-width:600px){ .art-body{margin-left:16px;padding:36px 0 8px;} }
+  .art-body p{color:var(--ink-dim);font-size:1.05rem;margin:0 0 24px;}
+  .art-body p.lede{color:var(--ink);font-size:1.15rem;}
+  .art-body blockquote{
+    margin:36px 0;padding:4px 0 4px 24px;border-left:2px solid var(--brass-dim);
+    font-family:var(--serif-display);font-style:italic;font-size:1.2rem;color:var(--ink);line-height:1.5;
+  }
+  .art-body h2{font-family:var(--serif-display);font-weight:400;font-size:1.4rem;color:var(--ink);margin:44px 0 18px;text-wrap:balance;}
+
+  .art-foot{margin:0 0 0 var(--indent);padding:8px 0 56px;border-bottom:1px solid var(--rule);}
+  @media (max-width:600px){ .art-foot{margin-left:16px;padding:8px 0 40px;} }
+
+  .art-contact{
+    border:1px solid var(--rule);background:var(--bg-raised);border-radius:2px;
+    padding:22px 24px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  .art-contact p{margin:0;color:var(--ink-dim);font-size:.92rem;max-width:44ch;}
+  .art-contact a{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--brass);white-space:nowrap;}
+  .art-contact a svg{width:14px;height:14px;}
+  .art-contact a:hover,.art-contact a:focus-visible{color:var(--brass-dim);}
+
+  .art-nav{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+  .art-nav a{display:block;border:1px solid var(--rule);background:var(--bg-raised);padding:20px 22px;border-radius:2px;transition:border-color .15s,background .15s;}
+  .art-nav a:hover,.art-nav a:focus-visible{border-color:var(--brass-dim);background:var(--bg-raised-2);}
+  .art-nav .dir{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--brass-dim);margin-bottom:8px;}
+  .art-nav .next{text-align:right;}
+  .art-nav h4{font-family:var(--serif-display);font-weight:400;font-size:1.05rem;margin:0;line-height:1.3;text-wrap:balance;color:var(--ink);}
+  @media (max-width:640px){ .art-nav{grid-template-columns:1fr;} .art-nav .next{text-align:left;} }
+
+  /* ---------- Categories strip ---------- */
+  .cats{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--bg-raised-2);}
+  .cats-inner{display:flex;gap:0;overflow-x:auto;}
+  .cats a{flex:1 0 auto;min-width:120px;padding:22px 14px;text-align:center;border-right:1px solid var(--rule);font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);transition:color .15s,background .15s;}
+  .cats a:last-child{border-right:none;}
+  .cats a:hover,.cats a:focus-visible,.cats a.current{color:var(--brass);background:var(--bg-raised);}
+
+  footer{color:var(--ink-faint);font-size:.85rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  footer.wrap{padding:38px 24px 42px;}
+  footer .foot-credit,footer .fnav{font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;}
+  footer .foot-credit{display:flex;align-items:center;gap:16px;font-size:1.1rem;color:var(--ink-dim);}
+  footer .stamp{width:42px;height:42px;flex:none;color:var(--brass-dim);opacity:.6;transform:rotate(-8deg);}
+  footer .fnav{display:flex;gap:18px;font-size:.72rem;}
+  footer .fnav a:hover{color:var(--brass);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="bar">
+    <a class="brand" href="style-1-archive.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.5"/>
+        <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/>
+        <path d="M12 6.5l2.4 5.5-2.4 5.5-2.4-5.5z" fill="currentColor" stroke="none"/>
+      </svg>
+      Dispatches from the Far Reaches
+    </a>
+    <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false" onclick="var n=document.getElementById('navlinks');var open=n.classList.toggle('open');this.setAttribute('aria-expanded',open);">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navlinks" id="navlinks">
+      <a href="#">Professional</a>
+      <a href="style-1-archive-category.html" class="current">Philosophy</a>
+      <a href="#">Projects</a>
+      <a href="#">Exposures</a>
+      <a href="#">Family</a>
+      <a href="#">Fiction</a>
+      <a href="#">Misc</a>
+    </div>
+  </nav>
+</header>
+
+<section class="art-header">
+  <div class="wrap">
+  <div class="inner">
+    <div class="art-meta-row">
+      <span class="cat-pill">Philosophy</span>
+      <span class="art-date"><span class="dispatch-no">No. 214</span> · 30 August 2025 · 6 min</span>
+    </div>
+    <h1>On the Taxonomy of Dreams</h1>
+    <div class="art-tags"><a href="#">dreams</a><a href="#">epistemology</a></div>
+  </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="art-body">
+    <p class="lede">Every commonplace book I have kept since university has a section for dreams, and every one of those sections has, at some point, tried and failed to sort its entries into categories. This is another attempt, made with the mild suspicion that the failure is the actual finding.</p>
+
+    <p>The obvious first cut is by content: dreams about falling, dreams about teeth, dreams about being back in a building that no longer exists in the shape it appears in. This is the taxonomy every dream dictionary uses, and it is almost useless, because the content of a dream is the least stable thing about it. The same falling dream means something different at twenty-two, stressed about an exam, than it does at thirty-eight, stressed about nothing you could name.</p>
+
+    <h2>A second attempt, by texture</h2>
+    <p>A more promising cut sorts by texture rather than content: dreams that feel like memory, dreams that feel like fiction, dreams that feel like a held breath. Under this system, two dreams with nothing in common on the surface, one about a childhood house and one about an unfamiliar coastline, can end up in the same drawer, because both carry the same quality of having already happened to someone, somewhere, before you got there.</p>
+
+    <blockquote>The dream does not announce which drawer it belongs in. You find out afterward, usually while doing something else entirely, and usually too late to write it down correctly.</blockquote>
+
+    <p>What I keep running into is that any taxonomy stable enough to be useful stops describing dreams and starts describing the person doing the sorting. The categories say more about what I am currently worried about, or currently reading, or currently trying to avoid thinking about during the day, than they say about whatever is actually happening in sleep. A taxonomy of dreams turns out to be, mostly, a taxonomy of the waking hours that produced them.</p>
+
+    <h2>Where this leaves the project</h2>
+    <p>I have not abandoned the commonplace book's dream section, and I do not intend to. But I have stopped expecting the categories to hold for more than a season at a time, and started treating each new attempt at sorting as its own small piece of evidence, useful mainly for what it reveals about the sorter rather than the sorted. That, at least, is a taxonomy that keeps working.</p>
+  </div>
+
+  <div class="art-foot">
+    <div class="art-contact">
+      <p>Correspondence regarding this file is welcome, though replies may be slow to arrive.</p>
+      <a href="style-1-archive-about.html">Send word <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+    </div>
+    <div class="art-nav">
+      <a href="#" class="prev">
+        <span class="dir">Previous</span>
+        <h4>What Counts as Evidence When the Instrument Might Be Lying</h4>
+      </a>
+      <a href="#" class="next">
+        <span class="dir">Next</span>
+        <h4>What the Fungi Know That We Do Not</h4>
+      </a>
+    </div>
+  </div>
+</main>
+
+<section class="cats">
+  <div class="wrap cats-inner">
+    <a href="#">Professional</a>
+    <a href="#" class="current">Philosophy</a>
+    <a href="#">Projects</a>
+    <a href="#">Exposures</a>
+    <a href="#">Family</a>
+    <a href="#">Fiction</a>
+    <a href="#">Misc</a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span class="foot-credit">
+    <svg class="stamp" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+      <circle cx="20" cy="20" r="17"/>
+      <circle cx="20" cy="20" r="12.5"/>
+      <path d="M20 9v4M20 27v4M9 20h4M27 20h4"/>
+      <path d="M20 14l3 6-3 6-3-6z" fill="currentColor" stroke="none"/>
+    </svg>
+    Expeditions supported by Miskatonic University (Arkham, MA)
+  </span>
+  <span class="fnav"><a href="#">RSS</a><a href="style-1-archive-about.html">About</a><a href="style-1-archive-contact.html">File a Dispatch</a></span>
+</footer>
+
+</body>
+</html>

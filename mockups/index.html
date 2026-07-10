@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Contents — Dispatches (Claude redesign pass)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#14150f; --bg-raised:#1b2318; --bg-raised-2:#20291d;
+    --ink:#e7e1cf; --ink-dim:#a89f89; --ink-faint:#6f6a57;
+    --brass:#c19a4b; --brass-dim:#8a6d34; --rule:#2e3324; --indent:36px;
+    --serif-display: 'IM Fell English','Iowan Old Style',Palatino,serif;
+    --serif-body: 'EB Garamond',Georgia,serif;
+    --mono: 'Fragment Mono',ui-monospace,'Cascadia Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif-body);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;}
+  a{color:inherit;text-decoration:none;}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px;}
+
+  @keyframes lanternFlicker{0%,100%{opacity:1}16%{opacity:.94}33%{opacity:.995}49%{opacity:.9}64%{opacity:.97}82%{opacity:.93}}
+  @media (prefers-reduced-motion:reduce){body::after{animation:none!important;}}
+  body::after{
+    content:"";position:fixed;inset:0;z-index:6;pointer-events:none;animation:lanternFlicker 9s ease-in-out infinite;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(circle at 82% 6%, rgba(200,161,86,.10) 0%, rgba(200,161,86,.03) 26%, transparent 56%),
+      radial-gradient(ellipse 120% 112% at 70% 26%, transparent 55%, rgba(0,0,0,.24) 86%, rgba(0,0,0,.38) 100%);
+    background-size:140px 140px, 100% 100%, 100% 100%;
+    background-repeat:repeat, no-repeat, no-repeat;
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  header.site{border-bottom:1px solid var(--rule);}
+  .head-inner{padding:56px 0 40px var(--indent);}
+  .brand{font-family:var(--serif-display);font-size:1.2rem;letter-spacing:.02em;display:flex;align-items:center;gap:12px;margin-bottom:26px;}
+  .brand svg{width:30px;height:30px;flex:none;}
+  .kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-dim);margin:0 0 14px;}
+  h1{font-family:var(--serif-display);font-weight:400;font-size:clamp(2rem,4vw,3rem);line-height:1.1;margin:0 0 16px;text-wrap:balance;}
+  .lede{color:var(--ink-dim);font-size:1.05rem;max-width:66ch;margin:0;}
+  @media (max-width:600px){ .head-inner{padding-left:16px;} }
+
+  main{padding:52px 24px 64px;}
+  .index{margin-left:var(--indent);display:flex;flex-direction:column;gap:44px;}
+  @media (max-width:600px){ .index{margin-left:16px;} }
+
+  h2.grp{font-family:var(--serif-display);font-weight:400;font-size:1.35rem;margin:0 0 22px;display:flex;align-items:center;gap:16px;}
+  h2.grp::after{
+    content:"";flex:1;height:8px;align-self:center;
+    background:
+      linear-gradient(var(--rule),var(--rule)) left center/100% 1px no-repeat,
+      repeating-linear-gradient(90deg, var(--brass-dim) 0 1px, transparent 1px 34px) left bottom/100% 6px no-repeat;
+    opacity:.85;
+  }
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+  @media (max-width:720px){ .grid{grid-template-columns:1fr;} }
+
+  a.card{
+    display:flex;align-items:baseline;gap:14px;border:1px solid var(--rule);background:var(--bg-raised);
+    border-radius:2px;padding:18px 20px;transition:border-color .15s,background .15s;
+  }
+  a.card:hover,a.card:focus-visible{border-color:var(--brass-dim);background:var(--bg-raised-2);}
+  a.card .no{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;color:var(--brass-dim);flex:none;padding-top:3px;}
+  a.card .body{display:flex;flex-direction:column;gap:4px;}
+  a.card .t{font-family:var(--serif-display);font-size:1.08rem;line-height:1.25;}
+  a.card .d{font-family:var(--mono);font-size:.64rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);}
+  a.card .flag{color:var(--brass);}
+
+  footer{border-top:1px solid var(--rule);}
+  footer .fin{padding:30px 0 40px var(--indent);font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);}
+  @media (max-width:600px){ footer .fin{padding-left:16px;} }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+  <div class="head-inner">
+    <div class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.5"/>
+        <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/>
+        <path d="M12 6.5l2.4 5.5-2.4 5.5-2.4-5.5z" fill="currentColor" stroke="none"/>
+      </svg>
+      Dispatches from the Far Reaches
+    </div>
+    <p class="kicker">Claude redesign pass · contents</p>
+    <h1>Every page in the redesign, in one place</h1>
+    <p class="lede">Each link opens a <span style="font-family:var(--mono);font-size:.9em;">-claudedesign</span> copy. Originals are untouched. Items marked in brass are the changes from this pass.</p>
+  </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="index">
+
+    <section>
+      <h2 class="grp">Core pages</h2>
+      <div class="grid">
+        <a class="card" href="style-1-archive-claudedesign.html">
+          <span class="no">01</span>
+          <span class="body"><span class="t">Homepage</span><span class="d flag">Candlelight · compass watermark · ticked rules · Exposure fix</span></span>
+        </a>
+        <a class="card" href="style-1-archive-article-claudedesign.html">
+          <span class="no">02</span>
+          <span class="body"><span class="t">Article</span><span class="d flag">"Send word" now links to File a Dispatch</span></span>
+        </a>
+        <a class="card" href="style-1-archive-contact-claudedesign.html">
+          <span class="no">03</span>
+          <span class="body"><span class="t">File a Dispatch</span><span class="d flag">Em-dashes reworded</span></span>
+        </a>
+        <a class="card" href="style-1-archive-about-claudedesign.html">
+          <span class="no">04</span>
+          <span class="body"><span class="t">About</span><span class="d">Candlelight pass</span></span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="grp">Listings &amp; detail</h2>
+      <div class="grid">
+        <a class="card" href="style-1-archive-category-claudedesign.html">
+          <span class="no">05</span>
+          <span class="body"><span class="t">Category (Philosophy)</span><span class="d">Article index template</span></span>
+        </a>
+        <a class="card" href="style-1-archive-projects-claudedesign.html">
+          <span class="no">06</span>
+          <span class="body"><span class="t">Projects</span><span class="d">Status badges</span></span>
+        </a>
+        <a class="card" href="style-1-archive-project-detail-claudedesign.html">
+          <span class="no">07</span>
+          <span class="body"><span class="t">Project detail</span><span class="d">Journal + resources</span></span>
+        </a>
+        <a class="card" href="style-1-archive-photos-claudedesign.html">
+          <span class="no">08</span>
+          <span class="body"><span class="t">Exposures</span><span class="d">Series listing</span></span>
+        </a>
+        <a class="card" href="style-1-archive-plateset-claudedesign.html">
+          <span class="no">09</span>
+          <span class="body"><span class="t">Exposure Series</span><span class="d">Photo detail + spec popups</span></span>
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="grp">New category glyph pages</h2>
+      <div class="grid">
+        <a class="card" href="style-1-archive-professional-claudedesign.html">
+          <span class="no">10</span>
+          <span class="body"><span class="t">Professional</span><span class="d flag">New glyph — pen nib</span></span>
+        </a>
+        <a class="card" href="style-1-archive-family-claudedesign.html">
+          <span class="no">11</span>
+          <span class="body"><span class="t">Family</span><span class="d flag">New glyph — house / hearth</span></span>
+        </a>
+        <a class="card" href="style-1-archive-fiction-claudedesign.html">
+          <span class="no">12</span>
+          <span class="body"><span class="t">Fiction</span><span class="d flag">New glyph — mask</span></span>
+        </a>
+        <a class="card" href="style-1-archive-misc-claudedesign.html">
+          <span class="no">13</span>
+          <span class="body"><span class="t">Misc</span><span class="d flag">New glyph — filing tag</span></span>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fin">Expeditions supported by Miskatonic University (Arkham, MA)</div>
+  </div>
+</footer>
+
+</body>
+</html>

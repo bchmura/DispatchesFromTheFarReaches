@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Exposures — Dispatches from the Far Reaches</title>
+<style>
+  :root{
+    --bg:#14150f; --bg-raised:#1b2318; --bg-raised-2:#20291d;
+    --ink:#e7e1cf; --ink-dim:#a89f89; --ink-faint:#6f6a57;
+    --brass:#c19a4b; --brass-dim:#8a6d34; --rule:#2e3324; --indent:36px;
+    --serif-display: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,serif;
+    --serif-body: Georgia,'Iowan Old Style',serif;
+    --mono: ui-monospace,'Cascadia Mono','Segoe UI Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif-body);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px;}
+
+  body::after{
+    content:"";position:fixed;inset:0;z-index:6;pointer-events:none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse 70% 70% at 50% 38%, transparent 40%, rgba(0,0,0,.6) 100%);
+    background-size:140px 140px, 100% 100%;
+    background-repeat:repeat, no-repeat;
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  header.site{border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--bg);z-index:20;}
+  nav.bar{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:1180px;margin:0 auto;padding:0 24px;}
+  .brand{font-family:var(--serif-display);font-size:1.1rem;letter-spacing:.02em;display:flex;align-items:center;gap:10px;white-space:nowrap;}
+  .brand svg{width:26px;height:26px;flex:none;}
+  .navlinks{display:flex;gap:18px;font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;}
+  .navlinks a{color:var(--ink-dim);border-bottom:1px solid transparent;padding-bottom:4px;transition:color .15s,border-color .15s;white-space:nowrap;}
+  .navlinks a:hover,.navlinks a:focus-visible,.navlinks a.current{color:var(--brass);border-color:var(--brass-dim);}
+  .navtoggle{display:none;background:none;border:1px solid var(--rule);color:var(--ink);width:40px;height:40px;border-radius:2px;flex:none;}
+  .navtoggle span{display:block;width:18px;height:1px;background:var(--ink);margin:4px auto;}
+  @media (max-width:960px){
+    .navlinks{position:absolute;top:72px;left:0;right:0;background:var(--bg-raised);flex-direction:column;gap:0;border-bottom:1px solid var(--rule);max-height:0;overflow:hidden;transition:max-height .25s ease;}
+    .navlinks.open{max-height:400px;}
+    .navlinks a{display:block;padding:14px 24px;border-bottom:1px solid var(--rule);}
+    .navtoggle{display:block;}
+  }
+  @media (prefers-reduced-motion:reduce){ .navlinks{transition:none;} }
+
+  .cat-header{border-bottom:1px solid var(--rule);padding:52px 0 38px;
+    background:radial-gradient(ellipse 80% 120% at 94% 6%, rgba(193,154,75,.11) 0%, rgba(193,154,75,.04) 40%, transparent 70%),var(--bg);
+  }
+  .cat-header .inner{padding-left:var(--indent);display:flex;align-items:center;justify-content:space-between;gap:32px;}
+  .cat-header .kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-dim);margin:0 0 14px;}
+  .cat-header h1{font-family:var(--serif-display);font-weight:400;font-size:clamp(1.9rem,3.6vw,2.7rem);letter-spacing:.01em;line-height:1.1;margin:0 0 14px;text-wrap:balance;color:var(--ink);}
+  .cat-header p{color:var(--ink-dim);font-size:1.02rem;max-width:62ch;margin:0;}
+  .cat-header .cat-mark{flex:none;width:66px;height:66px;color:var(--brass);opacity:.9;}
+  .cat-header .cat-mark svg{width:100%;height:100%;display:block;}
+  @media (max-width:600px){
+    .cat-header .inner{padding-left:16px;flex-direction:column;align-items:flex-start;gap:18px;}
+    .cat-header .cat-mark{order:-1;width:48px;height:48px;}
+  }
+
+  main.wrap{padding:52px 24px 40px;}
+
+  .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding-left:var(--indent);}
+  @media (max-width:980px){ .proj-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:640px){ .proj-grid{grid-template-columns:1fr;} }
+  @media (max-width:600px){ .proj-grid{padding-left:16px;} }
+
+  .proj-card{border:1px solid var(--rule);background:var(--bg-raised);border-radius:2px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s;}
+  .proj-card:hover,.proj-card:focus-within{border-color:var(--brass-dim);}
+  .proj-media{aspect-ratio:16/10;display:block;}
+  .proj-media svg{width:100%;height:100%;display:block;}
+  .proj-body{padding:22px 24px 26px;display:flex;flex-direction:column;gap:12px;flex:1;}
+  .proj-body h3{font-family:var(--serif-display);font-weight:400;font-size:1.2rem;margin:0;line-height:1.3;text-wrap:balance;}
+  .proj-body p{color:var(--ink-dim);font-size:.92rem;margin:0;flex:1;}
+  .proj-link{margin-top:auto;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--brass);}
+  .plate-meta{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);}
+  .plate-meta .n{color:var(--brass-dim);}
+
+  .cats{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-top:56px;background:var(--bg-raised-2);}
+  .cats-inner{display:flex;gap:0;overflow-x:auto;}
+  .cats a{flex:1 0 auto;min-width:120px;padding:22px 14px;text-align:center;border-right:1px solid var(--rule);font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);transition:color .15s,background .15s;}
+  .cats a:last-child{border-right:none;}
+  .cats a:hover,.cats a:focus-visible,.cats a.current{color:var(--brass);background:var(--bg-raised);}
+
+  footer{color:var(--ink-faint);font-size:.85rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  footer.wrap{padding:38px 24px 42px;}
+  footer .foot-credit,footer .fnav{font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;}
+  footer .foot-credit{display:flex;align-items:center;gap:16px;font-size:1.1rem;color:var(--ink-dim);}
+  footer .stamp{width:42px;height:42px;flex:none;color:var(--brass-dim);opacity:.6;transform:rotate(-8deg);}
+  footer .fnav{display:flex;gap:18px;font-size:.72rem;}
+  footer .fnav a:hover{color:var(--brass);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="bar">
+    <a class="brand" href="style-1-archive.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.5"/>
+        <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/>
+        <path d="M12 6.5l2.4 5.5-2.4 5.5-2.4-5.5z" fill="currentColor" stroke="none"/>
+      </svg>
+      Dispatches from the Far Reaches
+    </a>
+    <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false" onclick="var n=document.getElementById('navlinks');var open=n.classList.toggle('open');this.setAttribute('aria-expanded',open);">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navlinks" id="navlinks">
+      <a href="#">Professional</a>
+      <a href="style-1-archive-category.html">Philosophy</a>
+      <a href="style-1-archive-projects.html">Projects</a>
+      <a href="#" class="current">Exposures</a>
+      <a href="#">Family</a>
+      <a href="#">Fiction</a>
+      <a href="#">Misc</a>
+    </div>
+  </nav>
+</header>
+
+<section class="cat-header">
+  <div class="wrap">
+  <div class="inner">
+    <div>
+      <p class="kicker">Filed under</p>
+      <h1>Exposures</h1>
+      <p>Exposure series, arranged by subject and season, from a camera that goes most places I do.</p>
+    </div>
+    <div class="cat-mark">
+      <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.3" role="img" aria-label="Illustration of a camera aperture">
+        <circle cx="32" cy="32" r="22"/>
+        <path d="M32 14 L46 22 L46 42 L32 50 L18 42 L18 22 Z" opacity=".6"/>
+        <circle cx="32" cy="32" r="6" fill="currentColor" stroke="none" opacity=".85"/>
+      </svg>
+    </div>
+  </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="proj-grid">
+
+    <a class="proj-card" href="style-1-archive-plateset.html">
+      <div class="proj-media">
+        <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a backyard telescope dome under stars">
+          <rect width="400" height="240" fill="#0f1109"/>
+          <circle cx="70" cy="30" r="1.6" fill="#c19a4b" opacity=".5"/>
+          <circle cx="330" cy="20" r="1.2" fill="#c19a4b" opacity=".4"/>
+          <circle cx="250" cy="40" r="1.4" fill="#c19a4b" opacity=".5"/>
+          <path d="M120 170 a80 80 0 01160 0z" fill="none" stroke="#8a6d34" stroke-width="1.4"/>
+          <rect x="188" y="90" width="16" height="70" fill="#c19a4b" opacity=".8" transform="rotate(-24 196 125)"/>
+          <line x1="60" y1="200" x2="340" y2="200" stroke="#33392a" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <span class="plate-meta"><span class="n">6 exposures</span> · August 2025</span>
+        <h3>The Backyard Observatory</h3>
+        <p>Long exposures of the yard telescope across a week of unusually clear nights.</p>
+        <span class="proj-link">Open the exposure series</span>
+      </div>
+    </a>
+
+    <a class="proj-card" href="#">
+      <div class="proj-media">
+        <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a foggy coastline at dawn">
+          <rect width="400" height="240" fill="#0f1109"/>
+          <rect x="0" y="150" width="400" height="90" fill="#1b2318" opacity=".7"/>
+          <rect x="0" y="170" width="400" height="14" fill="#20291d" opacity=".8"/>
+          <rect x="0" y="195" width="400" height="10" fill="#20291d" opacity=".6"/>
+          <path d="M260 150 L268 110 L276 150" fill="none" stroke="#33392a" stroke-width="1.3"/>
+          <line x1="0" y1="150" x2="400" y2="150" stroke="#33392a" stroke-width="1.4"/>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <span class="plate-meta"><span class="n">9 exposures</span> · June 2025</span>
+        <h3>Coastal Fog, Early Mornings</h3>
+        <p>A week of dawn walks along the same half mile of shoreline, waiting for the fog to do something different.</p>
+        <span class="proj-link">Open the exposure series</span>
+      </div>
+    </a>
+
+    <a class="proj-card" href="#">
+      <div class="proj-media">
+        <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of abandoned rail tracks converging toward an old mill">
+          <rect width="400" height="240" fill="#0f1109"/>
+          <path d="M140 220 L195 60 M260 220 L205 60" stroke="#33392a" stroke-width="1.6"/>
+          <path d="M150 200 h100 M158 175 h84 M166 150 h68 M174 125 h52 M182 100 h36" stroke="#33392a" stroke-width="1.2"/>
+          <rect x="180" y="40" width="60" height="40" fill="none" stroke="#8a6d34" stroke-width="1.3"/>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <span class="plate-meta"><span class="n">5 exposures</span> · October 2024</span>
+        <h3>Abandoned Rail Spur Behind the Mill</h3>
+        <p>What is left of the spur line, shot on the one weekend the undergrowth had not fully reclaimed it.</p>
+        <span class="proj-link">Open the exposure series</span>
+      </div>
+    </a>
+
+    <a class="proj-card" href="#">
+      <div class="proj-media">
+        <svg viewBox="0 0 400 240" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of an attic window with light rays and dust motes">
+          <rect width="400" height="240" fill="#0f1109"/>
+          <rect x="160" y="40" width="80" height="100" fill="none" stroke="#8a6d34" stroke-width="1.4"/>
+          <path d="M160 40 L60 220 M240 40 L340 220" stroke="#c19a4b" stroke-width="1" opacity=".35"/>
+          <circle cx="150" cy="150" r="1.2" fill="#c19a4b" opacity=".5"/>
+          <circle cx="200" cy="180" r="1" fill="#c19a4b" opacity=".4"/>
+          <circle cx="260" cy="160" r="1.3" fill="#c19a4b" opacity=".5"/>
+        </svg>
+      </div>
+      <div class="proj-body">
+        <span class="plate-meta"><span class="n">4 exposures</span> · November 2024</span>
+        <h3>Attic Light, Late Autumn</h3>
+        <p>An hour with the good lens before the light moved past the window and the whole effect was gone until next year.</p>
+        <span class="proj-link">Open the exposure series</span>
+      </div>
+    </a>
+
+  </div>
+</main>
+
+<section class="cats">
+  <div class="wrap cats-inner">
+    <a href="#">Professional</a>
+    <a href="#">Philosophy</a>
+    <a href="#">Projects</a>
+    <a href="#" class="current">Exposures</a>
+    <a href="#">Family</a>
+    <a href="#">Fiction</a>
+    <a href="#">Misc</a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span class="foot-credit">
+    <svg class="stamp" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+      <circle cx="20" cy="20" r="17"/>
+      <circle cx="20" cy="20" r="12.5"/>
+      <path d="M20 9v4M20 27v4M9 20h4M27 20h4"/>
+      <path d="M20 14l3 6-3 6-3-6z" fill="currentColor" stroke="none"/>
+    </svg>
+    Expeditions supported by Miskatonic University (Arkham, MA)
+  </span>
+  <span class="fnav"><a href="#">RSS</a><a href="style-1-archive-about.html">About</a><a href="style-1-archive-contact.html">File a Dispatch</a></span>
+</footer>
+
+</body>
+</html>

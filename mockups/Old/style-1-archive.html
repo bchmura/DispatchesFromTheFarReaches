@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dispatches from the Far Reaches — Style 1: The Archive</title>
+<style>
+  /* Intentionally single-theme: a candlelit special-collections room at night.
+     This page does not adapt to light system preference by design. */
+  :root{
+    --bg:#14150f;
+    --bg-raised:#1b2318;
+    --bg-raised-2:#20291d;
+    --ink:#e7e1cf;
+    --ink-dim:#a89f89;
+    --ink-faint:#6f6a57;
+    --brass:#c19a4b;
+    --brass-dim:#8a6d34;
+    --rule:#2e3324;
+    --indent:36px; /* matches the logo mark's width + gap, so headings line up with the wordmark, not the container edge */
+    --serif-display: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,serif;
+    --serif-body: Georgia,'Iowan Old Style',serif;
+    --mono: ui-monospace,'Cascadia Mono','Segoe UI Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--serif-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px;}
+
+  /* paper grain + edge vignette, laid over the whole page so it reads as handled, not flat */
+  body::after{
+    content:"";position:fixed;inset:0;z-index:6;pointer-events:none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse 70% 70% at 50% 38%, transparent 40%, rgba(0,0,0,.6) 100%);
+    background-size:140px 140px, 100% 100%;
+    background-repeat:repeat, no-repeat;
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  /* ---------- Nav ---------- */
+  header.site{
+    border-bottom:1px solid var(--rule);
+    position:sticky;top:0;background:var(--bg);z-index:20;
+  }
+  nav.bar{
+    display:flex;align-items:center;justify-content:space-between;
+    height:72px;max-width:1180px;margin:0 auto;padding:0 24px;
+  }
+  .brand{
+    font-family:var(--serif-display);
+    font-size:1.1rem;letter-spacing:.02em;
+    display:flex;align-items:center;gap:10px;
+    white-space:nowrap;
+  }
+  .brand svg{width:26px;height:26px;flex:none;}
+  .navlinks{display:flex;gap:18px;font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;}
+  .navlinks a{color:var(--ink-dim);border-bottom:1px solid transparent;padding-bottom:4px;transition:color .15s,border-color .15s;white-space:nowrap;}
+  .navlinks a:hover,.navlinks a:focus-visible{color:var(--brass);border-color:var(--brass-dim);}
+  .navtoggle{display:none;background:none;border:1px solid var(--rule);color:var(--ink);width:40px;height:40px;border-radius:2px;flex:none;}
+  .navtoggle span{display:block;width:18px;height:1px;background:var(--ink);margin:4px auto;}
+
+  @media (max-width:960px){
+    .navlinks{
+      position:absolute;top:72px;left:0;right:0;background:var(--bg-raised);
+      flex-direction:column;gap:0;border-bottom:1px solid var(--rule);
+      max-height:0;overflow:hidden;transition:max-height .25s ease;
+    }
+    .navlinks.open{max-height:400px;}
+    .navlinks a{display:block;padding:14px 24px;border-bottom:1px solid var(--rule);}
+    .navtoggle{display:block;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{border-bottom:1px solid var(--rule);background:
+    radial-gradient(ellipse 100% 150% at 96% 2%, rgba(193,154,75,.14) 0%, rgba(193,154,75,.06) 38%, transparent 68%),
+    var(--bg);
+  }
+  .hero-inner{
+    display:grid;grid-template-columns:1.3fr .9fr;gap:48px;align-items:center;
+    padding:72px 0 64px;
+  }
+  .hero-text{padding-left:var(--indent);}
+  .kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-dim);margin:0 0 18px;}
+  h1.title{
+    font-family:var(--serif-display);font-weight:400;
+    font-size:clamp(2.1rem,4.4vw,3.4rem);
+    letter-spacing:.01em;line-height:1.08;margin:0 0 20px;
+    text-wrap:balance;
+    color:var(--ink);
+  }
+  h1.title em{font-style:italic;color:var(--brass);}
+  .hero p.sub{color:var(--ink-dim);font-size:1.05rem;max-width:46ch;margin:0;}
+  .hero-mark{display:flex;justify-content:center;}
+  .hero-mark svg{width:100%;max-width:220px;height:auto;}
+
+  @media (max-width:820px){
+    .hero-inner{grid-template-columns:1fr;padding:44px 0 40px;gap:28px;}
+    .hero-mark{order:-1;max-width:140px;margin:0 auto;}
+  }
+  @media (max-width:600px){
+    .hero-text{padding-left:16px;}
+  }
+
+  /* ---------- Posts ---------- */
+  main.wrap{padding:64px 24px 40px;}
+  h2.section-head{
+    font-family:var(--serif-display);font-weight:400;font-size:1.5rem;
+    margin:0 0 32px;padding-left:var(--indent);display:flex;align-items:baseline;gap:16px;
+  }
+  h2.section-head::after{content:"";flex:1;height:1px;background:var(--rule);}
+
+  .posts{display:grid;grid-template-columns:1.5fr 1fr;gap:40px;padding-left:var(--indent);}
+  @media (max-width:900px){.posts{grid-template-columns:1fr;}}
+  @media (max-width:600px){.posts{padding-left:16px;}}
+
+  .featured{border:1px solid var(--rule);background:var(--bg-raised);border-radius:2px;overflow:hidden;}
+  .featured-media{aspect-ratio:16/8;display:block;}
+  .featured-media svg{width:100%;height:100%;display:block;}
+  .featured-body{padding:32px 36px 36px;}
+  .featured .tag{margin-bottom:16px;}
+  .featured h3{font-family:var(--serif-display);font-size:1.7rem;font-weight:400;line-height:1.22;margin:0 0 14px;text-wrap:balance;}
+  .featured p{color:var(--ink-dim);margin:0 0 18px;max-width:52ch;}
+  .meta{font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);letter-spacing:.04em;}
+  .readlink{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-family:var(--mono);font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--brass);}
+  .readlink svg{width:14px;height:14px;}
+
+  /* fixed-size category chip: same footprint regardless of label length, sized to fit "Professional" */
+  .tag{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:128px;height:24px;flex:none;
+    font-family:var(--mono);font-size:.64rem;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--brass);border:1px solid var(--brass-dim);border-radius:1px;
+  }
+
+  .list{display:flex;flex-direction:column;}
+  .list article{padding:22px 0;border-bottom:1px solid var(--rule);}
+  .list article:first-child{padding-top:0;}
+  .list h3{font-family:var(--serif-display);font-size:1.15rem;font-weight:400;margin:10px 0 8px;line-height:1.3;text-wrap:balance;}
+  .list p{color:var(--ink-dim);font-size:.92rem;margin:0;}
+
+  /* the continuing list is a grid sibling of .featured, so it shares its exact left/right edges */
+  .entry-head{display:flex;align-items:center;justify-content:space-between;gap:14px;}
+  .entry-right{position:relative;min-height:24px;display:flex;align-items:center;}
+  .entry-tags-inline{display:flex;gap:8px;transition:opacity .15s ease;}
+  .entry-tags-inline a{
+    font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ink-dim);border:1px solid var(--rule);padding:4px 9px;border-radius:1px;
+    transition:color .15s,border-color .15s,background-color .15s;
+  }
+  .entry-tags-inline a:hover,.entry-tags-inline a:focus-visible{color:var(--brass);border-color:var(--brass-dim);background:var(--bg-raised);}
+  .date-hover{
+    position:absolute;top:0;right:0;display:flex;align-items:center;height:100%;
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.03em;color:var(--ink-faint);
+    opacity:0;transition:opacity .15s ease;white-space:nowrap;
+  }
+  .date-hover .dispatch-no{color:var(--brass-dim);}
+  .list article:hover .entry-tags-inline,
+  .list article:focus-within .entry-tags-inline{opacity:0;}
+  .list article:hover .date-hover,
+  .list article:focus-within .date-hover{opacity:1;}
+  @media (prefers-reduced-motion:reduce){ .date-hover,.entry-tags-inline{transition:none;} }
+
+  /* ---------- Aside column: tag cloud + search, stacked to match the featured article's height ---------- */
+  .aside-stack{display:flex;flex-direction:column;gap:24px;}
+  .tag-aside{flex:1;display:flex;flex-direction:column;border:1px solid var(--rule);background:var(--bg-raised);border-radius:2px;padding:28px 26px;}
+  .tag-aside .section-head{margin:0 0 20px;padding-left:0;font-size:1.15rem;}
+  .cloud{display:flex;flex-wrap:wrap;gap:10px;align-content:flex-start;}
+  .cloud a{
+    font-family:var(--mono);font-size:.66rem;letter-spacing:.07em;text-transform:uppercase;
+    color:var(--ink-dim);border:1px solid var(--rule);padding:6px 11px;border-radius:1px;
+    transition:color .15s,border-color .15s,background-color .15s;
+  }
+  .cloud a:hover,.cloud a:focus-visible{color:var(--brass);border-color:var(--brass-dim);background:var(--bg-raised-2);}
+  .cloud a.freq-2{font-size:.88rem;color:var(--brass-dim);border-color:var(--brass-dim);}
+  @media (max-width:900px){ .aside-stack{margin-top:8px;} }
+
+  .search-aside{flex:none;border:1px solid var(--rule);background:var(--bg-raised);border-radius:2px;padding:26px 26px;}
+  .search-label{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--brass-dim);margin:0 0 12px;}
+  .search-line{display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--rule);padding-bottom:8px;transition:border-color .15s;}
+  .search-line:focus-within{border-color:var(--brass-dim);}
+  .search-line svg{width:16px;height:16px;color:var(--brass-dim);flex:none;}
+  .search-line input{flex:1;min-width:0;background:none;border:none;color:var(--ink);font-family:var(--serif-body);font-size:.92rem;padding:0;}
+  .search-line input::placeholder{color:var(--ink-faint);font-style:italic;}
+  .search-line input:focus{outline:none;}
+
+  /* ---------- Categories strip ---------- */
+  .cats{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-top:56px;background:var(--bg-raised-2);}
+  .cats-inner{display:flex;gap:0;overflow-x:auto;}
+  .cats a{
+    flex:1 0 auto;min-width:120px;padding:22px 14px;text-align:center;
+    border-right:1px solid var(--rule);font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);
+    transition:color .15s,background .15s;
+  }
+  .cats a:last-child{border-right:none;}
+  .cats a:hover,.cats a:focus-visible{color:var(--brass);background:var(--bg-raised);}
+
+  footer{color:var(--ink-faint);font-size:.85rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  footer.wrap{padding:38px 24px 42px;}
+  footer .foot-credit,footer .fnav{font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;}
+  footer .foot-credit{display:flex;align-items:center;gap:16px;font-size:1.1rem;color:var(--ink-dim);}
+  footer .stamp{width:42px;height:42px;flex:none;color:var(--brass-dim);opacity:.6;transform:rotate(-8deg);}
+  footer .fnav{display:flex;gap:18px;font-size:.72rem;}
+  footer .fnav a:hover{color:var(--brass);}
+
+  /* ---------- Hover actions (space reserved, no layout shift) ---------- */
+  .entry-actions{
+    height:20px;margin-top:10px;display:flex;justify-content:space-between;align-items:center;gap:18px;overflow:hidden;
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;
+    opacity:0;pointer-events:none;transition:opacity .15s ease;
+  }
+  .list article:hover .entry-actions,
+  .list article:focus-within .entry-actions{opacity:1;pointer-events:auto;}
+  .entry-actions a{color:var(--brass);border-bottom:1px solid transparent;}
+  .entry-actions a:hover,.entry-actions a:focus-visible{border-color:var(--brass-dim);}
+  @media (prefers-reduced-motion:reduce){.entry-actions{transition:none;}}
+
+  @media (prefers-reduced-motion:reduce){
+    .navlinks{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="bar">
+    <a class="brand" href="#">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.5"/>
+        <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/>
+        <path d="M12 6.5l2.4 5.5-2.4 5.5-2.4-5.5z" fill="currentColor" stroke="none"/>
+      </svg>
+      Dispatches from the Far Reaches
+    </a>
+    <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false" onclick="var n=document.getElementById('navlinks');var open=n.classList.toggle('open');this.setAttribute('aria-expanded',open);">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navlinks" id="navlinks">
+      <a href="#">Professional</a>
+      <a href="#">Philosophy</a>
+      <a href="#">Projects</a>
+      <a href="#">Exposures</a>
+      <a href="#">Family</a>
+      <a href="#">Fiction</a>
+      <a href="#">Misc</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="kicker">Dispatches, sent irregularly</p>
+      <h1 class="title">Reports from work, thought, and the <em>far reaches</em> in between.</h1>
+      <p class="sub">Filed under whichever heading fits best, the way a field log is kept: not tidy, but findable.</p>
+    </div>
+    <div class="hero-mark">
+      <svg viewBox="0 0 200 200" fill="none" stroke="#c19a4b" stroke-width="1" role="img" aria-label="Illustration of a worn map fragment with a plotted route and a compass rose">
+        <g transform="rotate(-4 100 100)">
+          <path d="M28 34 L166 22 L178 158 L36 172 Z" opacity=".5"/>
+          <path d="M40 150 Q80 120 95 90 Q115 60 150 45" stroke-dasharray="3 6" opacity=".7"/>
+          <circle cx="40" cy="150" r="3" fill="#c19a4b" stroke="none"/>
+          <circle cx="95" cy="90" r="3" fill="#c19a4b" stroke="none"/>
+          <path d="M150 45 l-6 -10 l12 0 Z" fill="#c19a4b" opacity=".9" stroke="none"/>
+        </g>
+        <g transform="translate(138 132)">
+          <circle cx="0" cy="0" r="16" opacity=".5"/>
+          <path d="M0 -18v5M0 13v5M-18 0h5M13 0h5" opacity=".5"/>
+          <path d="M0 -9l4 9-4 9-4-9z" fill="#c19a4b" opacity=".8" stroke="none"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="posts" style="margin-top:8px;">
+    <div class="featured">
+      <div class="featured-media">
+        <svg viewBox="0 0 480 220" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a lantern-lit camp beneath a mountain range at night">
+          <rect width="480" height="220" fill="#0f1109"/>
+          <circle cx="58" cy="28" r="1.3" fill="#c19a4b" opacity=".5"/>
+          <circle cx="138" cy="16" r="1" fill="#c19a4b" opacity=".4"/>
+          <circle cx="402" cy="24" r="1.4" fill="#c19a4b" opacity=".5"/>
+          <circle cx="200" cy="12" r="1" fill="#c19a4b" opacity=".4"/>
+          <circle cx="330" cy="148" r="72" fill="#c19a4b" opacity=".05"/>
+          <circle cx="330" cy="148" r="40" fill="#c19a4b" opacity=".09"/>
+          <circle cx="330" cy="148" r="17" fill="#c19a4b" opacity=".2"/>
+          <path d="M0 192 L58 118 L108 164 L168 88 L228 168 L278 128 L338 192 L398 138 L480 188 L480 220 L0 220 Z" fill="#1c2416" stroke="#33392a" stroke-width="1"/>
+          <line x1="0" y1="192" x2="480" y2="192" stroke="#33392a" stroke-width="1.5"/>
+          <path d="M302 192 L330 150 L358 192 Z" fill="#20291d" stroke="#8a6d34" stroke-width="1.2"/>
+          <circle cx="330" cy="148" r="6" fill="#c19a4b"/>
+        </svg>
+      </div>
+      <div class="featured-body">
+        <span class="tag">Professional</span>
+        <h3>Notes on Migrating the Departmental Archive to Markdown</h3>
+        <p class="meta">14 September 2025 · 6 min</p>
+        <p>A record of the six weeks spent moving departmental files out of a filing cabinet and into something a colleague might actually search.</p>
+        <a class="readlink" href="#">Read the entry <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+    </div>
+
+    <div class="aside-stack">
+      <aside class="tag-aside">
+        <h2 class="section-head">Browse by tag</h2>
+        <div class="cloud">
+          <a href="#" class="freq-2">archives</a>
+          <a href="#">markdown</a>
+          <a href="#">process</a>
+          <a href="#">dreams</a>
+          <a href="#" class="freq-2">epistemology</a>
+          <a href="#">diy</a>
+          <a href="#">instruments</a>
+          <a href="#">weather</a>
+          <a href="#">astronomy</a>
+          <a href="#">photography</a>
+          <a href="#">family</a>
+          <a href="#" class="freq-2">ai</a>
+          <a href="#">fiction</a>
+          <a href="#">epistolary</a>
+          <a href="#">biology</a>
+          <a href="#">ephemera</a>
+        </div>
+      </aside>
+
+      <aside class="search-aside">
+        <p class="search-label">Search these writings via our compuscanner</p>
+        <label class="search-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 4a8 8 0 018 8M12 20a8 8 0 01-8-8" stroke-dasharray="2 4"/>
+          </svg>
+          <input type="text" placeholder="Type a word, name, or year..." aria-label="Search these writings">
+        </label>
+      </aside>
+    </div>
+
+    <div class="list continues">
+      <article>
+        <div class="entry-head"><span class="tag">Philosophy</span><div class="entry-right"><div class="entry-tags-inline"><a href="#">dreams</a><a href="#">epistemology</a></div><span class="date-hover"><span class="dispatch-no">No. 214</span> · 30 August 2025</span></div></div>
+        <h3>On the Taxonomy of Dreams</h3>
+        <p>Dreams resist classification the way weather resists a calendar. An attempt anyway, borrowed from an old commonplace book.</p>
+        <div class="entry-actions"><a href="#">View the account</a><a href="#">Open the Philosophy file</a></div>
+      </article>
+      <article>
+        <div class="entry-head"><span class="tag">Projects</span><div class="entry-right"><div class="entry-tags-inline"><a href="#">diy</a><a href="#">instruments</a></div><span class="date-hover"><span class="dispatch-no">No. 213</span> · 2 August 2025</span></div></div>
+        <h3>Building a Weather Station from Salvaged Instruments</h3>
+        <p>Two barometers, a broken sextant, and a lot of solder. What survived the build, and what it now tells me about the sky.</p>
+        <div class="entry-actions"><a href="#">View the account</a><a href="#">Open the Projects file</a></div>
+      </article>
+      <article>
+        <div class="entry-head"><span class="tag">Exposures</span><div class="entry-right"><div class="entry-tags-inline"><a href="#">astronomy</a><a href="#">photography</a></div><span class="date-hover"><span class="dispatch-no">No. 212</span> · 21 July 2025</span></div></div>
+        <h3>Plate VII: The Backyard Observatory at Dusk</h3>
+        <p>A slow exposure of the yard telescope, taken the night the power went out three streets over.</p>
+        <div class="entry-actions"><a href="#">View the account</a><a href="#">Open the Exposures file</a></div>
+      </article>
+      <article>
+        <div class="entry-head"><span class="tag">Family</span><div class="entry-right"><div class="entry-tags-inline"><a href="#">archives</a><a href="#">family</a></div><span class="date-hover"><span class="dispatch-no">No. 211</span> · 10 July 2025</span></div></div>
+        <h3>Transcribing My Grandfather's Expedition Journal</h3>
+        <p>Forty pages of cramped handwriting from a trip he never fully explained. I am transcribing it, one illegible margin note at a time.</p>
+        <div class="entry-actions"><a href="#">View the account</a><a href="#">Open the Family file</a></div>
+      </article>
+      <article>
+        <div class="entry-head"><span class="tag">Fiction</span><div class="entry-right"><div class="entry-tags-inline"><a href="#">fiction</a><a href="#">ai</a></div><span class="date-hover"><span class="dispatch-no">No. 210</span> · 8 July 2025</span></div></div>
+        <h3>The Correspondent Who Wasn't</h3>
+        <p>A short story about a research assistant who answers every letter promptly, correctly, and without ever once being seen.</p>
+        <div class="entry-actions"><a href="#">View the account</a><a href="#">Open the Fiction file</a></div>
+      </article>
+      <article>
+        <div class="entry-head"><span class="tag">Misc</span><div class="entry-right"><div class="entry-tags-inline"><a href="#">ephemera</a></div><span class="date-hover"><span class="dispatch-no">No. 209</span> · 5 July 2025</span></div></div>
+        <h3>A Partial Inventory of Objects Found in My Coat Pockets</h3>
+        <p>Coins, a bus ticket, a key to a door I no longer own. An inventory, mostly for my own benefit.</p>
+        <div class="entry-actions"><a href="#">View the account</a><a href="#">Open the Misc file</a></div>
+      </article>
+      <article style="border-bottom:none;">
+        <div class="entry-head"><span class="tag">Philosophy</span><div class="entry-right"><div class="entry-tags-inline"><a href="#">biology</a><a href="#">ai</a></div><span class="date-hover"><span class="dispatch-no">No. 208</span> · 19 June 2025</span></div></div>
+        <h3>What the Fungi Know That We Do Not</h3>
+        <p>Mycelium networks predate most of what we call intelligence. Some notes on what that should make us reconsider.</p>
+        <div class="entry-actions"><a href="#">View the account</a><a href="#">Open the Philosophy file</a></div>
+      </article>
+    </div>
+  </div>
+</main>
+
+<section class="cats">
+  <div class="wrap cats-inner">
+    <a href="#">Professional</a>
+    <a href="#">Philosophy</a>
+    <a href="#">Projects</a>
+    <a href="#">Exposures</a>
+    <a href="#">Family</a>
+    <a href="#">Fiction</a>
+    <a href="#">Misc</a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span class="foot-credit">
+    <svg class="stamp" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+      <circle cx="20" cy="20" r="17"/>
+      <circle cx="20" cy="20" r="12.5"/>
+      <path d="M20 9v4M20 27v4M9 20h4M27 20h4"/>
+      <path d="M20 14l3 6-3 6-3-6z" fill="currentColor" stroke="none"/>
+    </svg>
+    Expeditions supported by Miskatonic University (Arkham, MA)
+  </span>
+  <span class="fnav"><a href="#">RSS</a><a href="style-1-archive-about.html">About</a><a href="style-1-archive-contact.html">File a Dispatch</a></span>
+</footer>
+
+</body>
+</html>

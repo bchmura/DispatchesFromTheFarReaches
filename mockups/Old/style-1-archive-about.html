@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>About — Dispatches from the Far Reaches</title>
+<style>
+  :root{
+    --bg:#14150f; --bg-raised:#1b2318; --bg-raised-2:#20291d;
+    --ink:#e7e1cf; --ink-dim:#a89f89; --ink-faint:#6f6a57;
+    --brass:#c19a4b; --brass-dim:#8a6d34; --rule:#2e3324; --indent:36px;
+    --serif-display: 'Iowan Old Style','Palatino Linotype','Book Antiqua',Palatino,serif;
+    --serif-body: Georgia,'Iowan Old Style',serif;
+    --mono: ui-monospace,'Cascadia Mono','Segoe UI Mono',Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif-body);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  a{color:inherit;text-decoration:none;}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px;}
+
+  body::after{
+    content:"";position:fixed;inset:0;z-index:6;pointer-events:none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse 70% 70% at 50% 38%, transparent 40%, rgba(0,0,0,.6) 100%);
+    background-size:140px 140px, 100% 100%;
+    background-repeat:repeat, no-repeat;
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px;}
+
+  header.site{border-bottom:1px solid var(--rule);position:sticky;top:0;background:var(--bg);z-index:20;}
+  nav.bar{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:1180px;margin:0 auto;padding:0 24px;}
+  .brand{font-family:var(--serif-display);font-size:1.1rem;letter-spacing:.02em;display:flex;align-items:center;gap:10px;white-space:nowrap;}
+  .brand svg{width:26px;height:26px;flex:none;}
+  .navlinks{display:flex;gap:18px;font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;}
+  .navlinks a{color:var(--ink-dim);border-bottom:1px solid transparent;padding-bottom:4px;transition:color .15s,border-color .15s;white-space:nowrap;}
+  .navlinks a:hover,.navlinks a:focus-visible,.navlinks a.current{color:var(--brass);border-color:var(--brass-dim);}
+  .navtoggle{display:none;background:none;border:1px solid var(--rule);color:var(--ink);width:40px;height:40px;border-radius:2px;flex:none;}
+  .navtoggle span{display:block;width:18px;height:1px;background:var(--ink);margin:4px auto;}
+  @media (max-width:960px){
+    .navlinks{position:absolute;top:72px;left:0;right:0;background:var(--bg-raised);flex-direction:column;gap:0;border-bottom:1px solid var(--rule);max-height:0;overflow:hidden;transition:max-height .25s ease;}
+    .navlinks.open{max-height:400px;}
+    .navlinks a{display:block;padding:14px 24px;border-bottom:1px solid var(--rule);}
+    .navtoggle{display:block;}
+  }
+  @media (prefers-reduced-motion:reduce){ .navlinks{transition:none;} }
+
+  main.wrap{padding:64px 24px 40px;}
+  .about{margin:0 0 0 var(--indent);display:grid;grid-template-columns:260px 1fr;gap:64px;align-items:start;}
+  @media (max-width:760px){ .about{grid-template-columns:1fr;margin-left:16px;gap:32px;} }
+
+  .portrait{border:1px solid var(--rule);background:var(--bg-raised);border-radius:2px;aspect-ratio:4/5;overflow:hidden;position:relative;}
+  .portrait svg{width:100%;height:100%;display:block;}
+  .portrait-note{position:absolute;bottom:0;left:0;right:0;background:rgba(15,17,9,.82);padding:8px 12px;font-family:var(--mono);font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-faint);text-align:center;}
+
+  .kicker{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--brass-dim);margin:0 0 14px;}
+  h1{font-family:var(--serif-display);font-weight:400;font-size:clamp(1.9rem,3.6vw,2.6rem);line-height:1.15;margin:0 0 20px;text-wrap:balance;}
+  .about p{color:var(--ink-dim);font-size:1.03rem;margin:0 0 20px;max-width:75ch;}
+
+  .profile-links{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);margin-top:32px;}
+  .profile-links a{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--rule);transition:color .15s;}
+  .profile-links a:hover,.profile-links a:focus-visible{color:var(--brass);}
+  .profile-links svg{width:20px;height:20px;flex:none;color:var(--brass-dim);transition:color .15s;}
+  .profile-links a:hover svg,.profile-links a:focus-visible svg{color:var(--brass);}
+  .profile-links .plabel{font-family:var(--mono);font-size:.82rem;letter-spacing:.04em;}
+  .profile-links .pnote{margin-left:auto;font-family:var(--mono);font-size:.68rem;color:var(--ink-faint);}
+
+  .cats{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin-top:56px;background:var(--bg-raised-2);}
+  .cats-inner{display:flex;gap:0;overflow-x:auto;}
+  .cats a{flex:1 0 auto;min-width:120px;padding:22px 14px;text-align:center;border-right:1px solid var(--rule);font-family:var(--mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-dim);transition:color .15s,background .15s;}
+  .cats a:last-child{border-right:none;}
+  .cats a:hover,.cats a:focus-visible{color:var(--brass);background:var(--bg-raised);}
+
+  footer{color:var(--ink-faint);font-size:.85rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  footer.wrap{padding:38px 24px 42px;}
+  footer .foot-credit,footer .fnav{font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;}
+  footer .foot-credit{display:flex;align-items:center;gap:16px;font-size:1.1rem;color:var(--ink-dim);}
+  footer .stamp{width:42px;height:42px;flex:none;color:var(--brass-dim);opacity:.6;transform:rotate(-8deg);}
+  footer .fnav{display:flex;gap:18px;font-size:.72rem;}
+  footer .fnav a.current,footer .fnav a:hover{color:var(--brass);}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <nav class="bar">
+    <a class="brand" href="style-1-archive.html">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.5"/>
+        <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/>
+        <path d="M12 6.5l2.4 5.5-2.4 5.5-2.4-5.5z" fill="currentColor" stroke="none"/>
+      </svg>
+      Dispatches from the Far Reaches
+    </a>
+    <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false" onclick="var n=document.getElementById('navlinks');var open=n.classList.toggle('open');this.setAttribute('aria-expanded',open);">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navlinks" id="navlinks">
+      <a href="#">Professional</a>
+      <a href="style-1-archive-category.html">Philosophy</a>
+      <a href="style-1-archive-projects.html">Projects</a>
+      <a href="style-1-archive-photos.html">Exposures</a>
+      <a href="#">Family</a>
+      <a href="#">Fiction</a>
+      <a href="#">Misc</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="about">
+    <div class="portrait">
+      <svg viewBox="0 0 300 375" fill="none" stroke="currentColor" stroke-width="1.2" role="img" aria-label="Placeholder illustrated silhouette portrait">
+        <rect width="300" height="375" fill="#0f1109"/>
+        <circle cx="150" cy="150" r="60" stroke="#8a6d34" opacity=".8"/>
+        <path d="M70 340 Q70 240 150 240 Q230 240 230 340" stroke="#8a6d34" opacity=".8"/>
+        <circle cx="150" cy="150" r="60" fill="#1b2318"/>
+        <path d="M70 340 Q70 240 150 240 Q230 240 230 340 Z" fill="#1b2318"/>
+      </svg>
+      <div class="portrait-note">Placeholder — real photo pending</div>
+    </div>
+
+    <div>
+      <p class="kicker">A Biographical Note</p>
+      <h1>The correspondent behind these dispatches</h1>
+      <p>I keep this record the way some people keep a field notebook: irregularly, occasionally out of order, and mostly for my own benefit. Professional work, ongoing projects, actual photographs, and a small amount of fiction all end up filed here under whichever heading fits best that week.</p>
+      <p>Most of what gets written down here starts as a note taken somewhere less comfortable than a desk. It is edited into something readable later, when the details have had time to settle into whether or not they were actually true.</p>
+
+      <div class="profile-links">
+        <a href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7.5v.01M12 17v-4.5a2 2 0 014 0V17M12 12.5v4.5"/></svg>
+          <span class="plabel">LinkedIn</span>
+          <span class="pnote">Professional history</span>
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M8 6L3 12l5 6M16 6l5 6-5 6"/></svg>
+          <span class="plabel">GitHub</span>
+          <span class="pnote">Code and other artifacts</span>
+        </a>
+        <a href="#">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg>
+          <span class="plabel">Correspondence</span>
+          <span class="pnote">A working address, checked irregularly</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<section class="cats">
+  <div class="wrap cats-inner">
+    <a href="#">Professional</a>
+    <a href="#">Philosophy</a>
+    <a href="#">Projects</a>
+    <a href="#">Exposures</a>
+    <a href="#">Family</a>
+    <a href="#">Fiction</a>
+    <a href="#">Misc</a>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span class="foot-credit">
+    <svg class="stamp" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+      <circle cx="20" cy="20" r="17"/>
+      <circle cx="20" cy="20" r="12.5"/>
+      <path d="M20 9v4M20 27v4M9 20h4M27 20h4"/>
+      <path d="M20 14l3 6-3 6-3-6z" fill="currentColor" stroke="none"/>
+    </svg>
+    Expeditions supported by Miskatonic University (Arkham, MA)
+  </span>
+  <span class="fnav"><a href="#">RSS</a><a href="#" class="current">About</a><a href="style-1-archive-contact.html">File a Dispatch</a></span>
+</footer>
+
+</body>
+</html>
