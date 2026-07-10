@@ -1,21 +1,42 @@
+const fs = require("node:fs");
 const path = require("node:path");
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({ "assets": "assets" });
 
-  const categoryDirs = {
+  const IMAGE_GLOB = "*.{jpg,jpeg,png,gif,webp}";
+
+  // Flat categories: one image folder per category, no per-post subfolders.
+  const flatCategoryDirs = {
     Professional: "professional",
     Philosophy: "philosophy",
-    Projects: "projects",
     Exposures: "exposures",
     Family: "family",
     Fiction: "fiction",
     Misc: "misc",
   };
-  for (const [dir, slug] of Object.entries(categoryDirs)) {
+  for (const [dir, slug] of Object.entries(flatCategoryDirs)) {
     eleventyConfig.addPassthroughCopy({
-      [`DFTFR-Obsidian/Website/${dir}/**/*.{jpg,jpeg,png,gif,webp}`]: slug,
+      [`DFTFR-Obsidian/Website/${dir}/${IMAGE_GLOB}`]: slug,
     });
+  }
+
+  // Projects: each project is its own subfolder (Projects/<slug>/), and a
+  // glob like "Projects/**/*.jpg" -> "projects" would flatten every
+  // project's images into one shared /projects/ folder by basename alone
+  // (verified: Eleventy's glob-to-string passthrough copy does not
+  // preserve intermediate path structure) — two projects both using e.g.
+  // "001.jpg" would silently collide, one overwriting the other. Register
+  // one passthrough mapping per actual project subfolder instead, so each
+  // project's images land at their own /projects/<slug>/ path.
+  const projectsDir = "DFTFR-Obsidian/Website/Projects";
+  if (fs.existsSync(projectsDir)) {
+    for (const entry of fs.readdirSync(projectsDir, { withFileTypes: true })) {
+      if (!entry.isDirectory()) continue;
+      eleventyConfig.addPassthroughCopy({
+        [`${projectsDir}/${entry.name}/${IMAGE_GLOB}`]: `projects/${entry.name}`,
+      });
+    }
   }
 
   eleventyConfig.addFilter("date", (value, format) => {
