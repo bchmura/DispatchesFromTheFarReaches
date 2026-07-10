@@ -1,0 +1,39 @@
+{% extends "base.njk" %}
+{% block content %}
+<main class="wrap">
+  <div class="contact-head">
+    <p class="kicker">Filed Correspondence</p>
+    <h1>{{ title }}</h1>
+    {{ content | safe }}
+  </div>
+  <div class="intake">
+    <form class="form-panel" id="dispatch-form">
+      <div class="field">
+        <label for="f-subject">Subject</label>
+        <input type="text" id="f-subject" name="subject" placeholder="What this concerns" required />
+      </div>
+      <div class="field">
+        <label for="f-reply">Address for reply</label>
+        <input type="email" id="f-reply" name="reply" placeholder="you@example.com" required />
+        <span class="hint">So the reply has somewhere to go; this is folded into the message body, not sent automatically.</span>
+      </div>
+      <div class="field">
+        <label for="f-message">Message</label>
+        <textarea id="f-message" name="message" placeholder="The account, as you have it" required></textarea>
+      </div>
+      <div class="submit-row">
+        <button type="submit" class="submit-btn">Post the Dispatch</button>
+        <span class="submit-note">Opens in your own mail program</span>
+      </div>
+    </form>
+    <div class="seal-panel">
+      <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">
+        <circle cx="50" cy="50" r="36"/>
+        <circle cx="50" cy="50" r="27"/>
+      </svg>
+      <p><strong>No. — filed live</strong>Each dispatch is numbered on receipt, the same as any other entry in the account.</p>
+    </div>
+  </div>
+</main>
+<script src="/assets/js/contact-form.js"></script>
+{% endblock %}
