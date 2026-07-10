@@ -1,23 +1,57 @@
 {% extends "base.njk" %}
 {% block content %}
+{% set cat = pagination.items[0] %}
 <section class="cat-header">
   <div class="wrap">
   <div class="inner">
     <div>
       <p class="kicker">Filed under</p>
-      <h1>{{ pagination.items[0].label }}</h1>
+      <h1>{{ cat.label }}</h1>
+      <p>{{ cat.description }}</p>
     </div>
+    <div class="cat-mark">{{ cat.glyphSvg | safe }}</div>
   </div>
   </div>
 </section>
 <main class="wrap">
+  {% if cat.key == "projects" %}
+  <div class="proj-grid">
+    {% for entry in collections.postsByCategory[cat.key] %}
+    <a class="proj-card" href="{{ entry.url }}">
+      <div class="proj-media" style="background:#0f1109;"></div>
+      <div class="proj-body">
+        <span class="status status-{{ entry.data.status | lower }}">{{ entry.data.status }}</span>
+        <h3>{{ entry.data.title }}</h3>
+        <p>{{ entry.data.description }}</p>
+        <span class="proj-link">View the project</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% elif cat.key == "exposures" %}
+  <div class="proj-grid">
+    {% for entry in collections.postsByCategory[cat.key] %}
+    <a class="proj-card" href="{{ entry.url }}">
+      <div class="proj-media" style="background:#0f1109;"></div>
+      <div class="proj-body">
+        <span class="plate-meta"><span class="n">{{ entry.data.exposures.length }} exposures</span> · {{ entry.date | date("MMMM yyyy") }}</span>
+        <h3>{{ entry.data.title }}</h3>
+        <p>{{ entry.data.description }}</p>
+        <span class="proj-link">Open the exposure series</span>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+  {% else %}
   <div class="article-index">
     <div class="list">
-      {% for entry in collections.postsByCategory[pagination.items[0].key] %}
+      {% for entry in collections.postsByCategory[cat.key] %}
       <article>
         <div class="entry-head">
           <div class="entry-tags">{% for t in entry.data.tags %}<a href="#">{{ t }}</a>{% endfor %}</div>
+          {% if entry.data.dispatchNo %}
           <span class="date-hover"><span class="dispatch-no">No. {{ entry.data.dispatchNo }}</span> · {{ entry.date | date("d MMMM yyyy") }}</span>
+          {% endif %}
         </div>
         <h3>{{ entry.data.title }}</h3>
         <p>{{ entry.data.description }}</p>
@@ -26,5 +60,6 @@
       {% endfor %}
     </div>
   </div>
+  {% endif %}
 </main>
 {% endblock %}

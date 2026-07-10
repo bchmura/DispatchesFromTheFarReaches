@@ -84,7 +84,9 @@ title: null
           <span class="tag">{{ categoryLabels[entry.data.category] }}</span>
           <div class="entry-right">
             <div class="entry-tags-inline">{% for t in entry.data.tags %}<a href="#">{{ t }}</a>{% endfor %}</div>
+            {% if entry.data.dispatchNo %}
             <span class="date-hover"><span class="dispatch-no">No. {{ entry.data.dispatchNo }}</span> · {{ entry.date | date("d MMMM yyyy") }}</span>
+            {% endif %}
           </div>
         </div>
         <h3>{{ entry.data.title }}</h3>

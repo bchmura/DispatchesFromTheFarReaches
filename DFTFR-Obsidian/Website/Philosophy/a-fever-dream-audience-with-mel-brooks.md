@@ -26,8 +26,8 @@ Over humanities existence there has been a lot of trying to explain them.  Giant
  Dreams mix all that up and let the brain process it in addition to the repeatedness of life to keep up flexible. This lets the mind not become locked in on a single version of events and remain flexible.  This is terrible.  I would recommend the following for a good explanation:    
 
 
-[How dreams help restore the brain’s flexibility](https://www.medicalnewstoday.com/articles/does-the-weirdness-of-dreams-help-keep-the-brain-flexible)<br/>
+[How dreams help restore the brain’s flexibility](https://www.medicalnewstoday.com/articles/does-the-weirdness-of-dreams-help-keep-the-brain-flexible)
 
 
-[The overfitted brain: Dreams evolved to assist generalization](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8134940/)<br/>
+[The overfitted brain: Dreams evolved to assist generalization](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8134940/)
 
