@@ -1,0 +1,20 @@
+<header class="site">
+  <nav class="bar">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+        <circle cx="12" cy="12" r="9.5"/>
+        <path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3"/>
+        <path d="M12 6.5l2.4 5.5-2.4 5.5-2.4-5.5z" fill="currentColor" stroke="none"/>
+      </svg>
+      {{ site.title }}
+    </a>
+    <button class="navtoggle" aria-label="Toggle navigation" aria-expanded="false" onclick="var n=document.getElementById('navlinks');var open=n.classList.toggle('open');this.setAttribute('aria-expanded',open);">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navlinks" id="navlinks">
+      {% for cat in categories %}
+      <a href="/{{ cat.slug }}/"{% if category == cat.key %} class="current"{% endif %}>{{ cat.label }}</a>
+      {% endfor %}
+    </div>
+  </nav>
+</header>

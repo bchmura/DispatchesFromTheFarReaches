@@ -1,0 +1,9 @@
+[
+  { "key": "professional", "label": "Professional", "slug": "professional" },
+  { "key": "philosophy", "label": "Philosophy", "slug": "philosophy" },
+  { "key": "projects", "label": "Projects", "slug": "projects" },
+  { "key": "exposures", "label": "Exposures", "slug": "exposures" },
+  { "key": "family", "label": "Family", "slug": "family" },
+  { "key": "fiction", "label": "Fiction", "slug": "fiction" },
+  { "key": "misc", "label": "Misc", "slug": "misc" }
+]
