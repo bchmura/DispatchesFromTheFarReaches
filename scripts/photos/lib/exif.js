@@ -22,10 +22,14 @@ function normalizeExifTags(raw) {
 }
 
 async function readCaptureMeta(filePath) {
-  const raw = await exifr.parse(filePath, {
-    pick: ["Make", "Model", "LensModel", "ExposureTime", "FNumber", "ISO", "DateTimeOriginal", "CreateDate"],
-  });
-  return normalizeExifTags(raw);
+  try {
+    const raw = await exifr.parse(filePath, {
+      pick: ["Make", "Model", "LensModel", "ExposureTime", "FNumber", "ISO", "DateTimeOriginal", "CreateDate"],
+    });
+    return normalizeExifTags(raw);
+  } catch (error) {
+    return {};
+  }
 }
 
 module.exports = { normalizeExifTags, readCaptureMeta };

@@ -1,6 +1,9 @@
 const test = require("node:test");
 const assert = require("node:assert/strict");
-const { normalizeExifTags } = require("../lib/exif");
+const fs = require("node:fs");
+const path = require("node:path");
+const os = require("node:os");
+const { normalizeExifTags, readCaptureMeta } = require("../lib/exif");
 
 test("normalizeExifTags returns {} for missing EXIF", () => {
   assert.deepEqual(normalizeExifTags(undefined), {});
@@ -28,4 +31,15 @@ test("normalizeExifTags prefers DateTimeOriginal over CreateDate", () => {
     CreateDate: new Date("2025-06-11T00:00:00Z"),
   });
   assert.equal(meta.captured, "2025-06-10T05:40:00.000Z");
+});
+
+test("readCaptureMeta returns {} when exifr.parse fails on invalid file", async () => {
+  const tempFile = path.join(os.tmpdir(), `exif-test-${Date.now()}.txt`);
+  fs.writeFileSync(tempFile, "This is not an image file");
+  try {
+    const meta = await readCaptureMeta(tempFile);
+    assert.deepEqual(meta, {});
+  } finally {
+    fs.unlinkSync(tempFile);
+  }
 });
