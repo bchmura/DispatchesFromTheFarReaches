@@ -24,7 +24,8 @@ My plan is to:
 * Install a microcontroller and blue tooth connection.
 * Replace the potentiometer used for volume.
 * Replace the archaic tuning mechanism
-* 
+
+Instead of pulling 
 
 
 
