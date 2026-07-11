@@ -18,6 +18,11 @@ test("sepia treatment shifts toward warm brown tones", async () => {
   assert.ok(data[0] > data[2], "red channel should exceed blue channel after sepia tint");
 });
 
+test("duotone-brass treatment shifts toward a brass/tan tone", async () => {
+  const { data } = await applyTreatment(swatch(150, 150, 150), "duotone-brass").raw().toBuffer({ resolveWithObject: true });
+  assert.ok(data[0] > data[2], "red channel should exceed blue channel after duotone-brass tint");
+});
+
 test("applyTreatment rejects an unknown treatment name", () => {
   assert.throws(() => applyTreatment(swatch(0, 0, 0), "vintage-polaroid"), /Unknown photo treatment/);
 });

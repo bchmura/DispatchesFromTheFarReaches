@@ -11,10 +11,10 @@ function applyTreatment(image, treatmentName) {
       return image
         .modulate({ saturation: 0 })
         .modulate({ brightness: 0.95 })
-        .tint({ r: 180, g: 140, b: 80 });
+        .tint({ r: 112, g: 66, b: 20 });
     case "duotone-brass":
       return image
-        .greyscale()
+        .modulate({ saturation: 0 })
         .tint({ r: 168, g: 132, b: 74 })
         .modulate({ brightness: 0.9 });
     case "darkened":
