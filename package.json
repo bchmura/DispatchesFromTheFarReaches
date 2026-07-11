@@ -9,7 +9,7 @@
   "scripts": {
     "build": "eleventy && pagefind --site _site",
     "serve": "eleventy --serve",
-    "test": "node --test scripts/photos/test/",
+    "test": "node --test scripts/photos/test/*.test.js",
     "start": "npx @11ty/eleventy --serve",
     "photos:thumbs": "node scripts/photos/thumbs.js",
     "photos:upload": "node scripts/photos/upload.js",
