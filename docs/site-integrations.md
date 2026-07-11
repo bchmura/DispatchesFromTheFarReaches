@@ -51,6 +51,33 @@ credential actually lives.
 - The `<link rel="icon">` / `<link rel="apple-touch-icon">` / `<link rel="manifest">` /
   `theme-color` tags live in `_includes/partials/head.njk`.
 
+## Photo pipeline (S3 + CloudFront originals, treated thumbnails in Git)
+
+- Full-resolution originals live in `photos-source/` at the repo root (gitignored, never
+  committed), mirroring the site's category/slug layout: `photos-source/<category>/*.jpg` and
+  `photos-source/projects/<slug>/*.jpg`.
+- `npm run photos:thumbs` (local, no AWS needed) reads EXIF into `_data/photoMeta.json` and
+  writes a treated thumbnail (default `sepia`; override per post via a `photoTreatment`
+  frontmatter field) into the matching `DFTFR-Obsidian/Website/<Category>/` folder — the exact
+  path the existing passthrough-copy rules in `eleventy.config.js` already serve, so no build
+  config changes are needed as photos are added.
+- `npm run photos:upload` scrubs sensitive EXIF fields (GPS, camera/lens serial numbers) from the
+  files in `photos-source/` in place, sets `Copyright`/`Artist`/`OwnerName` to "Dispatches from
+  the Far Reaches", and syncs them to
+  `s3://$PHOTOS_S3_BUCKET/dispatchesfromthefarreaches/<category>/<filename>`. Requires the
+  `PHOTOS_S3_BUCKET` environment variable and a working local AWS CLI profile — **AWS credentials
+  are never stored in this repo**, same pattern as the DreamHost deploy key below.
+- `npm run photos:publish` chains both scripts plus a git commit + push, for the "ready to ship"
+  moment. If `npm run photos:thumbs` makes no changes (nothing new/changed in `photos-source/`),
+  the subsequent `git commit` step inside `npm run photos:publish` will exit non-zero ("nothing to
+  commit"), which aborts the rest of the publish chain — `photos:upload` and `git push` never run
+  in that case.
+- The enlarged/full-size photo a reader sees on click is served from CloudFront at
+  `_data/site.json`'s `photosCdnBase` + `/<category>/<filename>` — true color, untreated. Only
+  the small thumbnail gets the sepia/B&W/etc. treatment.
+- CI never touches `photos-source/` or AWS: the GitHub Actions build only ever sees what's
+  already committed (the treated thumbnails + `_data/photoMeta.json`).
+
 ## Deployment — GitHub Actions → DreamHost
 
 `.github/workflows/deploy.yml` runs on every push to `main` (and manually via
