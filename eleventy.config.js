@@ -5,6 +5,27 @@ module.exports = async function (eleventyConfig) {
   const rssPlugin = (await import("@11ty/eleventy-plugin-rss")).default;
   eleventyConfig.addWatchTarget("./DFTFR-Obsidian/Website/**");
 
+  const { scanVaultForImageRefs } = require("./scripts/photos/lib/content-scan");
+  const { findMissingThumbnails } = require("./scripts/photos/lib/validate-refs");
+  const { photoMetaKey, SITE_CONTENT_ROOT } = require("./scripts/photos/lib/categories");
+
+  {
+    const photoMetaPath = "_data/photoMeta.json";
+    const photoMeta = fs.existsSync(photoMetaPath)
+      ? JSON.parse(fs.readFileSync(photoMetaPath, "utf8"))
+      : {};
+    const refs = scanVaultForImageRefs(SITE_CONTENT_ROOT);
+    const missing = findMissingThumbnails(refs, (key) => Boolean(photoMeta[key]));
+    if (missing.length) {
+      const list = missing
+        .map((ref) => `  - ${photoMetaKey(ref)} (referenced from ${ref.sourceFile})`)
+        .join("\n");
+      throw new Error(
+        `Photo pipeline: ${missing.length} referenced photo(s) have no generated thumbnail yet. Run "npm run photos:thumbs" first:\n${list}`
+      );
+    }
+  }
+
   eleventyConfig.addPlugin(rssPlugin);
 
   eleventyConfig.addPassthroughCopy({ "assets": "assets" });
