@@ -64,13 +64,18 @@ module.exports = async function (eleventyConfig) {
   }
 
   const { rewriteInlinePhotos } = require("./scripts/photos/lib/inline-photo-transform");
+  const { categoryRefFromInputPath } = require("./scripts/photos/lib/categories");
   const siteData = JSON.parse(fs.readFileSync("_data/site.json", "utf8"));
 
   eleventyConfig.addTransform("photo-links", function (content, outputPath) {
     if (!outputPath || !outputPath.endsWith(".html")) return content;
-    const category = this.category;
+    // Transforms only expose { inputPath, outputPath, url, page, baseHref }
+    // on `this` — there is no `this.category`. Derive category (and project
+    // slug, for Projects) from the page's inputPath instead, the same way
+    // _data/eleventyComputed.js derives project slugs.
+    const { category, projectSlug } = categoryRefFromInputPath(this.page.inputPath);
     if (!category) return content;
-    return rewriteInlinePhotos(content, { category, cdnBase: siteData.photosCdnBase });
+    return rewriteInlinePhotos(content, { category, projectSlug, cdnBase: siteData.photosCdnBase });
   });
 
   eleventyConfig.addFilter("date", (value, format) => {

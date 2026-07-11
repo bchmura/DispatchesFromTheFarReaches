@@ -1,10 +1,14 @@
-const IMG_TAG_PATTERN = /<img src="([^"/:]+\.(?:jpe?g|png|gif|webp))"([^>]*)>/gi;
+const { isPipelineManagedFilename } = require("./categories");
 
-function rewriteInlinePhotos(html, { category, cdnBase }) {
+const IMG_TAG_PATTERN = /<img src="([^"]+)"([^>]*)>/gi;
+
+function rewriteInlinePhotos(html, { category, projectSlug, cdnBase }) {
   if (!category || !cdnBase) return html;
   return html.replace(IMG_TAG_PATTERN, (fullMatch, filename, restAttrs) => {
-    const thumbSrc = `/${category}/${filename}`;
-    const fullUrl = `${cdnBase}/${category}/${filename}`;
+    if (!isPipelineManagedFilename(filename)) return fullMatch;
+    const categoryPath = projectSlug ? `${category}/${projectSlug}` : category;
+    const thumbSrc = `/${categoryPath}/${filename}`;
+    const fullUrl = `${cdnBase}/${categoryPath}/${filename}`;
     return `<a href="${fullUrl}" class="photo-link" target="_blank" rel="noopener"><img src="${thumbSrc}" class="treated-photo"${restAttrs}></a>`;
   });
 }

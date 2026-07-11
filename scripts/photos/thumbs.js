@@ -28,6 +28,15 @@ function needsRegeneration(sourcePath, destPath) {
   return fs.statSync(sourcePath).mtimeMs > fs.statSync(destPath).mtimeMs;
 }
 
+// A photoTreatment frontmatter change doesn't touch the source file's mtime,
+// so needsRegeneration alone would miss it — this returns true whenever the
+// newly-computed treatment differs from what's already recorded in
+// photoMeta for this photo, so re-running photos:thumbs after editing
+// photoTreatment always regenerates the thumbnail.
+function hasTreatmentChanged(existingEntry, newTreatment) {
+  return existingEntry?.treatment !== undefined && existingEntry.treatment !== newTreatment;
+}
+
 async function run() {
   const refs = scanVaultForImageRefs();
   const refsByKey = new Map(refs.map((ref) => [photoMetaKey(ref), ref]));
@@ -51,7 +60,7 @@ async function run() {
       console.warn(`No post references ${key} yet — processing with the default "${DEFAULT_TREATMENT}" treatment.`);
     }
 
-    if (!needsRegeneration(sourcePath, destPath)) continue;
+    if (!needsRegeneration(sourcePath, destPath) && !hasTreatmentChanged(photoMeta[key], treatment)) continue;
 
     fs.mkdirSync(siteDir, { recursive: true });
     await applyTreatment(sharp(sourcePath), treatment)
@@ -68,7 +77,7 @@ async function run() {
   console.log(`photos:thumbs — processed ${processed} photo(s), ${sourceImages.length} total in photos-source/.`);
 }
 
-module.exports = { run, needsRegeneration };
+module.exports = { run, needsRegeneration, hasTreatmentChanged };
 
 if (require.main === module) {
   run().catch((err) => {

@@ -50,6 +50,27 @@ test("extractImageRefs skips absolute-path image references and only picks up ba
   assert.deepEqual(refs.map((r) => r.filename), ["porch.jpg"]);
 });
 
+test("extractImageRefs skips a non-image extension and a nested path", () => {
+  const refs = extractImageRefs({
+    frontmatter: { category: "family" },
+    body: "![a](porch.jpg) ![b](diagram.svg) ![c](sub/photo.jpg)",
+    filePath: "DFTFR-Obsidian/Website/Family/porch-day.md",
+  });
+  assert.deepEqual(refs.map((r) => r.filename), ["porch.jpg"]);
+});
+
+test("extractImageRefs throws a clear error naming the file when photoTreatment is invalid", () => {
+  assert.throws(
+    () =>
+      extractImageRefs({
+        frontmatter: { category: "family", photoTreatment: "sepai" },
+        body: "![a](porch.jpg)",
+        filePath: "DFTFR-Obsidian/Website/Family/porch-day.md",
+      }),
+    /sepai.*DFTFR-Obsidian\/Website\/Family\/porch-day\.md/s
+  );
+});
+
 test("extractImageRefs attaches the project slug for project journal entries", () => {
   const refs = extractImageRefs({
     frontmatter: { category: "projects" },

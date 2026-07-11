@@ -26,3 +26,24 @@ test("returns the input unchanged when no category is provided", () => {
   const html = '<img src="porch.jpg">';
   assert.equal(rewriteInlinePhotos(html, { cdnBase: opts.cdnBase }), html);
 });
+
+test("leaves a non-image extension untouched even though it has no leading slash", () => {
+  const html = '<img src="diagram.svg" alt="diagram">';
+  assert.equal(rewriteInlinePhotos(html, opts), html);
+});
+
+test("leaves a nested path untouched", () => {
+  const html = '<img src="sub/photo.jpg">';
+  assert.equal(rewriteInlinePhotos(html, opts), html);
+});
+
+test("builds a project-nested URL when projectSlug is provided", () => {
+  const out = rewriteInlinePhotos(
+    '<img src="barometer.jpg" alt="Barometer">',
+    { category: "projects", projectSlug: "weather-station", cdnBase: opts.cdnBase }
+  );
+  assert.equal(
+    out,
+    '<a href="https://cdn.example.com/dispatchesfromthefarreaches/projects/weather-station/barometer.jpg" class="photo-link" target="_blank" rel="noopener"><img src="/projects/weather-station/barometer.jpg" class="treated-photo" alt="Barometer"></a>'
+  );
+});

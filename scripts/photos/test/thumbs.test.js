@@ -3,7 +3,7 @@ const assert = require("node:assert/strict");
 const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
-const { needsRegeneration } = require("../thumbs");
+const { needsRegeneration, hasTreatmentChanged } = require("../thumbs");
 
 test("needsRegeneration is true when the destination doesn't exist yet", () => {
   const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "photos-test-"));
@@ -21,4 +21,16 @@ test("needsRegeneration is false when the destination is newer than the source",
   const future = new Date(Date.now() + 5000);
   fs.utimesSync(dest, future, future);
   assert.equal(needsRegeneration(source, dest), false);
+});
+
+test("hasTreatmentChanged is false when there is no existing photoMeta entry", () => {
+  assert.equal(hasTreatmentChanged(undefined, "bw"), false);
+});
+
+test("hasTreatmentChanged is false when the treatment is unchanged", () => {
+  assert.equal(hasTreatmentChanged({ treatment: "sepia" }, "sepia"), false);
+});
+
+test("hasTreatmentChanged is true when a photoTreatment override changes the recorded treatment", () => {
+  assert.equal(hasTreatmentChanged({ treatment: "sepia" }, "bw"), true);
 });

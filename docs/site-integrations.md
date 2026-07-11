@@ -75,6 +75,10 @@ credential actually lives.
 - The enlarged/full-size photo a reader sees on click is served from CloudFront at
   `_data/site.json`'s `photosCdnBase` + `/<category>/<filename>` — true color, untreated. Only
   the small thumbnail gets the sepia/B&W/etc. treatment.
+  `photosCdnBase` is currently still the literal placeholder
+  `https://REPLACE_WITH_CLOUDFRONT_DOMAIN.cloudfront.net/dispatchesfromthefarreaches` — it must be
+  replaced with the real CloudFront distribution domain before enlarged-photo links will work in
+  production.
 - CI never touches `photos-source/` or AWS: the GitHub Actions build only ever sees what's
   already committed (the treated thumbnails + `_data/photoMeta.json`).
 
