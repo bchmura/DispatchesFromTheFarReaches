@@ -47,6 +47,7 @@
     <div class="list">
       {% for entry in collections.postsByCategory[cat.key] %}
       <article>
+        <a class="stretched-link" href="{{ entry.url }}" aria-hidden="true" tabindex="-1"></a>
         <div class="entry-head">
           <div class="entry-tags">{% for t in entry.data.tags %}<a href="#">{{ t }}</a>{% endfor %}</div>
           {% if entry.data.dispatchNo %}

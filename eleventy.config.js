@@ -1,7 +1,12 @@
 const fs = require("node:fs");
 const path = require("node:path");
 
-module.exports = function (eleventyConfig) {
+module.exports = async function (eleventyConfig) {
+  const rssPlugin = (await import("@11ty/eleventy-plugin-rss")).default;
+  eleventyConfig.addWatchTarget("./DFTFR-Obsidian/Website/**");
+
+  eleventyConfig.addPlugin(rssPlugin);
+
   eleventyConfig.addPassthroughCopy({ "assets": "assets" });
 
   const IMAGE_GLOB = "*.{jpg,jpeg,png,gif,webp}";

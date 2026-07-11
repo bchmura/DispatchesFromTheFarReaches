@@ -35,6 +35,7 @@ title: null
 <main class="wrap">
   <div class="posts" style="margin-top:8px;">
     <div class="featured">
+      <a class="stretched-link" href="{{ featured.url }}" aria-hidden="true" tabindex="-1"></a>
       <div class="featured-media">
         <svg viewBox="0 0 480 220" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a lantern-lit camp beneath a mountain range at night">
           <rect width="480" height="220" fill="#0f1109"/>
@@ -80,6 +81,7 @@ title: null
     <div class="list continues">
       {% for entry in rest %}
       <article>
+        <a class="stretched-link" href="{{ entry.url }}" aria-hidden="true" tabindex="-1"></a>
         <div class="entry-head">
           <span class="tag">{{ categoryLabels[entry.data.category] }}</span>
           <div class="entry-right">

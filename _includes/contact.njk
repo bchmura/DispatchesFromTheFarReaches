@@ -8,14 +8,16 @@
   </div>
   <div class="intake">
     <form class="form-panel" id="dispatch-form">
+      <input type="hidden" name="access_key" value="77df5410-5c32-4cea-acdd-5d9b1ca656d3" />
+      <input type="checkbox" name="botcheck" class="botcheck-field" style="display:none;" tabindex="-1" autocomplete="off" />
       <div class="field">
         <label for="f-subject">Subject</label>
         <input type="text" id="f-subject" name="subject" placeholder="What this concerns" required />
       </div>
       <div class="field">
         <label for="f-reply">Address for reply</label>
-        <input type="email" id="f-reply" name="reply" placeholder="you@example.com" required />
-        <span class="hint">So the reply has somewhere to go; this is folded into the message body, not sent automatically.</span>
+        <input type="email" id="f-reply" name="email" placeholder="you@example.com" required />
+        <span class="hint">So the reply has somewhere to go.</span>
       </div>
       <div class="field">
         <label for="f-message">Message</label>
@@ -23,7 +25,7 @@
       </div>
       <div class="submit-row">
         <button type="submit" class="submit-btn">Post the Dispatch</button>
-        <span class="submit-note">Opens in your own mail program</span>
+        <span class="submit-note" id="dispatch-form-note">Sent directly from this page</span>
       </div>
     </form>
     <div class="seal-panel">

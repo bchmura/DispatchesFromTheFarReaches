@@ -1,0 +1,47 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DREAMHOST_SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          cat >> ~/.ssh/known_hosts <<'EOF'
+          pdx1-shared-a1-24.dreamhost.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILCTnXuT2L1cx4CDsKSRPxUB70g3fSdIQVIYpwTEmi85
+          EOF
+
+      - name: Deploy to DreamHost
+        run: |
+          rsync -avz --delete \
+            --exclude ".well-known" \
+            --exclude ".htaccess" \
+            -e "ssh -i ~/.ssh/id_ed25519" \
+            _site/ \
+            curatebot_9sxtzf@pdx1-shared-a1-24.dreamhost.com:/home/curatebot_9sxtzf/dispatchesfromthefarreaches.com/

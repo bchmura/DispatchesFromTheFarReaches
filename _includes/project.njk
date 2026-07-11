@@ -6,13 +6,15 @@
 <section class="proj-header">
   <div class="wrap">
   <div class="inner">
-    <div>
-      <p class="accession">Miskatonic University · Special Collections · {{ accession }}</p>
-      <span class="status status-{{ status | lower }}">{{ status }}</span>
-      <h1>{{ title }}</h1>
-      <p>{{ description }}</p>
+    <p class="accession">Miskatonic University · Special Collections · {{ accession }}</p>
+    <span class="status status-{{ status | lower }}">{{ status }}</span>
+    <h1>{{ title }}</h1>
+    <div class="proj-header-body">
+      <div class="proj-header-text">
+        {{ content | safe }}
+      </div>
+      <div class="proj-media" style="background:#0f1109;"></div>
     </div>
-    <div class="proj-media" style="background:#0f1109;"></div>
   </div>
   </div>
 </section>
@@ -22,6 +24,7 @@
       <h2 class="section-head">Journal</h2>
       {% for entry in collections.journalEntriesByProject[page.fileSlug] %}
       <article>
+        <a class="stretched-link" href="{{ entry.url }}" aria-hidden="true" tabindex="-1"></a>
         <div class="entry-head">
           <h3>{{ entry.data.title }}</h3>
           <span class="date-hover"><span class="dispatch-no">No. {{ entry.data.no }}</span> · {{ entry.date | date("d MMMM yyyy") }}</span>
