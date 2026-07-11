@@ -172,6 +172,7 @@ footer .fnav a:hover,footer .fnav a.current{color:var(--brass);}
 .art-body h2{font-family:var(--serif-display);font-weight:400;font-size:1.6rem;color:var(--ink);margin:48px 0 18px;text-wrap:balance;}
 
 .accession{font-family:var(--mono);font-size:.62rem;letter-spacing:.15em;text-transform:uppercase;color:var(--brass-dim);margin:0 0 14px;}
+.accession-project{margin-bottom:4px;}
 .art-body p.lede::first-letter{float:left;font-family:var(--serif-display);font-weight:400;font-size:4.4rem;line-height:.82;padding:8px 14px 0 2px;color:var(--brass);}
 .stamp-mark{position:absolute;top:-4px;right:0;width:120px;height:120px;color:var(--brass-dim);opacity:.17;transform:rotate(-11deg);pointer-events:none;}
 .stamp-mark text{font-family:var(--mono);font-size:8.1px;letter-spacing:1px;}

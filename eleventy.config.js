@@ -8,6 +8,9 @@ module.exports = async function (eleventyConfig) {
   eleventyConfig.addPlugin(rssPlugin);
 
   eleventyConfig.addPassthroughCopy({ "assets": "assets" });
+  for (const file of fs.readdirSync("assets/favicon")) {
+    eleventyConfig.addPassthroughCopy({ [`assets/favicon/${file}`]: file });
+  }
 
   const IMAGE_GLOB = "*.{jpg,jpeg,png,gif,webp}";
 

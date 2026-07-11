@@ -2,18 +2,27 @@
 
 ## Blog redesign — design system
 
-This repo contains HTML/CSS mockups for a personal blog redesign ("Dispatches from the Far Reaches"), eventually to be built in Eleventy sourcing markdown from an Obsidian vault. Mockups live in `mockups/`.
+This repo is the live Eleventy build for a personal blog ("Dispatches from the Far Reaches"), sourcing markdown content from an Obsidian vault (`DFTFR-Obsidian/Website/`). It started as HTML/CSS mockups in `mockups/`; those are now superseded by the real templates in `_includes/` and are kept only for historical reference — do not treat them as current.
 
-**Before doing any design or styling work on this site**, read `docs/designSpecifications.md` first. It captures the established visual direction, color palette, typography, layout/width conventions (including a recurring CSS specificity footgun to avoid), component patterns, and terminology decisions from the mockup phase. Don't re-derive or drift from these without discussing it — treat it as the source of truth for "what this site looks and sounds like."
+**Before doing any design or styling work on this site**, read `docs/designSpecifications-updated.md` first. It captures the established visual direction, color palette, typography, layout/width conventions (including a recurring CSS specificity footgun to avoid), component patterns, and terminology decisions. Don't re-derive or drift from these without discussing it — treat it as the source of truth for "what this site looks and sounds like."
+
+**Before touching RSS, the contact form, favicons, or the deploy workflow**, read `docs/site-integrations.md` — it documents exactly how each is wired up and, importantly, where each credential lives (never in this repo).
 
 ## Repo structure
 
-- `mockups/` — self-contained HTML/CSS mockup files, one per page template. Each file has its own inline `<style>` (no shared stylesheet yet) — when editing a token or component convention, check whether the same fix is needed across all 8 files (this has bitten us before, e.g. the footer-padding and hero-width specificity bugs each needed fixing in multiple files).
-- `docs/designSpecifications.md` — the design system reference described above. Keep it in sync when a design decision changes (renamed terminology, new component pattern, palette tweak, etc.) rather than letting it go stale.
+- `_includes/` — the real Nunjucks templates (layouts + partials) that render the site. This is where design/behavior changes actually happen now.
+- `assets/css/site.css` — the single shared stylesheet (this replaced the old per-mockup inline `<style>` blocks; there's only one place to fix a token or component now).
+- `DFTFR-Obsidian/Website/` — the Obsidian vault; markdown content + frontmatter live here.
+- `eleventy.config.js` — collections, passthrough copy (including per-category and per-favicon-file rules), filters.
+- `.github/workflows/deploy.yml` — builds and deploys to DreamHost on every push to `main`; see `docs/site-integrations.md`.
+- `mockups/` — historical HTML/CSS mockup files from before the real build existed. Superseded; don't edit these expecting it to affect the live site.
+- `docs/designSpecifications-updated.md` — the design system reference described above. Keep it in sync when a design decision changes (renamed terminology, new component pattern, palette tweak, etc.) rather than letting it go stale.
+- `docs/site-integrations.md` — RSS feed, contact form (Web3Forms), favicons, and the GitHub Actions → DreamHost deploy pipeline. Keep in sync the same way.
 
 ## Working conventions for this project
 
-- **Previewing changes:** mockups are published via the Artifact tool, not just written to disk. After editing a file, republish it with `Artifact` using the *same* `file_path` so the same shareable link updates in place rather than minting a new URL. Keep the favicon emoji stable per file once chosen (🕯️ has been used for the Archive-style pages).
-- **No image generation tool is available in this environment**, and Artifacts block loading external images/fonts. All illustrations are hand-authored inline SVG in the site's palette; system font stacks only (no webfont CDNs). Don't reach for `picsum.photos` or similar placeholder-image services inside an Artifact — they won't load.
-- **Iterating on feedback:** this design has gone through many rounds of small, specific fixes (spacing, alignment, wording, terminology). When given a correction, make the targeted fix rather than a broader rewrite, and check the design spec doc to see if the fix reveals a convention worth recording there.
+- **Previewing changes to the real site:** run `npx @11ty/eleventy` (no dev server needed for a quick check) and read the generated HTML/CSS under `_site/` directly to confirm a change rendered as expected. `npm run serve` runs a live dev server if you need to click through it.
+- **Previewing a brand-new mockup** (a page type that doesn't have a real template yet): publish it via the Artifact tool instead, using the *same* `file_path` on every republish so the shareable link updates in place rather than minting a new URL. Keep the favicon emoji stable per file once chosen (🕯️ has been used for the Archive-style pages). Artifacts block external images/fonts — inline SVG and system fonts only there, same as the historical mockups.
+- **Iterating on feedback:** this design has gone through many rounds of small, specific fixes (spacing, alignment, wording, terminology). When given a correction, make the targeted fix rather than a broader rewrite, and check the design spec doc (or `site-integrations.md`) to see if the fix reveals a convention worth recording there.
 - **Ask before assuming** on anything subjective (wording, terminology, which element "the banner" or "the content" refers to) — several past rounds of back-and-forth were because a request was interpreted too literally or too broadly on the first pass.
+- **Never write passwords, private keys, or other credentials into any file in this repo** (including docs) — see `docs/site-integrations.md` for exactly where each deploy/integration credential actually lives instead.

@@ -6,7 +6,8 @@
 </div>
 <main class="wrap">
   <div class="art-body">
-    <p class="accession">Journal entry No. {{ no }} · {{ project.data.title }}</p>
+    <p class="accession accession-project">{{ project.data.title }}</p>
+    <p class="accession">Journal entry No. {{ no }}</p>
     <h1>{{ title }}</h1>
     {% if project.data.tags %}
     <div class="entry-tags">{% for t in project.data.tags %}<a href="#">{{ t }}</a>{% endfor %}</div>
