@@ -41,6 +41,15 @@ test("extractImageRefs scans inline markdown images in the body for non-exposure
   assert.deepEqual(refs.map((r) => r.filename), ["porch.jpg", "shed.png"]);
 });
 
+test("extractImageRefs skips absolute-path image references and only picks up bare filenames", () => {
+  const refs = extractImageRefs({
+    frontmatter: { category: "family" },
+    body: "![a](porch.jpg) and ![b](/family/legacy.jpg)",
+    filePath: "DFTFR-Obsidian/Website/Family/porch-day.md",
+  });
+  assert.deepEqual(refs.map((r) => r.filename), ["porch.jpg"]);
+});
+
 test("extractImageRefs attaches the project slug for project journal entries", () => {
   const refs = extractImageRefs({
     frontmatter: { category: "projects" },

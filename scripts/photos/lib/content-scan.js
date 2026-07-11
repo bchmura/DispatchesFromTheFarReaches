@@ -28,8 +28,13 @@ function extractImageRefs({ frontmatter, body, filePath }) {
   let match;
   IMAGE_MARKDOWN_PATTERN.lastIndex = 0;
   while ((match = IMAGE_MARKDOWN_PATTERN.exec(body))) {
+    const filename = match[1];
+    // Only bare, relative filenames are managed by this pipeline — skip
+    // absolute paths and external URLs, consistent with rewriteInlinePhotos'
+    // [^"/:]+ bare-filename convention in inline-photo-transform.js.
+    if (filename.startsWith("/") || filename.includes(":")) continue;
     refs.push({
-      filename: match[1],
+      filename,
       category,
       projectSlug,
       treatment,
