@@ -15,14 +15,9 @@ module.exports = async function (eleventyConfig) {
   const IMAGE_GLOB = "*.{jpg,jpeg,png,gif,webp}";
 
   // Flat categories: one image folder per category, no per-post subfolders.
-  const flatCategoryDirs = {
-    Professional: "professional",
-    Philosophy: "philosophy",
-    Exposures: "exposures",
-    Family: "family",
-    Fiction: "fiction",
-    Misc: "misc",
-  };
+  // Shared with the photo pipeline scripts (scripts/photos/) so both sides
+  // agree on the same category -> slug mapping.
+  const { FLAT_CATEGORY_DIRS: flatCategoryDirs } = require("./scripts/photos/lib/categories");
   for (const [dir, slug] of Object.entries(flatCategoryDirs)) {
     eleventyConfig.addPassthroughCopy({
       [`DFTFR-Obsidian/Website/${dir}/${IMAGE_GLOB}`]: slug,
