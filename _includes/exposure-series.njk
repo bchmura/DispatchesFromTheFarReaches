@@ -24,9 +24,14 @@
 <main class="wrap">
   <div class="plates">
     {% for ex in exposures %}
+    {% set meta = photoMeta[category + "/" + ex.image] if ex.image else null %}
     <div class="plate">
       <button class="plate-open" data-dialog-target="dlg-{{ loop.index }}" aria-label="View capture details for Exposure {{ ex.num }}: {{ ex.title }}">
+        {% if meta %}
+        <img class="plate-media" src="/{{ category }}/{{ ex.image }}" alt="{{ ex.title }}">
+        {% else %}
         <div class="plate-media" style="background:#0f1109;"></div>
+        {% endif %}
       </button>
       <div class="plate-text">
         <div>
@@ -41,15 +46,21 @@
       <button class="dialog-close" data-dialog-close aria-label="Close">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
+      {% if meta %}
+      <img class="dialog-media" src="{{ site.photosCdnBase }}/{{ category }}/{{ ex.image }}" alt="{{ ex.title }}">
+      {% else %}
       <div class="dialog-media" style="background:#0f1109;"></div>
+      {% endif %}
+      {% if meta %}
       <div class="dialog-specs">
-        <div><span>Camera</span><b>{{ ex.camera }}</b></div>
-        <div><span>Lens</span><b>{{ ex.lens }}</b></div>
-        <div><span>Exposure</span><b>{{ ex.exposureTime }}</b></div>
-        <div><span>Aperture</span><b>{{ ex.aperture }}</b></div>
-        <div><span>ISO</span><b>{{ ex.iso }}</b></div>
-        <div><span>Captured</span><b>{{ ex.captured }}</b></div>
+        <div><span>Camera</span><b>{{ meta.camera }}</b></div>
+        <div><span>Lens</span><b>{{ meta.lens }}</b></div>
+        <div><span>Exposure</span><b>{{ meta.exposureTime }}</b></div>
+        <div><span>Aperture</span><b>{{ meta.aperture }}</b></div>
+        <div><span>ISO</span><b>{{ meta.iso }}</b></div>
+        <div><span>Captured</span><b>{{ meta.captured }}</b></div>
       </div>
+      {% endif %}
     </dialog>
     {% endfor %}
   </div>
