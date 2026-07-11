@@ -42,6 +42,16 @@ module.exports = async function (eleventyConfig) {
     }
   }
 
+  const { rewriteInlinePhotos } = require("./scripts/photos/lib/inline-photo-transform");
+  const siteData = JSON.parse(fs.readFileSync("_data/site.json", "utf8"));
+
+  eleventyConfig.addTransform("photo-links", function (content, outputPath) {
+    if (!outputPath || !outputPath.endsWith(".html")) return content;
+    const category = this.category;
+    if (!category) return content;
+    return rewriteInlinePhotos(content, { category, cdnBase: siteData.photosCdnBase });
+  });
+
   eleventyConfig.addFilter("date", (value, format) => {
     const d = new Date(value);
     const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
