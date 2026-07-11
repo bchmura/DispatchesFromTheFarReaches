@@ -63,13 +63,17 @@ Add `/photos-source/` to `.gitignore`. Nothing in this folder is ever committed.
    `https://<cdn-domain>/dispatchesfromthefarreaches/<category>/<filename>` — same relative path
    as the thumbnail, just a different host and one extra top-level prefix (this CloudFront
    distribution serves other projects too, hence the prefix).
-   - Before uploading, strips privacy-sensitive metadata from a *copy* of each file (never
-     mutates your working file in `photos-source/`) using `exiftool`, which can remove specific
-     tags without re-encoding/re-compressing the image (no quality loss). Fields stripped: all
-     `GPS*` tags, `OwnerName`/`CameraOwnerName`, `SerialNumber`, `BodySerialNumber`,
-     `LensSerialNumber`. Camera model, lens model, aperture, exposure time, ISO, and capture
-     date/time are left embedded (redundant with `_data/photoMeta.json`, but harmless and kept
-     per preference).
+   - Before uploading, rewrites privacy-sensitive metadata in place on the file in
+     `photos-source/` using `exiftool`, which can remove/set specific tags without
+     re-encoding/re-compressing the image (no quality loss). No copy-before-editing step is
+     needed — the originals in `photos-source/` are exports from another location, with a safe
+     archival copy already kept elsewhere independently of this pipeline.
+     - **Stripped:** all `GPS*` tags, `SerialNumber`, `BodySerialNumber`, `LensSerialNumber`.
+     - **Overwritten (not stripped):** `Copyright` and `Artist`/`OwnerName`/`CameraOwnerName` are
+       set to the site name ("Dispatches from the Far Reaches") rather than left blank or as
+       whatever the exporting tool/camera filled in.
+     - Camera model, lens model, aperture, exposure time, ISO, and capture date/time are left
+       embedded (redundant with `_data/photoMeta.json`, but harmless and kept per preference).
    - AWS credentials come from the local AWS CLI profile / environment variables on the machine
      running this command — never written to any file in this repo, same credential-hygiene
      pattern already documented for the DreamHost deploy key in `docs/site-integrations.md`.
@@ -125,9 +129,9 @@ Add `/photos-source/` to `.gitignore`. Nothing in this folder is ever committed.
 - If a post references an `image`/markdown-image filename that has no corresponding thumbnail yet
   (i.e. `photos:thumbs` hasn't been run since the photo was added), the Eleventy build should fail
   loudly with a clear "missing thumbnail for X" error rather than silently shipping a 404.
-- `photos:upload`'s metadata strip operates on a temp copy — `photos-source/` originals are never
-  mutated, so re-running strip logic (e.g. after changing which fields get stripped) is always
-  safe and repeatable from the untouched originals.
+- `photos:upload`'s metadata rewrite runs directly on the file in `photos-source/` — safe because
+  those files are already exports with an independent archival original kept elsewhere, so no
+  extra copy-before-editing step is needed in this pipeline.
 
 ## Out of scope for this spec
 
