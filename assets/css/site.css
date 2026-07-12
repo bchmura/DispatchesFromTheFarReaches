@@ -182,6 +182,18 @@ footer .fnav a:hover,footer .fnav a.current{color:var(--brass);}
 .art-body pre{background:var(--bg-raised);border:1px solid var(--rule);border-radius:2px;padding:18px 20px;margin:0 0 26px;overflow-x:auto;font-family:var(--mono);font-size:1.02rem;line-height:1.6;color:var(--ink-dim);}
 .art-body pre code{background:none;border:none;padding:0;font-size:inherit;color:inherit;}
 .art-body code{font-family:var(--mono);font-size:.92em;background:var(--bg-raised);border:1px solid var(--rule);border-radius:2px;padding:1px 6px;color:var(--brass-dim);}
+/* In-prose hyperlinks: brass to read as a link at rest; the underline only
+   appears on hover/focus, drawn as a hand-inked squiggle (an SVG wave)
+   rather than a straight ruled line, to match the archive/ink-and-paper
+   voice instead of looking like a stray system-blue link. */
+.art-body a{
+  color:var(--brass);text-decoration:none;padding-bottom:2px;
+  background-repeat:repeat-x;background-position:0 100%;background-size:0 6px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='13' height='6' viewBox='0 0 13 6'%3E%3Cpath d='M0.5 3.2C2 1 3.4 0.8 4.6 2.4C5.8 4 7.3 4.4 8.4 2.6C9.5 0.9 11 0.7 12.5 2.8' fill='none' stroke='%23c19a4b' stroke-width='1.1' stroke-linecap='round'/%3E%3C/svg%3E");
+  transition:background-size .15s ease;
+}
+.art-body a:hover,.art-body a:focus-visible{background-size:13px 6px;}
+@media (prefers-reduced-motion:reduce){ .art-body a{transition:none;} }
 
 /* ---------- Callouts (Obsidian `> [!type]` blocks, rewritten by
    scripts/callouts.js at build time) ---------- */

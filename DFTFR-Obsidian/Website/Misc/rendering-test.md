@@ -175,9 +175,10 @@ You can also use inline footnotes. ^[This is an inline footnote.]
 [Internal ink to same section Text styles](Text%20styles.md)
 
 
+This is what an offsite link like [External links like Obsidian Help](https://help.obsidian.md) looks like in the middle of normal text.
+
+
 ## Mermaid charts
-
-
 
 ```mermaid
 flowchart TD
