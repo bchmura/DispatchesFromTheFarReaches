@@ -11,26 +11,30 @@ tags:
 isDraft: false
 exposures:
   - title: Astonishingly large housecat
-    image: DispatchesFromTheFarthestReaches-221006-12.jpg
+    image: DispatchesFromTheFarthestReaches-221006-11.jpg
     body: Checking the mount alignment before committing to anything longer than a thirty-second exposure.
     tags:
-      - astronomy
-      - alignment
-  - title: The Waxing Gibbous, Slightly Overexposed
-    body: Went two stops too bright chasing detail in the maria and lost the terminator entirely.
+      - pets
+  - title: Astonishingly large housecat - II
+    image: DispatchesFromTheFarthestReaches-210119-10.jpg
+    body: Checking the mount alignment before committing to anything longer than a thirty-second exposure.
     tags:
-      - astronomy
-      - lunar
-  - title: The Waxing Gibbous, Slightly Overexposed
-    body: Went two stops too bright chasing detail in the maria and lost the terminator entirely.
+      - pets
+  - title: Small varmit
+    image: DispatchesFromTheFarthestReaches-190522-09.jpg
+    body: Checking the mount alignment before committing to anything longer than a thirty-second exposure.
     tags:
-      - astronomy
-      - lunar
-  - title: The Waxing Gibbous, Slightly Overexposed
-    body: Went two stops too bright chasing detail in the maria and lost the terminator entirely.
+      - pets
+  - title: Aloof
+    image: DispatchesFromTheFarthestReaches-110107-05.jpg
+    body: Checking the mount alignment before committing to anything longer than a thirty-second exposure.
     tags:
-      - astronomy
-      - lunar
+      - pets
+
+
+
+
+
 ---
 At the height of last summer, when the evenings were seldom a relief, due to the medical leave of absence of the university's sole camera operator, I was asked to assist in documenting the sudden appearance, and outright refusal to leave, of a small but dedicated band of creatures.
 
