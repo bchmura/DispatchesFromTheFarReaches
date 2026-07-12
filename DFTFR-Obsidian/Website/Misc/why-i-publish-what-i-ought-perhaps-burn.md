@@ -15,14 +15,14 @@ If you split up that drive into a thousand parts, you would have me.  A fraction
 
 This site pulls together all of my interests, wrapped in one bigger single interest.  
 
-This site contents is framed in the time and locale Arkham Rhode Island and the fictional Miskatonic University as introduced by H.P. Lovecraft.  Everyone into sci-fi has a passing knowledge of "the Call of Cthulhu", but years ago a very dear friend of mine pushed a collection of Lovecraft's other works into my hands, since then I have been a rabid fan of both his and the idea of cosmic horror as a genre. 
+**This site contents is framed in the time and locale of Arkham Rhode Island and the fictional Miskatonic University** as introduced by H.P. Lovecraft.  Everyone into sci-fi has a passing knowledge of "the Call of Cthulhu", but years ago a very dear friend of mine pushed a collection of Lovecraft's other works into my hands, since then I have been a rabid fan of both his and the idea of cosmic horror as a genre. 
 
-I also have a love of writing, but lack the fortitude to continue a long story for long.  I love world building (thanks Dungeons & Dragons) and I love really short stories.  So combine that with the love of Lovecraft's style and you see the impetus to write titles and summaries to fit a short tale in a different world.
+**I also have a love of writing, but lack the fortitude to continue a long story for long**.  I love world building (thanks Dungeons & Dragons) and I love really short stories.  So combine that with the love of Lovecraft's style and you see the impetus to write titles and summaries to fit a short tale in a different world.
 
-This thematic wrapping allows me to bring disparate hobbies and directions together under one web site without seeming discombobulated.  I tried that before with my site "Temporal Focus", and again with "Mental Drool".  They both became boorish to me after some time.  Maybe that is the fate for all I do...  that's unsettling.   
+**This thematic wrapping allows me to bring disparate hobbies and directions together** under one web site without seeming discombobulated.  I tried that before with my site "Temporal Focus", and again with "Mental Drool".  They both became boorish to me after some time.  Maybe that is the fate for all I do...  that's unsettling.   
 
 But maybe that is the adventure... not to stay on one continuous path forever, but to drive off into the brush when it feels right.  The work here is **not** to get followers or pump a career or pad up a resume for interviewing, it's for me.  To scratch some creative itch.
 
-*Regardless, until I do drive off into the weeds, if you are reading this, I hope you derive some moment of joy from it.*
+***Regardless, until I do drive off into the weeds, if you are reading this, I hope you derive some moment of joy from it.***
 
 ![[DispatchesFromTheFarthestReaches-240620-13.jpg]]

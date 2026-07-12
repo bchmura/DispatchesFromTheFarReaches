@@ -17,8 +17,23 @@ module.exports = async function (eleventyConfig) {
   const markdownIt = require("markdown-it");
   const markdownItMark = require("markdown-it-mark");
   const { obsidianImageEmbeds } = require("./scripts/obsidian-embeds");
-  const md = markdownIt({ html: true }).use(markdownItMark).use(obsidianImageEmbeds);
+  const { mermaidFence } = require("./scripts/mermaid-fence");
+  const md = markdownIt({ html: true })
+    .use(markdownItMark)
+    .use(obsidianImageEmbeds)
+    .use(mermaidFence);
   eleventyConfig.setLibrary("md", md);
+
+  // Mermaid's own bundle (not a devDependency of the site build itself —
+  // just used as a source for the one file we ship to the browser) is
+  // self-hosted rather than pulled from a CDN, same rationale as the
+  // "self-host the fonts" note in the design spec: no third-party request
+  // at page load. Only the single-file UMD build is copied — the ESM build
+  // dynamically imports a couple dozen further chunk files by relative
+  // path, which would all need copying too for it to work standalone.
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/mermaid/dist/mermaid.min.js": "assets/js/vendor/mermaid.min.js",
+  });
 
   const { scanVaultForImageRefs } = require("./scripts/photos/lib/content-scan");
   const { findMissingThumbnails } = require("./scripts/photos/lib/validate-refs");
