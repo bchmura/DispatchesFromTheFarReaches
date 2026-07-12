@@ -16,7 +16,8 @@ module.exports = async function (eleventyConfig) {
   // escaping, etc.).
   const markdownIt = require("markdown-it");
   const markdownItMark = require("markdown-it-mark");
-  const md = markdownIt({ html: true }).use(markdownItMark);
+  const { obsidianImageEmbeds } = require("./scripts/obsidian-embeds");
+  const md = markdownIt({ html: true }).use(markdownItMark).use(obsidianImageEmbeds);
   eleventyConfig.setLibrary("md", md);
 
   const { scanVaultForImageRefs } = require("./scripts/photos/lib/content-scan");

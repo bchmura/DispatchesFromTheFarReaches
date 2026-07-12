@@ -11,7 +11,13 @@ const {
 const { TREATMENTS } = require("./treatment");
 
 const NESTED_CATEGORY_SLUGS = new Set(Object.values(NESTED_CATEGORY_DIRS));
-const IMAGE_MARKDOWN_PATTERN = /!\[[^\]]*\]\(([^)\s]+)\)/g;
+// Matches both standard Markdown image syntax (`![alt](target)`) and
+// Obsidian's own wikilink embed syntax (`![[target]]`, optionally
+// `![[target|alt]]`) — Obsidian inserts the latter automatically when you
+// drag/paste an image into a note, so both need to be recognized here for
+// the missing-thumbnail check to catch every real embed, not just
+// hand-typed Markdown ones.
+const IMAGE_MARKDOWN_PATTERN = /!\[[^\]]*\]\(([^)\s]+)\)|!\[\[([^\]|]+)(?:\|[^\]]*)?\]\]/g;
 
 function extractImageRefs({ frontmatter, body, filePath }) {
   if (!frontmatter.category) return [];
@@ -43,7 +49,7 @@ function extractImageRefs({ frontmatter, body, filePath }) {
   let match;
   IMAGE_MARKDOWN_PATTERN.lastIndex = 0;
   while ((match = IMAGE_MARKDOWN_PATTERN.exec(body))) {
-    const filename = match[1];
+    const filename = match[1] || match[2];
     // Only bare, relative filenames with a recognized image extension are
     // managed by this pipeline — skip absolute paths, external URLs, nested
     // paths, and non-image extensions. Shared with rewriteInlinePhotos' own

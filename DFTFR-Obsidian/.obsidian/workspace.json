@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Website/Misc/rendering-test.md",
+                "file": "Website/Misc/why-i-publish-what-i-ought-perhaps-burn.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "rendering-test"
+              "title": "why-i-publish-what-i-ought-perhaps-burn"
             }
           },
           {
@@ -210,8 +210,8 @@
   },
   "active": "f87c6091e56973fb",
   "lastOpenFiles": [
-    "Website/About/about.md",
     "Website/Misc/rendering-test.md",
+    "Website/About/about.md",
     "Site notes.md",
     "Website/Misc/moth.jpg",
     "Website/Misc/DispatchesFromTheFarthestReaches-100710-04.jpg",

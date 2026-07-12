@@ -25,6 +25,10 @@ Rosy maple moth](moth.jpg)
 
 ![Abe Vigoda](../Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-110107-05.jpg)
 
+### Obsidian wikilink embed (same directory)
+
+![[DispatchesFromTheFarthestReaches-240620-13.jpg]]
+
 
 ## Table styling
 
