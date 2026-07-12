@@ -98,43 +98,60 @@ credential actually lives.
   before enlarged-photo links will work in production.
 - CI never touches `photos-source/` or AWS: the GitHub Actions build only ever sees what's
   already committed (the treated thumbnails + `_data/photoMeta.json`).
-- Exposure Series entries have no manual `num`/ordering field. `_includes/exposure-series.njk`
-  sorts each gallery's `exposures` list by its photo's EXIF capture date (via the
-  `sortExposuresByCaptured` filter, `scripts/photos/lib/exposure-order.js`) and assigns "Exposure
-  I/II/III…" labels from the sorted position (via the `toRoman` filter) — entries with no `image`
-  yet, or whose photo hasn't been through `photos:thumbs` yet, sort to the end in their written
-  order rather than breaking the page.
-- **Enlarged-photo dialog** (`.plate-dialog` in `_includes/exposure-series.njk`, styled in
-  `assets/css/site.css`, behavior in `assets/js/dialog.js`): worth understanding in full before
-  reworking this section.
-  - The `<dialog>` intentionally has **no explicit `position` override** — it relies on the
-    browser's native `dialog:modal` centering (`position:fixed; inset:0; margin:auto`). An
-    earlier `position:relative` override here was the suspected cause of the page scrolling to
-    the top when the dialog closed; removing it, plus explicit focus-restoration in `dialog.js`
-    (see below), fixed that in practice.
-  - The photo (`img.dialog-media`) sizes to its own natural width/height — no fixed
-    `aspect-ratio` box, since source photos are "all sorts of dimensions" (confirmed originals up
-    to 1140×1152). It's only capped (`max-width:min(1160px,92vw); max-height:86vh`) so a huge
-    photo can't overflow the viewport. The dialog itself is capped similarly
-    (`max-width:min(1200px,95vw); max-height:94vh`) and sizes to fit its content otherwise. The
-    no-photo-yet placeholder (a plain `<div class="dialog-media">`, no real image to size from)
-    keeps a fixed 16:9 box.
-  - `.dialog-specs` (the camera/lens/exposure/aperture/ISO/captured row) is a **flex-wrap layout,
-    not a fixed-column grid** — each field is sized by its own content and simply wraps if it
-    doesn't fit. This replaced an earlier fixed 6-column grid that assumed all 6 fields are
-    always present in the same order; a photo missing just one field (e.g. a fixed-lens camera
-    with no Lens data) shifted every later field into the wrong-sized column, causing visible
-    misalignment/wrapping. Whatever redo happens here should keep this "don't assume all fields
-    present" property — individual fields are genuinely, legitimately absent depending on what a
-    given photo's camera actually recorded (confirmed in practice: a Fujifilm X100V has no Lens
-    field at all since it's a fixed-lens camera; some photos have zero EXIF whatsoever).
-  - Clicking the photo itself, or the backdrop, closes the dialog (in addition to the × button) —
-    handled in `dialog.js` by checking whether the click's `target` is the `<dialog>` element
-    itself (which is how a backdrop click is dispatched) or matches `.dialog-media`.
-  - Closing the dialog (via ×, Escape, backdrop, or photo click) explicitly restores focus to the
-    button that opened it, with `{preventScroll: true}` — tracked in a `WeakMap` keyed by dialog
-    element. This was necessary because the default focus-restoration could otherwise land on
-    `<body>`, and the browser scrolls to the top of the page when that happens.
+- Exposure Series entries have no manual `num` field — "Exposure I/II/III…" labels come from each
+  entry's **position in the frontmatter's own `exposures` list** (via the `toRoman` filter), the
+  same order the author wrote them in. An earlier version sorted by each photo's EXIF capture date
+  instead (`sortExposuresByCaptured`, `scripts/photos/lib/exposure-order.js`) — that function is
+  still there and still tested, just no longer called from either template, since the author
+  prefers to control display order directly in the markdown rather than have it re-derived from
+  capture date.
+- **The /exposures/ listing's card image** (`_includes/category.njk`'s `exposures` branch) comes
+  from `coverImageSrc`, computed per-gallery in `_data/eleventyComputed.js`. It defaults to the
+  first exposure in the gallery's written order; a gallery can override this with a `coverImage:
+  <filename>` frontmatter field (one of that gallery's own image filenames) to show a different
+  photo as its listing thumbnail instead. Falls back to the plain placeholder card (no `<img>`) if
+  the chosen filename has no generated thumbnail yet, same as everywhere else a photo can degrade
+  gracefully.
+- **Single-exposure pages are real per-photo URLs, not a modal** (redesigned from the original
+  `<dialog>` popup): `/exposures/<gallery-slug>/<n>/`, where `<n>` is the 1-based position in the
+  frontmatter's written order (matching the "Exposure I/II/III…" numbering above). Worth
+  understanding in full before touching this again.
+  - `eleventy.config.js`'s `exposureEntries` collection flattens every gallery's `exposures` array
+    (in written order) into one entry per photo — each carrying its own `url`, `prevUrl`/`nextUrl`
+    (`null` at either end of the series), the resolved `photoMeta` record, and the CloudFront
+    `imageSrc` (true color, not the treated thumbnail). It numbers entries the same way
+    `_includes/exposure-series.njk` numbers the grid, so the numbering always agrees between the
+    two pages.
+  - `exposure-pages.njk` (repo root, alongside `feed.njk`) is a single Eleventy **pagination**
+    generator — `pagination: { data: collections.exposureEntries, size: 1, alias: "item" }` with
+    `permalink: "{{ item.url }}"` — that produces one output page per array entry, laid out by
+    `_includes/exposure-detail.njk`. There's no per-exposure content file in the vault; the array
+    entry *is* the page's data. `_data/eleventyComputed.js`'s `title` function computes the
+    `<title>` from `data.item` for the same reason (this page type has no frontmatter title of its
+    own).
+  - `_includes/exposure-detail.njk` extends `base.njk` like every other page (real nav header +
+    footer), then renders a two-pane full-screen layout: `.exposure-stage` (the photo, capped to
+    the viewport) on the left with on-screen prev/next arrow buttons, `.exposure-sidebar` on the
+    right with an explicit "Return to the collection" link, the title/description/tags, and the
+    capture-data spec stack. `assets/js/exposure-nav.js` reads `data-prev`/`data-next`/`data-exit`
+    off the page's `.exposure-view` wrapper to wire up `←`/`→`/`Esc` keyboard navigation.
+  - **Navigation stops at the ends** (no wraparound) — `prevUrl`/`nextUrl` are `null` on the
+    first/last exposure, which renders the corresponding arrow as a disabled `<span>` instead of a
+    link. The "Return to the collection" link and `Esc` key work regardless of position, so there's
+    always a way out even at an end.
+  - **Every capture-data field is always shown, one per line** (`.spec-row`), even when absent —
+    an absent field reads `missing` in dim italic rather than being omitted. This replaced an
+    earlier flex-wrap "only show what's present" layout; showing all six consistently reads more
+    like a catalogue card and was simpler than reconciling wrap behavior across photos with
+    different field combinations. Fields are genuinely, legitimately absent depending on what a
+    given photo's camera recorded (confirmed in practice: a Fujifilm X100V has no Lens field at all
+    since it's a fixed-lens camera; some photos have zero EXIF whatsoever) — `missing` communicates
+    that plainly instead of leaving a blank-looking gap.
+  - The collection page (`_includes/exposure-series.njk`) is a 4-column grid of thumbnails styled
+    as 35mm slide mounts (`.slide` / `.frame`) — a cream cardboard mount with equal padding on all
+    sides around the sepia thumbnail, and the position printed small in the mount's own corner
+    (`.slide-code`, e.g. "No. 3") rather than as a caption. Each mount is a single `<a>` to its
+    `/exposures/<slug>/<n>/` page.
 - **Known cleanup items in `DFTFR-Obsidian/Website/Exposures/` as of this writing** (worth
   resolving before/during a redo, not touched automatically since they look like in-progress
   reorganization rather than something safe to guess about):

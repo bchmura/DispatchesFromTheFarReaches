@@ -116,22 +116,25 @@ A short intro paragraph for the whole gallery.
 - **`accession`** is the "EX-##" number shown on the page — look at the highest `EX-` number
   already used and pick the next one.
 - Each entry under `exposures:` is one photo. You do **not** number them — "Exposure I",
-  "Exposure II", etc. are assigned automatically for display, and the photos are shown **sorted
-  by each one's own capture date** (read from its embedded camera data), not by the order you
-  wrote them in.
+  "Exposure II", etc. are assigned automatically for display, **in the order you wrote them in**
+  (top to bottom in the `exposures:` list). Reorder the list to reorder the gallery.
 - **`image`** must match a photo's filename in this same gallery folder, and must have been run
-  through the photo pipeline (see **Photos** below) — that's what generates the thumbnail, pulls
-  in the camera/lens/aperture/etc. details automatically, *and* is what the auto-sort uses to
-  know each photo's date. An entry with no `image` yet (or one that hasn't been through the
-  pipeline yet) still renders — just with a placeholder instead of a photo, and it sorts to the
-  end of the gallery rather than breaking anything.
+  through the photo pipeline (see **Photos** below) — that's what generates the thumbnail and
+  pulls in the camera/lens/aperture/etc. details automatically. An entry with no `image` yet (or
+  one that hasn't been through the pipeline yet) still renders in its written position — just
+  with a placeholder instead of a photo, rather than breaking anything.
 - You do **not** hand-type camera/lens/aperture/ISO/date-taken anywhere — that all comes from
   the photo's own embedded camera data automatically once it's been through the pipeline.
-- Clicking a photo pops it up at (close to) its real size, pulling the full-color version from
-  CloudFront. It only shows whichever camera details that specific photo actually has embedded —
-  a photo with no lens data (e.g. a fixed-lens compact camera) or no camera data at all just
-  shows less, or nothing; that's not a bug, some photos genuinely don't have that data. Click the
-  photo itself, the darkened area around it, or the × to close it.
+- **`coverImage`** (optional) — set this to one of the gallery's own photo filenames to control
+  which photo represents this gallery on the main `/exposures/` listing page. Leave it out and the
+  listing uses the first photo in the `exposures:` list instead.
+- Clicking a photo takes you to its own full-screen page — the photo on the left (the full-color
+  version from CloudFront), a sidebar on the right with its description and whichever camera
+  details that specific photo actually has embedded (a photo with no lens data, e.g. a
+  fixed-lens compact camera, or no camera data at all, just shows "missing" for those fields —
+  that's not a bug, some photos genuinely don't have that data). Use the on-screen arrows (or
+  `←`/`→`) to move between photos in the gallery, and "Return to the collection" (or `Esc`) to go
+  back to the grid.
 
 ## Adding a Project
 
