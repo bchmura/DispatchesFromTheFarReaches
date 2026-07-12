@@ -152,6 +152,7 @@ credential actually lives.
     sides around the sepia thumbnail, and the position printed small in the mount's own corner
     (`.slide-code`, e.g. "No. 3") rather than as a caption. Each mount is a single `<a>` to its
     `/exposures/<slug>/<n>/` page.
+- **Referencing a photo that isn't this post's own** (e.g. embedding one gallery's photo from an unrelated Misc post) is supported without going through the treatment pipeline at all: write a plain relative path from the referencing post to wherever that image actually sits in the vault (e.g. `![Alt](../Exposures/some-gallery/DispatchesFromTheFarthestReaches-110107-05.jpg)`), and the `photo-links` transform in `eleventy.config.js` (via `siteUrlForVaultImage` in `scripts/photos/lib/categories.js`) resolves it against the *source file's* own vault location and rewrites it to the real site URL that image lands at — not the treated/thumbnailed version, the file as passthrough-copy already places it. Obsidian's own `![[filename.jpg]]` / `![[filename.jpg|alt]]` wikilink-embed syntax works the same way for either case (same-directory or cross-directory) — `scripts/obsidian-embeds.js` rewrites it to standard `![alt](target)` before anything else runs, so both syntaxes end up going through identical handling.
 - **Known cleanup items in `DFTFR-Obsidian/Website/Exposures/` as of this writing** (worth
   resolving before/during a redo, not touched automatically since they look like in-progress
   reorganization rather than something safe to guess about):
