@@ -1,1 +1,106 @@
-{}
+{
+  "exposures/DispatchesFromTheFarthestReaches-090419-01.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/DispatchesFromTheFarthestReaches-090419-02.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/DispatchesFromTheFarthestReaches-091001-03.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/DispatchesFromTheFarthestReaches-100710-04.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/DispatchesFromTheFarthestReaches-110107-05.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/DispatchesFromTheFarthestReaches-110118-06.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/DispatchesFromTheFarthestReaches-110118-07.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/DispatchesFromTheFarthestReaches-130120-08.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/DispatchesFromTheFarthestReaches-190101-09.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/DispatchesFromTheFarthestReaches-190522-10.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/DispatchesFromTheFarthestReaches-210119-11.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/DispatchesFromTheFarthestReaches-221006-12.jpg": {
+    "treatment": "sepia"
+  },
+  "misc/DispatchesFromTheFarthestReaches-100710-04.jpg": {
+    "treatment": "sepia"
+  },
+  "misc/DispatchesFromTheFarthestReaches-240620-13.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/mechanisms/DispatchesFromTheFarthestReaches-110118-06.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/mechanisms/DispatchesFromTheFarthestReaches-110118-07.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/misc/DispatchesFromTheFarthestReaches-100710-04.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-110107-05.jpg": {
+    "camera": "NIKON CORPORATION NIKON D90",
+    "lens": "90.0 mm f/2.8",
+    "exposureTime": "1/60s",
+    "aperture": "f/10",
+    "iso": "200",
+    "captured": "2011-01-08T00:14:12.000Z",
+    "treatment": "sepia"
+  },
+  "exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-130120-08.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-190522-10.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-210119-11.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-221006-12.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/preliminary-account-of-anomalous-decay/DispatchesFromTheFarthestReaches-090419-01.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/preliminary-account-of-anomalous-decay/DispatchesFromTheFarthestReaches-090419-02.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/preliminary-account-of-anomalous-decay/DispatchesFromTheFarthestReaches-091001-03.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/preliminary-account-of-anomalous-decay/DispatchesFromTheFarthestReaches-190101-09.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-190522-09.jpg": {
+    "camera": "NIKON CORPORATION NIKON D90",
+    "lens": "18.0-200.0 mm f/3.5-5.6",
+    "exposureTime": "1/200s",
+    "aperture": "f/10",
+    "iso": "400",
+    "captured": "2019-05-22T20:15:09.000Z",
+    "treatment": "sepia"
+  },
+  "exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-210119-10.jpg": {
+    "treatment": "sepia"
+  },
+  "exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-221006-11.jpg": {
+    "camera": "FUJIFILM X100V",
+    "exposureTime": "1/60s",
+    "aperture": "f/2",
+    "iso": "1600",
+    "captured": "2022-10-06T23:28:26.000Z",
+    "treatment": "sepia"
+  }
+}
