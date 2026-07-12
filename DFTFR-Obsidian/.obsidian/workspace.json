@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Website/Exposures/persistant-attendance-of-wild-animals/index.md",
+                "file": "Website/Misc/rendering-test.md",
                 "mode": "source",
-                "source": true
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "rendering-test"
             }
           },
           {
@@ -27,15 +27,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Site notes.md",
+                "file": "Website/Misc/rendering-test.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Site notes"
+              "title": "rendering-test"
+            }
+          },
+          {
+            "id": "0651a032772c1cc4",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -197,11 +208,23 @@
       "bases:Create new base": false
     }
   },
-  "active": "0de39eec8b7e6ce4",
+  "active": "f87c6091e56973fb",
   "lastOpenFiles": [
+    "Website/About/about.md",
+    "Website/Misc/rendering-test.md",
+    "Site notes.md",
+    "Website/Misc/moth.jpg",
+    "Website/Misc/DispatchesFromTheFarthestReaches-100710-04.jpg",
+    "Website/Misc/why-i-publish-what-i-ought-perhaps-burn.md",
+    "Website/Misc/DispatchesFromTheFarthestReaches-240620-13.jpg",
+    "Website/Misc/index.md",
+    "Website/Misc/the-cult-that-gathers-where-the-feed-never-sleeps.md",
+    "Templates/Template for posts.md",
+    "Website/Misc/abandoning-the-daily-rite-for-the-deeper-web.md",
+    "Templates",
     "Website/Exposures/preliminary-account-of-anomalous-decay/index.md",
-    "Website/Exposures/preliminary-account-of-anomalous-decay.md",
     "Website/Exposures/persistant-attendance-of-wild-animals/index.md",
+    "Website/Exposures/preliminary-account-of-anomalous-decay.md",
     "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-221006-11.jpg",
     "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-210119-10.jpg",
     "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-190522-09.jpg",
@@ -212,15 +235,11 @@
     "Website/Exposures/mechanisms",
     "Website/Exposures/index.md",
     "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-221006-12.jpg",
-    "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-210119-11.jpg",
-    "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-190522-10.jpg",
-    "Website/Exposures/DispatchesFromTheFarthestReaches-110118-07.jpg",
     "Website/Exposures/preliminary-account-of-anomalous-decay",
     "Website/Exposures/persistant-attendance-of-wild-animals",
     "Worldbuilding-Arkam/Places.md",
     "Worldbuilding-Arkam/Untitled",
     "Worldbuilding-Arkam/People.md",
-    "Site notes.md",
     "Worldbuilding-Arkam",
     "Website/Exposures/coastal-fog-early-mornings.md",
     "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/arrival-of-the-package.md",
@@ -231,19 +250,10 @@
     "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus",
     "Website/Projects/building-a-weather-station-from-salvaged-instruments/index.md",
     "Website/Contact/contact.md",
-    "Website/About/about.md",
     "Website/Professional/experiment_to_prevent_rigor_corpus_part_three.md",
     "Website/Projects/restoring-a-1930s-field-radio.md",
     "Website/Projects/building-a-weather-station-from-salvaged-instruments.md",
-    "Website/Fiction/the-signal-that-came-in-backwards.md",
-    "Website/Fiction/the-correspondent-who-wasnt.md",
     "Website/Professional/sedYqkXVM",
-    "Website/Professional/sed4tVPcp",
-    "Website/Professional/sedN7Tzyh",
-    "Website/Misc/the-crones-bargain-and-the-magic-we-forgot.md",
-    "Website/Misc/the-cult-that-gathers-where-the-feed-never-sleeps.md",
-    "Website/Misc/rumors-of-my-demise-somewhat-exaggerated.md",
-    "Website/Family/the-tide-pools-that-remember.md",
-    "Website/Misc/abandoning-the-daily-rite-for-the-deeper-web.md"
+    "Website/Professional/sed4tVPcp"
   ]
 }

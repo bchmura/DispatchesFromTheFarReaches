@@ -3,7 +3,7 @@
 * [x] Github action to build and deploy to dreamhost
 * [ ] Get NPM serve to watch the correct directories in the vault
 * [ ] Redirect other sites to this one... decide on holding page, or just plain redirect.
-* [ ] Get something set up to upload big things to cloudfront instead of github, teach the site to refer to them correctly
+* [x] Get something set up to upload big things to cloudfront instead of github, teach the site to refer to them correctly
 * [ ] Add project starts
 	* [ ] Radio 
 	* [ ] Windchimes
@@ -14,8 +14,10 @@
 	* [ ] Remove sample ones
 	* [ ] #1 - early morning walks
 	* [ ] #2 - See what else is handy in lightroom
-	* [ ] Decide on a treatment... smaller versions should be theme portrayed, when opened color
-	* [ ] Pull the stats from photo automatically - but that would eat up build time?  Maybe a script to run locally?  
+	* [ ] #3 - pets
+	* [ ] #4 - decay
+	* [x] Decide on a treatment... smaller versions should be theme portrayed, when opened color
+	* [x] Pull the stats from photo automatically - but that would eat up build time?  Maybe a script to run locally?  
 * [ ] Philosophy
 	* [ ] Article on LLM's are the karma we have created
 * [ ] Family

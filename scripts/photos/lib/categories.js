@@ -83,6 +83,31 @@ function resolveDestination(relativePath) {
   return { category, filename, siteDir: path.join(SITE_CONTENT_ROOT, siteDirName) };
 }
 
+// Maps an *absolute filesystem path* to an image already sitting somewhere
+// in the vault (e.g. resolved from a Markdown embed like
+// `![](../Exposures/some-gallery/photo.jpg)`) to the site-root URL it lands
+// at after the passthrough-copy rules in eleventy.config.js run — flat
+// categories copy straight to `/<slug>/<filename>`, nested categories
+// (Projects, Exposures) preserve their per-post subfolder as
+// `/<slug>/<subfolder>/<filename>`. Returns null if the path isn't under a
+// known category folder (e.g. outside SITE_CONTENT_ROOT entirely).
+function siteUrlForVaultImage(absPath) {
+  const rel = path.relative(SITE_CONTENT_ROOT, absPath);
+  if (rel.startsWith("..")) return null;
+  const parts = rel.split(path.sep);
+  const [dirName] = parts;
+  if (NESTED_CATEGORY_DIRS[dirName]) {
+    const [, projectSlug, filename] = parts;
+    if (!projectSlug || !filename) return null;
+    return `/${NESTED_CATEGORY_DIRS[dirName]}/${projectSlug}/${filename}`;
+  }
+  const slug = FLAT_CATEGORY_DIRS[dirName];
+  if (!slug) return null;
+  const [, filename] = parts;
+  if (!filename) return null;
+  return `/${slug}/${filename}`;
+}
+
 module.exports = {
   FLAT_CATEGORY_DIRS,
   NESTED_CATEGORY_DIRS,
@@ -95,4 +120,5 @@ module.exports = {
   isPipelineManagedFilename,
   photoMetaKey,
   resolveDestination,
+  siteUrlForVaultImage,
 };

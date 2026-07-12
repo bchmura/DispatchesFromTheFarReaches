@@ -9,6 +9,16 @@ module.exports = async function (eleventyConfig) {
   const rssPlugin = (await import("@11ty/eleventy-plugin-rss")).default;
   eleventyConfig.addWatchTarget("./DFTFR-Obsidian/Website/**");
 
+  // Obsidian's ==highlight== syntax has no equivalent in markdown-it's
+  // default rule set — register the markdown-it-mark plugin on Eleventy's
+  // own markdown-it instance (rather than a passthrough regex transform) so
+  // it composes correctly with other inline rules (bold/italic nesting,
+  // escaping, etc.).
+  const markdownIt = require("markdown-it");
+  const markdownItMark = require("markdown-it-mark");
+  const md = markdownIt({ html: true }).use(markdownItMark);
+  eleventyConfig.setLibrary("md", md);
+
   const { scanVaultForImageRefs } = require("./scripts/photos/lib/content-scan");
   const { findMissingThumbnails } = require("./scripts/photos/lib/validate-refs");
   const { photoMetaKey, SITE_CONTENT_ROOT } = require("./scripts/photos/lib/categories");
@@ -86,8 +96,18 @@ module.exports = async function (eleventyConfig) {
     // slug, for Projects) from the page's inputPath instead, the same way
     // _data/eleventyComputed.js derives project slugs.
     const { category, projectSlug } = categoryRefFromInputPath(this.page.inputPath);
-    if (!category) return content;
-    return rewriteInlinePhotos(content, { category, projectSlug, cdnBase: siteData.photosCdnBase });
+    return rewriteInlinePhotos(content, {
+      category,
+      projectSlug,
+      cdnBase: siteData.photosCdnBase,
+      pageInputPath: this.page.inputPath,
+    });
+  });
+
+  const { rewriteCallouts } = require("./scripts/callouts");
+  eleventyConfig.addTransform("callouts", function (content, outputPath) {
+    if (!outputPath || !outputPath.endsWith(".html")) return content;
+    return rewriteCallouts(content);
   });
 
   const { toRoman } = require("./scripts/photos/lib/exposure-order");
