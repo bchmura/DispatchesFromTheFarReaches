@@ -127,6 +127,11 @@ A short intro paragraph for the whole gallery.
   end of the gallery rather than breaking anything.
 - You do **not** hand-type camera/lens/aperture/ISO/date-taken anywhere — that all comes from
   the photo's own embedded camera data automatically once it's been through the pipeline.
+- Clicking a photo pops it up at (close to) its real size, pulling the full-color version from
+  CloudFront. It only shows whichever camera details that specific photo actually has embedded —
+  a photo with no lens data (e.g. a fixed-lens compact camera) or no camera data at all just
+  shows less, or nothing; that's not a bug, some photos genuinely don't have that data. Click the
+  photo itself, the darkened area around it, or the × to close it.
 
 ## Adding a Project
 
@@ -238,6 +243,10 @@ you don't already have these): the AWS CLI installed and logged in, and an envir
 `PHOTOS_S3_BUCKET` set to the right bucket name. This step also strips GPS location data and
 camera serial numbers from the uploaded copy for privacy — that's automatic, nothing to do.
 
+**`PHOTOS_S3_BUCKET` must be the plain bucket name** (e.g. `cdn-dispatches-023345616863-us-east-1`),
+**not** the full ARN (`arn:aws:s3:::...`) — the AWS CLI rejects an ARN there with a "Parameter
+validation failed" error.
+
 **One-time setup:** the "click to enlarge" links won't resolve to anything until you set your
 actual CloudFront domain in `_data/site.json`'s `photosCdnBase` field (it starts out as a literal
 placeholder, `https://REPLACE_WITH_CLOUDFRONT_DOMAIN.cloudfront.net`). This has to match wherever
@@ -249,10 +258,13 @@ placeholder, `https://REPLACE_WITH_CLOUDFRONT_DOMAIN.cloudfront.net`). This has 
 npm run photos:publish
 ```
 
-Runs `photos:thumbs`, commits the generated thumbnails, runs `photos:upload`, and pushes —
-the one-command version of the two steps above plus going live. If nothing actually changed in
-`photos-source/`, this stops partway through (nothing to commit) rather than doing anything
-harmful.
+Runs `photos:thumbs`, commits the generated thumbnails (skipping the commit step gracefully if
+there's genuinely nothing new to commit), runs `photos:upload`, and pushes — the one-command
+version of the two steps above plus going live.
+
+`git push` needs your machine's git already authenticated with GitHub (an SSH key added to your
+GitHub account, or `gh auth login`) — if it fails with "Permission denied (publickey)", that's a
+one-time git/GitHub setup issue on your machine, unrelated to the photo pipeline itself.
 
 ## Contact form, RSS feed, favicon
 

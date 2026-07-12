@@ -76,13 +76,19 @@ credential actually lives.
   the Far Reaches", and syncs them to
   `s3://$PHOTOS_S3_BUCKET/<category>/<filename>` (or `.../<category>/<slug>/<filename>` for
   nested categories) — directly at the bucket root, no path prefix. Requires the
-  `PHOTOS_S3_BUCKET` environment variable and a working local AWS CLI profile — **AWS credentials
-  are never stored in this repo**, same pattern as the DreamHost deploy key below.
+  `PHOTOS_S3_BUCKET` environment variable (the **plain bucket name**, e.g.
+  `cdn-dispatches-023345616863-us-east-1` — **not** the full `arn:aws:s3:::...` ARN; the AWS CLI
+  rejects an ARN there with a parameter-validation error) and a working local AWS CLI profile —
+  **AWS credentials are never stored in this repo**, same pattern as the DreamHost deploy key
+  below.
 - `npm run photos:publish` chains both scripts plus a git commit + push, for the "ready to ship"
-  moment. If `npm run photos:thumbs` makes no changes (nothing new/changed in `photos-source/`),
-  the subsequent `git commit` step inside `npm run photos:publish` will exit non-zero ("nothing to
-  commit"), which aborts the rest of the publish chain — `photos:upload` and `git push` never run
-  in that case.
+  moment. `publish.js`'s `hasStagedChanges()` check means it no longer hard-fails when
+  `photos:thumbs` makes no changes — it logs "Nothing new to commit... continuing to upload" and
+  proceeds straight to `photos:upload`/`git push` instead of crashing on `git commit`'s "nothing
+  to commit" exit code (this was a real bug, fixed after being hit in practice). `git push` still
+  requires the machine running it to have git already authenticated with GitHub (SSH key or
+  `gh auth login`) — a "Permission denied (publickey)" failure there is a local git/GitHub setup
+  issue, not a photo-pipeline bug.
 - The enlarged/full-size photo a reader sees on click is served from CloudFront at
   `_data/site.json`'s `photosCdnBase` + `/<category>/<filename>` — true color, untreated. Only
   the small thumbnail gets the sepia/B&W/etc. treatment. **Set the real CloudFront domain in
@@ -98,6 +104,48 @@ credential actually lives.
   I/II/III…" labels from the sorted position (via the `toRoman` filter) — entries with no `image`
   yet, or whose photo hasn't been through `photos:thumbs` yet, sort to the end in their written
   order rather than breaking the page.
+- **Enlarged-photo dialog** (`.plate-dialog` in `_includes/exposure-series.njk`, styled in
+  `assets/css/site.css`, behavior in `assets/js/dialog.js`): worth understanding in full before
+  reworking this section.
+  - The `<dialog>` intentionally has **no explicit `position` override** — it relies on the
+    browser's native `dialog:modal` centering (`position:fixed; inset:0; margin:auto`). An
+    earlier `position:relative` override here was the suspected cause of the page scrolling to
+    the top when the dialog closed; removing it, plus explicit focus-restoration in `dialog.js`
+    (see below), fixed that in practice.
+  - The photo (`img.dialog-media`) sizes to its own natural width/height — no fixed
+    `aspect-ratio` box, since source photos are "all sorts of dimensions" (confirmed originals up
+    to 1140×1152). It's only capped (`max-width:min(1160px,92vw); max-height:86vh`) so a huge
+    photo can't overflow the viewport. The dialog itself is capped similarly
+    (`max-width:min(1200px,95vw); max-height:94vh`) and sizes to fit its content otherwise. The
+    no-photo-yet placeholder (a plain `<div class="dialog-media">`, no real image to size from)
+    keeps a fixed 16:9 box.
+  - `.dialog-specs` (the camera/lens/exposure/aperture/ISO/captured row) is a **flex-wrap layout,
+    not a fixed-column grid** — each field is sized by its own content and simply wraps if it
+    doesn't fit. This replaced an earlier fixed 6-column grid that assumed all 6 fields are
+    always present in the same order; a photo missing just one field (e.g. a fixed-lens camera
+    with no Lens data) shifted every later field into the wrong-sized column, causing visible
+    misalignment/wrapping. Whatever redo happens here should keep this "don't assume all fields
+    present" property — individual fields are genuinely, legitimately absent depending on what a
+    given photo's camera actually recorded (confirmed in practice: a Fujifilm X100V has no Lens
+    field at all since it's a fixed-lens camera; some photos have zero EXIF whatsoever).
+  - Clicking the photo itself, or the backdrop, closes the dialog (in addition to the × button) —
+    handled in `dialog.js` by checking whether the click's `target` is the `<dialog>` element
+    itself (which is how a backdrop click is dispatched) or matches `.dialog-media`.
+  - Closing the dialog (via ×, Escape, backdrop, or photo click) explicitly restores focus to the
+    button that opened it, with `{preventScroll: true}` — tracked in a `WeakMap` keyed by dialog
+    element. This was necessary because the default focus-restoration could otherwise land on
+    `<body>`, and the browser scrolls to the top of the page when that happens.
+- **Known cleanup items in `DFTFR-Obsidian/Website/Exposures/` as of this writing** (worth
+  resolving before/during a redo, not touched automatically since they look like in-progress
+  reorganization rather than something safe to guess about):
+  - Three loose `.jpg` files sit directly in `Exposures/` (not inside any gallery subfolder) —
+    leftovers from before galleries were moved into their own subfolders.
+  - Two subfolders, `Exposures/mechanisms/` and `Exposures/misc/` (and their `photos-source/`
+    counterparts), contain photos but have no corresponding `index.md` — nothing renders them.
+  - `_data/photoMeta.json` has some stale flat-format keys (e.g.
+    `exposures/DispatchesFromTheFarthestReaches-090419-01.jpg`, no gallery-slug segment) left over
+    from before the nested-subfolder restructuring — harmless (nothing looks them up anymore),
+    but dead weight.
 
 ## Deployment — GitHub Actions → DreamHost
 
