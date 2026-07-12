@@ -60,13 +60,17 @@ async function run() {
       console.warn(`No post references ${key} yet — processing with the default "${DEFAULT_TREATMENT}" treatment.`);
     }
 
-    if (!needsRegeneration(sourcePath, destPath) && !hasTreatmentChanged(photoMeta[key], treatment)) continue;
+    const needsImage = needsRegeneration(sourcePath, destPath) || hasTreatmentChanged(photoMeta[key], treatment);
+    const needsMeta = !photoMeta[key];
+    if (!needsImage && !needsMeta) continue;
 
-    fs.mkdirSync(siteDir, { recursive: true });
-    await applyTreatment(sharp(sourcePath), treatment)
-      .resize({ width: 640, withoutEnlargement: true })
-      .jpeg({ quality: 82 })
-      .toFile(destPath);
+    if (needsImage) {
+      fs.mkdirSync(siteDir, { recursive: true });
+      await applyTreatment(sharp(sourcePath), treatment)
+        .resize({ width: 640, withoutEnlargement: true })
+        .jpeg({ quality: 82 })
+        .toFile(destPath);
+    }
 
     photoMeta[key] = { ...(await readCaptureMeta(sourcePath)), treatment };
     processed += 1;

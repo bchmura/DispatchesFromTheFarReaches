@@ -1,5 +1,12 @@
 const path = require("node:path");
 
+// Drafts (isDraft: true) are skipped entirely during a normal build/serve —
+// no output file, and (via eleventy.config.js's isRealPost/collection
+// filters) no appearance in listings, the tag cloud, or the RSS feed.
+// `npm run serve:drafts` / `npm run build:drafts` set SHOW_DRAFTS=true to
+// include them for local preview.
+const showDrafts = process.env.SHOW_DRAFTS === "true";
+
 module.exports = {
   // Migrated vault posts carry a `category` frontmatter field but no
   // permalink of their own; derive one here so /professional/<slug>/ etc.
@@ -14,6 +21,7 @@ module.exports = {
   // already resolves fileSlug to that same directory name, so its permalink
   // (/projects/<slug>/) needs no special case here.
   permalink: (data) => {
+    if (data.isDraft && !showDrafts) return false;
     if (data.isJournalEntry && data.category && data.page) {
       const projectSlug = path.basename(path.dirname(data.page.inputPath));
       return `/${data.category}/${projectSlug}/${data.page.fileSlug}/`;

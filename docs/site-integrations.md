@@ -54,17 +54,28 @@ credential actually lives.
 ## Photo pipeline (S3 + CloudFront originals, treated thumbnails in Git)
 
 - Full-resolution originals live in `photos-source/` at the repo root (gitignored, never
-  committed), mirroring the site's category/slug layout: `photos-source/<category>/*.jpg` and
-  `photos-source/projects/<slug>/*.jpg`.
+  committed), mirroring the site's category/slug layout: `photos-source/<category>/*.jpg` for
+  flat categories (Professional/Philosophy/Family/Fiction/Misc), and
+  `photos-source/exposures/<gallery-slug>/*.jpg` / `photos-source/projects/<project-slug>/*.jpg`
+  for the two "nested" categories, where each post is its own subfolder both in the vault
+  (`Exposures/<slug>/index.md`, `Projects/<slug>/index.md`) and for its images. Which categories
+  are flat vs. nested is defined once, in `scripts/photos/lib/categories.js`'s
+  `FLAT_CATEGORY_DIRS`/`NESTED_CATEGORY_DIRS`, and every other part of the pipeline (passthrough
+  copy, `photos:thumbs`, the inline-photo transform, the build validator) derives from that same
+  map — adding a category never means duplicating this decision.
 - `npm run photos:thumbs` (local, no AWS needed) reads EXIF into `_data/photoMeta.json` and
   writes a treated thumbnail (default `sepia`; override per post via a `photoTreatment`
-  frontmatter field) into the matching `DFTFR-Obsidian/Website/<Category>/` folder — the exact
-  path the existing passthrough-copy rules in `eleventy.config.js` already serve, so no build
-  config changes are needed as photos are added.
+  frontmatter field) into the matching `DFTFR-Obsidian/Website/<Category>/` (or
+  `.../<Category>/<slug>/` for nested categories) folder — the exact path the existing
+  passthrough-copy rules in `eleventy.config.js` already serve, so no build config changes are
+  needed as photos are added. If a thumbnail file already exists but has no `_data/photoMeta.json`
+  entry (e.g. it was placed there by hand), the script backfills the EXIF entry without
+  re-encoding the image.
 - `npm run photos:upload` scrubs sensitive EXIF fields (GPS, camera/lens serial numbers) from the
   files in `photos-source/` in place, sets `Copyright`/`Artist`/`OwnerName` to "Dispatches from
   the Far Reaches", and syncs them to
-  `s3://$PHOTOS_S3_BUCKET/dispatchesfromthefarreaches/<category>/<filename>`. Requires the
+  `s3://$PHOTOS_S3_BUCKET/<category>/<filename>` (or `.../<category>/<slug>/<filename>` for
+  nested categories) — directly at the bucket root, no path prefix. Requires the
   `PHOTOS_S3_BUCKET` environment variable and a working local AWS CLI profile — **AWS credentials
   are never stored in this repo**, same pattern as the DreamHost deploy key below.
 - `npm run photos:publish` chains both scripts plus a git commit + push, for the "ready to ship"
@@ -74,13 +85,19 @@ credential actually lives.
   in that case.
 - The enlarged/full-size photo a reader sees on click is served from CloudFront at
   `_data/site.json`'s `photosCdnBase` + `/<category>/<filename>` — true color, untreated. Only
-  the small thumbnail gets the sepia/B&W/etc. treatment.
-  `photosCdnBase` is currently still the literal placeholder
-  `https://REPLACE_WITH_CLOUDFRONT_DOMAIN.cloudfront.net/dispatchesfromthefarreaches` — it must be
-  replaced with the real CloudFront distribution domain before enlarged-photo links will work in
-  production.
+  the small thumbnail gets the sepia/B&W/etc. treatment. **Set the real CloudFront domain in
+  `_data/site.json`'s `photosCdnBase` field** — it currently still holds the literal placeholder
+  `https://REPLACE_WITH_CLOUDFRONT_DOMAIN.cloudfront.net`, which must be replaced with the real
+  distribution domain (no path prefix needed — it must match the bucket-root upload path above)
+  before enlarged-photo links will work in production.
 - CI never touches `photos-source/` or AWS: the GitHub Actions build only ever sees what's
   already committed (the treated thumbnails + `_data/photoMeta.json`).
+- Exposure Series entries have no manual `num`/ordering field. `_includes/exposure-series.njk`
+  sorts each gallery's `exposures` list by its photo's EXIF capture date (via the
+  `sortExposuresByCaptured` filter, `scripts/photos/lib/exposure-order.js`) and assigns "Exposure
+  I/II/III…" labels from the sorted position (via the `toRoman` filter) — entries with no `image`
+  yet, or whose photo hasn't been through `photos:thumbs` yet, sort to the end in their written
+  order rather than breaking the page.
 
 ## Deployment — GitHub Actions → DreamHost
 

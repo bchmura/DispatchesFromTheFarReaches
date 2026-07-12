@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Website/Exposures/coastal-fog-early-mornings.md",
+                "file": "Website/Exposures/preliminary-account-of-anomalous-decay/index.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "coastal-fog-early-mornings"
+              "title": "index"
             }
           },
           {
@@ -27,16 +27,15 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/arrival-of-the-package.md",
+                "file": "Site notes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "arrival-of-the-package"
+              "title": "Site notes"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -93,7 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 480.5
   },
   "right": {
     "id": "671657907fbf017d",
@@ -198,29 +197,42 @@
       "bases:Create new base": false
     }
   },
-  "active": "f87c6091e56973fb",
+  "active": "3af8932cef3e9d59",
   "lastOpenFiles": [
-    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/index.md",
-    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/arrival-of-the-package.md",
-    "Site notes.md",
-    "Website/Contact/thankyou.md",
-    "Website/Exposures/coastal-fog-early-mornings.md",
+    "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-221006-11.jpg",
+    "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-210119-10.jpg",
+    "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-190522-09.jpg",
+    "Website/Exposures/misc/DispatchesFromTheFarthestReaches-100710-04.jpg",
+    "Website/Exposures/misc",
+    "Website/Exposures/mechanisms/DispatchesFromTheFarthestReaches-110118-07.jpg",
+    "Website/Exposures/mechanisms/DispatchesFromTheFarthestReaches-110118-06.jpg",
+    "Website/Exposures/mechanisms",
     "Website/Exposures/index.md",
-    "Website/Exposures/the-backyard-observatory.md",
+    "Website/Exposures/persistant-attendance-of-wild-animals/index.md",
+    "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-221006-12.jpg",
+    "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-210119-11.jpg",
+    "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-190522-10.jpg",
+    "Website/Exposures/DispatchesFromTheFarthestReaches-110118-07.jpg",
+    "Website/Exposures/preliminary-account-of-anomalous-decay/DispatchesFromTheFarthestReaches-190101-09.jpg",
+    "Website/Exposures/preliminary-account-of-anomalous-decay/index.md",
+    "Website/Exposures/preliminary-account-of-anomalous-decay",
+    "Website/Exposures/persistant-attendance-of-wild-animals",
+    "Worldbuilding-Arkam/Places.md",
+    "Worldbuilding-Arkam/Untitled",
+    "Worldbuilding-Arkam/People.md",
+    "Site notes.md",
+    "Worldbuilding-Arkam",
+    "Website/Exposures/coastal-fog-early-mornings.md",
+    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/arrival-of-the-package.md",
+    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/index.md",
+    "Website/Contact/thankyou.md",
     "Website/Projects/building-a-weather-station-from-salvaged-instruments/01-two-barometers-and-a-ruined-sextant.md",
     "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/Project notes.md",
     "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus",
     "Website/Projects/building-a-weather-station-from-salvaged-instruments/index.md",
-    "Website/Family/__fixture.jpg",
-    "Website/Projects/restoring-a-1930s-field-radio/__fixture.jpg",
-    "Website/Projects/building-a-weather-station-from-salvaged-instruments/__fixture.jpg",
     "Website/Contact/contact.md",
     "Website/About/about.md",
     "Website/Professional/experiment_to_prevent_rigor_corpus_part_three.md",
-    "Website/Exposures/test.webp",
-    "Website/Projects/test.gif",
-    "Website/Philosophy/test.png",
-    "Website/Professional/test-image.jpg",
     "Website/Projects/restoring-a-1930s-field-radio.md",
     "Website/Projects/building-a-weather-station-from-salvaged-instruments.md",
     "Website/Fiction/the-signal-that-came-in-backwards.md",
@@ -228,20 +240,10 @@
     "Website/Professional/sedYqkXVM",
     "Website/Professional/sed4tVPcp",
     "Website/Professional/sedN7Tzyh",
-    "Website/Professional/sedEQxRyD",
-    "Website/Professional/sedVfSPFE",
-    "Website/Professional/sedYG0TFk",
     "Website/Misc/the-crones-bargain-and-the-magic-we-forgot.md",
     "Website/Misc/the-cult-that-gathers-where-the-feed-never-sleeps.md",
     "Website/Misc/rumors-of-my-demise-somewhat-exaggerated.md",
     "Website/Family/the-tide-pools-that-remember.md",
-    "Website/Misc/abandoning-the-daily-rite-for-the-deeper-web.md",
-    "Website/Philosophy/a-fever-dream-audience-with-mel-brooks.md",
-    "Website/Philosophy/notes-from-the-simulation-that-watches-back.md",
-    "Website/Professional/rites-against-the-rigor-five-steps-to-begin-the-ritual.md",
-    "Website/Professional/hindsight-the-infallible-oracle.md",
-    "Website/docs/superpowers/specs",
-    "Website/docs/superpowers",
-    "Website/docs"
+    "Website/Misc/abandoning-the-daily-rite-for-the-deeper-web.md"
   ]
 }

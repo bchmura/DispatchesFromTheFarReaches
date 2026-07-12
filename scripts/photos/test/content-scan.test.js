@@ -6,28 +6,38 @@ test("extractImageRefs returns nothing for a post with no category", () => {
   assert.deepEqual(extractImageRefs({ frontmatter: {}, body: "![x](a.jpg)", filePath: "x.md" }), []);
 });
 
-test("extractImageRefs reads exposures[].image and defaults to the sepia treatment", () => {
+test("extractImageRefs reads exposures[].image, defaults to the sepia treatment, and attaches the series slug", () => {
   const refs = extractImageRefs({
     frontmatter: { category: "exposures", exposures: [{ image: "fog-01.jpg" }, { title: "no image" }] },
     body: "",
-    filePath: "DFTFR-Obsidian/Website/Exposures/coastal.md",
+    filePath: "DFTFR-Obsidian/Website/Exposures/coastal-series/index.md",
   });
   assert.equal(refs.length, 1);
   assert.deepEqual(refs[0], {
     filename: "fog-01.jpg",
     category: "exposures",
-    projectSlug: undefined,
+    projectSlug: "coastal-series",
     treatment: "sepia",
     kind: "exposure",
-    sourceFile: "DFTFR-Obsidian/Website/Exposures/coastal.md",
+    sourceFile: "DFTFR-Obsidian/Website/Exposures/coastal-series/index.md",
+    isDraft: false,
   });
+});
+
+test("extractImageRefs marks refs from a draft post as isDraft: true", () => {
+  const refs = extractImageRefs({
+    frontmatter: { category: "family", isDraft: true },
+    body: "![a](porch.jpg)",
+    filePath: "DFTFR-Obsidian/Website/Family/porch-day.md",
+  });
+  assert.equal(refs[0].isDraft, true);
 });
 
 test("extractImageRefs honors a photoTreatment override", () => {
   const refs = extractImageRefs({
     frontmatter: { category: "exposures", photoTreatment: "bw", exposures: [{ image: "fog-01.jpg" }] },
     body: "",
-    filePath: "coastal.md",
+    filePath: "DFTFR-Obsidian/Website/Exposures/coastal-series/index.md",
   });
   assert.equal(refs[0].treatment, "bw");
 });

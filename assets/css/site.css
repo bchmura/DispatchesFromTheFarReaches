@@ -328,6 +328,8 @@ h1{font-family:var(--serif-display);font-weight:400;font-size:clamp(1.9rem,3.6vw
 .resources .rnote{color:var(--ink-faint);font-size:.82rem;}
 
 /* ---------- Exposures / plate detail ---------- */
+.set-header{padding:52px 0 40px;}
+.set-header h1{margin-top:14px;}
 .plates{display:flex;flex-direction:column;gap:56px;margin:0 0 0 var(--indent);}
 @media (max-width:600px){ .plates{margin-left:16px;} }
 .plate{display:grid;grid-template-columns:1.2fr .8fr;gap:32px;}

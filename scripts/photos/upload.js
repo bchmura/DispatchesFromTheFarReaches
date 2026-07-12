@@ -3,7 +3,7 @@ const { execFileSync } = require("node:child_process");
 const fs = require("node:fs");
 const path = require("node:path");
 const { exiftool } = require("exiftool-vendored");
-const { PHOTOS_SOURCE_ROOT, CDN_KEY_PREFIX, IMAGE_EXTENSIONS } = require("./lib/categories");
+const { PHOTOS_SOURCE_ROOT, IMAGE_EXTENSIONS } = require("./lib/categories");
 
 const SITE_NAME = "Dispatches from the Far Reaches";
 
@@ -37,7 +37,7 @@ async function stripSensitiveMetadata(files) {
 function syncToS3(bucket) {
   execFileSync(
     "aws",
-    ["s3", "sync", PHOTOS_SOURCE_ROOT, `s3://${bucket}/${CDN_KEY_PREFIX}`, "--size-only"],
+    ["s3", "sync", PHOTOS_SOURCE_ROOT, `s3://${bucket}`, "--size-only"],
     { stdio: "inherit" }
   );
 }
@@ -51,7 +51,7 @@ async function run() {
   console.log(`Stripping sensitive metadata from ${files.length} photo(s)...`);
   await stripSensitiveMetadata(files);
   await exiftool.end();
-  console.log(`Syncing photos-source/ to s3://${bucket}/${CDN_KEY_PREFIX} ...`);
+  console.log(`Syncing photos-source/ to s3://${bucket} ...`);
   syncToS3(bucket);
   console.log("Done.");
 }

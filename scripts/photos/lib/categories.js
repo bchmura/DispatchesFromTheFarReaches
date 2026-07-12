@@ -3,15 +3,24 @@ const path = require("node:path");
 const FLAT_CATEGORY_DIRS = {
   Professional: "professional",
   Philosophy: "philosophy",
-  Exposures: "exposures",
   Family: "family",
   Fiction: "fiction",
   Misc: "misc",
 };
 
+// Categories where each post is its own subfolder (Exposures/<slug>/index.md,
+// Projects/<slug>/index.md) with its own image folder, as opposed to
+// FLAT_CATEGORY_DIRS' one-shared-folder-per-category model. Kept as its own
+// map (not merged into FLAT_CATEGORY_DIRS) so passthrough-copy and the photo
+// pipeline can tell at a glance which categories need the per-subfolder
+// treatment.
+const NESTED_CATEGORY_DIRS = {
+  Projects: "projects",
+  Exposures: "exposures",
+};
+
 const SITE_CONTENT_ROOT = path.join("DFTFR-Obsidian", "Website");
 const PHOTOS_SOURCE_ROOT = "photos-source";
-const CDN_KEY_PREFIX = "dispatchesfromthefarreaches";
 const DEFAULT_TREATMENT = "sepia";
 const IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
 
@@ -27,8 +36,8 @@ function projectSlugFromPath(mdOrImagePath) {
 function categoryRefFromInputPath(inputPath) {
   const rel = path.relative(SITE_CONTENT_ROOT, inputPath);
   const [dirName, second] = rel.split(path.sep);
-  if (dirName === "Projects") {
-    return { category: "projects", projectSlug: second };
+  if (NESTED_CATEGORY_DIRS[dirName]) {
+    return { category: NESTED_CATEGORY_DIRS[dirName], projectSlug: second };
   }
   const slug = FLAT_CATEGORY_DIRS[dirName];
   return slug ? { category: slug } : {};
@@ -52,16 +61,20 @@ function photoMetaKey({ category, projectSlug, filename }) {
 const SITE_CATEGORY_DIRS = Object.fromEntries(
   Object.entries(FLAT_CATEGORY_DIRS).map(([dir, slug]) => [slug, dir])
 );
+const NESTED_SITE_CATEGORY_DIRS = Object.fromEntries(
+  Object.entries(NESTED_CATEGORY_DIRS).map(([dir, slug]) => [slug, dir])
+);
 
 function resolveDestination(relativePath) {
   const [category, ...rest] = relativePath.split(path.sep);
-  if (category === "projects") {
+  const nestedDirName = NESTED_SITE_CATEGORY_DIRS[category];
+  if (nestedDirName) {
     const [projectSlug, filename] = rest;
     return {
       category,
       projectSlug,
       filename,
-      siteDir: path.join(SITE_CONTENT_ROOT, "Projects", projectSlug),
+      siteDir: path.join(SITE_CONTENT_ROOT, nestedDirName, projectSlug),
     };
   }
   const [filename] = rest;
@@ -72,9 +85,9 @@ function resolveDestination(relativePath) {
 
 module.exports = {
   FLAT_CATEGORY_DIRS,
+  NESTED_CATEGORY_DIRS,
   SITE_CONTENT_ROOT,
   PHOTOS_SOURCE_ROOT,
-  CDN_KEY_PREFIX,
   DEFAULT_TREATMENT,
   IMAGE_EXTENSIONS,
   projectSlugFromPath,

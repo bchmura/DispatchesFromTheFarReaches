@@ -2,6 +2,10 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 module.exports = async function (eleventyConfig) {
+  // See _data/eleventyComputed.js — same flag, drafts are skipped from
+  // collections here and skipped from output there.
+  const showDrafts = process.env.SHOW_DRAFTS === "true";
+
   const rssPlugin = (await import("@11ty/eleventy-plugin-rss")).default;
   eleventyConfig.addWatchTarget("./DFTFR-Obsidian/Website/**");
 
@@ -14,7 +18,8 @@ module.exports = async function (eleventyConfig) {
     const photoMeta = fs.existsSync(photoMetaPath)
       ? JSON.parse(fs.readFileSync(photoMetaPath, "utf8"))
       : {};
-    const refs = scanVaultForImageRefs(SITE_CONTENT_ROOT);
+    const refs = scanVaultForImageRefs(SITE_CONTENT_ROOT)
+      .filter((ref) => showDrafts || !ref.isDraft);
     const missing = findMissingThumbnails(refs, (key) => Boolean(photoMeta[key]));
     if (missing.length) {
       const list = missing
@@ -38,27 +43,30 @@ module.exports = async function (eleventyConfig) {
   // Flat categories: one image folder per category, no per-post subfolders.
   // Shared with the photo pipeline scripts (scripts/photos/) so both sides
   // agree on the same category -> slug mapping.
-  const { FLAT_CATEGORY_DIRS: flatCategoryDirs } = require("./scripts/photos/lib/categories");
+  const { FLAT_CATEGORY_DIRS: flatCategoryDirs, NESTED_CATEGORY_DIRS: nestedCategoryDirs } =
+    require("./scripts/photos/lib/categories");
   for (const [dir, slug] of Object.entries(flatCategoryDirs)) {
     eleventyConfig.addPassthroughCopy({
       [`DFTFR-Obsidian/Website/${dir}/${IMAGE_GLOB}`]: slug,
     });
   }
 
-  // Projects: each project is its own subfolder (Projects/<slug>/), and a
-  // glob like "Projects/**/*.jpg" -> "projects" would flatten every
-  // project's images into one shared /projects/ folder by basename alone
-  // (verified: Eleventy's glob-to-string passthrough copy does not
-  // preserve intermediate path structure) — two projects both using e.g.
-  // "001.jpg" would silently collide, one overwriting the other. Register
-  // one passthrough mapping per actual project subfolder instead, so each
-  // project's images land at their own /projects/<slug>/ path.
-  const projectsDir = "DFTFR-Obsidian/Website/Projects";
-  if (fs.existsSync(projectsDir)) {
-    for (const entry of fs.readdirSync(projectsDir, { withFileTypes: true })) {
+  // Nested categories (Projects, Exposures): each post is its own subfolder
+  // (Projects/<slug>/, Exposures/<slug>/), and a glob like
+  // "Projects/**/*.jpg" -> "projects" would flatten every post's images
+  // into one shared folder by basename alone (verified: Eleventy's
+  // glob-to-string passthrough copy does not preserve intermediate path
+  // structure) — two posts both using e.g. "001.jpg" would silently
+  // collide, one overwriting the other. Register one passthrough mapping
+  // per actual subfolder instead, so each post's images land at their own
+  // /<category>/<slug>/ path.
+  for (const [dir, slug] of Object.entries(nestedCategoryDirs)) {
+    const categoryDir = `DFTFR-Obsidian/Website/${dir}`;
+    if (!fs.existsSync(categoryDir)) continue;
+    for (const entry of fs.readdirSync(categoryDir, { withFileTypes: true })) {
       if (!entry.isDirectory()) continue;
       eleventyConfig.addPassthroughCopy({
-        [`${projectsDir}/${entry.name}/${IMAGE_GLOB}`]: `projects/${entry.name}`,
+        [`${categoryDir}/${entry.name}/${IMAGE_GLOB}`]: `${slug}/${entry.name}`,
       });
     }
   }
@@ -77,6 +85,12 @@ module.exports = async function (eleventyConfig) {
     if (!category) return content;
     return rewriteInlinePhotos(content, { category, projectSlug, cdnBase: siteData.photosCdnBase });
   });
+
+  const { toRoman, sortExposuresByCaptured } = require("./scripts/photos/lib/exposure-order");
+  eleventyConfig.addFilter("toRoman", toRoman);
+  eleventyConfig.addFilter("sortExposuresByCaptured", (exposures, photoMeta, category, seriesSlug) =>
+    sortExposuresByCaptured(exposures, photoMeta, { category, seriesSlug })
+  );
 
   eleventyConfig.addFilter("date", (value, format) => {
     const d = new Date(value);
@@ -102,7 +116,11 @@ module.exports = async function (eleventyConfig) {
   // Projects/<slug>/<entry>.md) — both have their own dedicated collections
   // below and must not leak into post listings, the home feed, or the tag
   // cloud.
-  const isRealPost = (item) => item.data.category && !item.data.isCategoryIndex && !item.data.isJournalEntry;
+  const isRealPost = (item) =>
+    item.data.category &&
+    !item.data.isCategoryIndex &&
+    !item.data.isJournalEntry &&
+    (showDrafts || !item.data.isDraft);
 
   eleventyConfig.addCollection("postsByCategory", (collectionApi) => {
     const byCategory = {};
@@ -172,6 +190,7 @@ module.exports = async function (eleventyConfig) {
     const byProject = {};
     for (const item of collectionApi.getAll()) {
       if (!item.data.isJournalEntry) continue;
+      if (item.data.isDraft && !showDrafts) continue;
       const projectSlug = path.basename(path.dirname(item.inputPath));
       (byProject[projectSlug] ??= []).push(item);
     }
@@ -187,7 +206,12 @@ module.exports = async function (eleventyConfig) {
   eleventyConfig.addCollection("projectsBySlug", (collectionApi) => {
     const bySlug = {};
     for (const item of collectionApi.getAll()) {
-      if (item.data.category === "projects" && !item.data.isJournalEntry && !item.data.isCategoryIndex) {
+      if (
+        item.data.category === "projects" &&
+        !item.data.isJournalEntry &&
+        !item.data.isCategoryIndex &&
+        (showDrafts || !item.data.isDraft)
+      ) {
         bySlug[item.page.fileSlug] = item;
       }
     }

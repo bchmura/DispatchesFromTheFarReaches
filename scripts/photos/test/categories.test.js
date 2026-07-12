@@ -6,17 +6,23 @@ const {
   categoryRefFromInputPath,
   isPipelineManagedFilename,
   FLAT_CATEGORY_DIRS,
+  NESTED_CATEGORY_DIRS,
 } = require("../lib/categories");
 
 test("FLAT_CATEGORY_DIRS maps every vault directory to a lowercase slug", () => {
-  assert.equal(FLAT_CATEGORY_DIRS.Exposures, "exposures");
   assert.equal(FLAT_CATEGORY_DIRS.Family, "family");
+  assert.equal(FLAT_CATEGORY_DIRS.Misc, "misc");
+});
+
+test("NESTED_CATEGORY_DIRS covers Projects and Exposures", () => {
+  assert.equal(NESTED_CATEGORY_DIRS.Projects, "projects");
+  assert.equal(NESTED_CATEGORY_DIRS.Exposures, "exposures");
 });
 
 test("photoMetaKey builds a flat category key with no project slug", () => {
   assert.equal(
-    photoMetaKey({ category: "exposures", filename: "fog-01.jpg" }),
-    "exposures/fog-01.jpg"
+    photoMetaKey({ category: "family", filename: "porch.jpg" }),
+    "family/porch.jpg"
   );
 });
 
@@ -50,6 +56,15 @@ test("resolveDestination maps a projects path to its project subfolder", () => {
   assert.equal(result.siteDir, path.join("DFTFR-Obsidian", "Website", "Projects", "weather-station"));
 });
 
+test("resolveDestination maps an exposures path to its series subfolder", () => {
+  const { resolveDestination } = require("../lib/categories");
+  const path = require("node:path");
+  const result = resolveDestination(path.join("exposures", "coastal-series", "fog-01.jpg"));
+  assert.equal(result.category, "exposures");
+  assert.equal(result.projectSlug, "coastal-series");
+  assert.equal(result.siteDir, path.join("DFTFR-Obsidian", "Website", "Exposures", "coastal-series"));
+});
+
 test("resolveDestination throws on an unrecognized category folder", () => {
   const { resolveDestination } = require("../lib/categories");
   const path = require("node:path");
@@ -66,6 +81,12 @@ test("categoryRefFromInputPath resolves a Projects journal entry with its projec
   const path = require("node:path");
   const p = path.join("DFTFR-Obsidian", "Website", "Projects", "weather-station", "01-entry.md");
   assert.deepEqual(categoryRefFromInputPath(p), { category: "projects", projectSlug: "weather-station" });
+});
+
+test("categoryRefFromInputPath resolves an Exposures series with its series slug", () => {
+  const path = require("node:path");
+  const p = path.join("DFTFR-Obsidian", "Website", "Exposures", "coastal-series", "index.md");
+  assert.deepEqual(categoryRefFromInputPath(p), { category: "exposures", projectSlug: "coastal-series" });
 });
 
 test("categoryRefFromInputPath returns {} for a path outside any known category", () => {

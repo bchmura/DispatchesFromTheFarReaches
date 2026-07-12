@@ -23,19 +23,23 @@
 </section>
 <main class="wrap">
   <div class="plates">
-    {% for ex in exposures %}
-    {% set meta = photoMeta[category + "/" + ex.image] if ex.image else null %}
+    {% set seriesSlug = page.fileSlug %}
+    {% set sortedExposures = exposures | sortExposuresByCaptured(photoMeta, category, seriesSlug) %}
+    {% for ex in sortedExposures %}
+    {% set numeral = loop.index | toRoman %}
+    {% set meta = photoMeta[category + "/" + seriesSlug + "/" + ex.image] if ex.image else null %}
+    {% set hasSpecs = meta and (meta.camera or meta.lens or meta.exposureTime or meta.aperture or meta.iso or meta.captured) %}
     <div class="plate">
-      <button class="plate-open" data-dialog-target="dlg-{{ loop.index }}" aria-label="View capture details for Exposure {{ ex.num }}: {{ ex.title }}">
+      <button class="plate-open" data-dialog-target="dlg-{{ loop.index }}" aria-label="View capture details for Exposure {{ numeral }}: {{ ex.title }}">
         {% if meta %}
-        <img class="plate-media" src="/{{ category }}/{{ ex.image }}" alt="{{ ex.title }}">
+        <img class="plate-media" src="/{{ category }}/{{ seriesSlug }}/{{ ex.image }}" alt="{{ ex.title }}">
         {% else %}
         <div class="plate-media" style="background:#0f1109;"></div>
         {% endif %}
       </button>
       <div class="plate-text">
         <div>
-          <span class="plate-num">Exposure {{ ex.num }}</span>
+          <span class="plate-num">Exposure {{ numeral }}</span>
           <h3>{{ ex.title }}</h3>
           <p>{{ ex.body }}</p>
         </div>
@@ -47,18 +51,18 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
       </button>
       {% if meta %}
-      <img class="dialog-media" src="{{ site.photosCdnBase }}/{{ category }}/{{ ex.image }}" alt="{{ ex.title }}">
+      <img class="dialog-media" src="{{ site.photosCdnBase }}/{{ category }}/{{ seriesSlug }}/{{ ex.image }}" alt="{{ ex.title }}">
       {% else %}
       <div class="dialog-media" style="background:#0f1109;"></div>
       {% endif %}
-      {% if meta %}
+      {% if hasSpecs %}
       <div class="dialog-specs">
-        <div><span>Camera</span><b>{{ meta.camera }}</b></div>
-        <div><span>Lens</span><b>{{ meta.lens }}</b></div>
-        <div><span>Exposure</span><b>{{ meta.exposureTime }}</b></div>
-        <div><span>Aperture</span><b>{{ meta.aperture }}</b></div>
-        <div><span>ISO</span><b>{{ meta.iso }}</b></div>
-        <div><span>Captured</span><b>{{ meta.captured }}</b></div>
+        {% if meta.camera %}<div><span>Camera</span><b>{{ meta.camera }}</b></div>{% endif %}
+        {% if meta.lens %}<div><span>Lens</span><b>{{ meta.lens }}</b></div>{% endif %}
+        {% if meta.exposureTime %}<div><span>Exposure</span><b>{{ meta.exposureTime }}</b></div>{% endif %}
+        {% if meta.aperture %}<div><span>Aperture</span><b>{{ meta.aperture }}</b></div>{% endif %}
+        {% if meta.iso %}<div><span>ISO</span><b>{{ meta.iso }}</b></div>{% endif %}
+        {% if meta.captured %}<div><span>Captured</span><b>{{ meta.captured | date }}</b></div>{% endif %}
       </div>
       {% endif %}
     </dialog>

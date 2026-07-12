@@ -2,13 +2,13 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const { rewriteInlinePhotos } = require("../lib/inline-photo-transform");
 
-const opts = { category: "family", cdnBase: "https://cdn.example.com/dispatchesfromthefarreaches" };
+const opts = { category: "family", cdnBase: "https://cdn.example.com" };
 
 test("wraps a bare-filename img in a link to the CloudFront full-size version", () => {
   const out = rewriteInlinePhotos('<img src="porch.jpg" alt="The porch">', opts);
   assert.equal(
     out,
-    '<a href="https://cdn.example.com/dispatchesfromthefarreaches/family/porch.jpg" class="photo-link" target="_blank" rel="noopener"><img src="/family/porch.jpg" class="treated-photo" alt="The porch"></a>'
+    '<a href="https://cdn.example.com/family/porch.jpg" class="photo-link" target="_blank" rel="noopener"><img src="/family/porch.jpg" class="treated-photo" alt="The porch"></a>'
   );
 });
 
@@ -44,6 +44,6 @@ test("builds a project-nested URL when projectSlug is provided", () => {
   );
   assert.equal(
     out,
-    '<a href="https://cdn.example.com/dispatchesfromthefarreaches/projects/weather-station/barometer.jpg" class="photo-link" target="_blank" rel="noopener"><img src="/projects/weather-station/barometer.jpg" class="treated-photo" alt="Barometer"></a>'
+    '<a href="https://cdn.example.com/projects/weather-station/barometer.jpg" class="photo-link" target="_blank" rel="noopener"><img src="/projects/weather-station/barometer.jpg" class="treated-photo" alt="Barometer"></a>'
   );
 });

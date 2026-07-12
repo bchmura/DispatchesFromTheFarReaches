@@ -112,7 +112,8 @@ This took several rounds to get right; the rule going forward is:
 
 ## Terminology decisions (naming things in-voice)
 
-- Photo albums are called **"Exposure Series"**; individual shots within one are **"Exposure I," "Exposure II"**, etc. (Originally "Plate Set" / "Plate I" — changed because "Plate" reads ambiguously out of context, e.g. dinnerware/armor.) *The stray "Plate VII" on the homepage has been corrected to "Exposure VII."*
+- Photo albums are called **"Exposure Series"**; individual shots within one are **"Exposure I," "Exposure II"**, etc. (Originally "Plate Set" / "Plate I" — changed because "Plate" reads ambiguously out of context, e.g. dinnerware/armor.) *The stray "Plate VII" on the homepage has been corrected to "Exposure VII."* These numerals are assigned automatically from display order (sorted by each photo's own capture date), not hand-typed in frontmatter — see `docs/site-integrations.md`'s photo pipeline section.
+- Each Exposure Series is its own subfolder (`Exposures/<gallery-slug>/index.md` + that gallery's own image folder), matching how Projects already work — not a single flat `.md` file per gallery.
 - Project statuses: **Theorized, Afoot, Dormant, Catalogued, Abandoned** (deliberately period/expedition-flavored instead of generic "Planned/Active/Paused/Done").
 - List-row calls to action: **"View the account"** and **"Open the [Category] file"** (homepage); **"View this journal entry"** (project journal entries); **"View the project"** / **"Open the exposure series"** (listing cards).
 - About page section label: **"A Biographical Note"** (period-appropriate framing, not "About" or "Bio").

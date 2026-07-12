@@ -4,11 +4,13 @@ const matter = require("gray-matter");
 const {
   SITE_CONTENT_ROOT,
   DEFAULT_TREATMENT,
+  NESTED_CATEGORY_DIRS,
   projectSlugFromPath,
   isPipelineManagedFilename,
 } = require("./categories");
 const { TREATMENTS } = require("./treatment");
 
+const NESTED_CATEGORY_SLUGS = new Set(Object.values(NESTED_CATEGORY_DIRS));
 const IMAGE_MARKDOWN_PATTERN = /!\[[^\]]*\]\(([^)\s]+)\)/g;
 
 function extractImageRefs({ frontmatter, body, filePath }) {
@@ -20,7 +22,8 @@ function extractImageRefs({ frontmatter, body, filePath }) {
       `Invalid photoTreatment "${treatment}" in ${filePath} — must be one of: ${[...TREATMENTS].join(", ")}`
     );
   }
-  const projectSlug = category === "projects" ? projectSlugFromPath(filePath) : undefined;
+  const projectSlug = NESTED_CATEGORY_SLUGS.has(category) ? projectSlugFromPath(filePath) : undefined;
+  const isDraft = Boolean(frontmatter.isDraft);
 
   if (Array.isArray(frontmatter.exposures)) {
     return frontmatter.exposures
@@ -32,6 +35,7 @@ function extractImageRefs({ frontmatter, body, filePath }) {
         treatment,
         kind: "exposure",
         sourceFile: filePath,
+        isDraft,
       }));
   }
 
@@ -53,6 +57,7 @@ function extractImageRefs({ frontmatter, body, filePath }) {
       treatment,
       kind: "inline",
       sourceFile: filePath,
+      isDraft,
     });
   }
   return refs;
