@@ -1,4 +1,5 @@
 const path = require("node:path");
+const { photoMetaKey } = require("../scripts/photos/lib/categories");
 
 // Drafts (isDraft: true) are skipped entirely during a normal build/serve —
 // no output file, and (via eleventy.config.js's isRealPost/collection
@@ -40,5 +41,34 @@ module.exports = {
       return path.basename(path.dirname(data.page.inputPath));
     }
     return undefined;
+  },
+
+  // exposure-pages.njk has no frontmatter title of its own — it's a single
+  // pagination generator producing one output per collections.exposureEntries
+  // item (accessible here as `data.item`, the pagination alias), so the
+  // <title> has to be computed per-page from that item instead.
+  title: (data) => {
+    if (data.item && data.item.numeral) {
+      return `${data.item.title} — Exposure ${data.item.numeral}`;
+    }
+    return data.title;
+  },
+
+  // The image shown for an Exposure Series on the /exposures/ listing card.
+  // Defaults to the first exposure in the gallery's own written order;
+  // a gallery can override this with a `coverImage: <filename>` frontmatter
+  // field (must be one of that gallery's own image filenames) to show a
+  // different photo instead. Resolves to undefined (falls back to the
+  // plain placeholder card) if the chosen filename has no generated
+  // thumbnail yet, same as everywhere else photos degrade gracefully.
+  coverImageSrc: (data) => {
+    if (data.category !== "exposures" || data.isCategoryIndex) return undefined;
+    if (!Array.isArray(data.exposures) || !data.page) return undefined;
+    const seriesSlug = data.page.fileSlug;
+    const filename = data.coverImage || (data.exposures[0] && data.exposures[0].image);
+    if (!filename) return undefined;
+    const key = photoMetaKey({ category: "exposures", projectSlug: seriesSlug, filename });
+    if (!data.photoMeta || !data.photoMeta[key]) return undefined;
+    return `/exposures/${seriesSlug}/${filename}`;
   },
 };

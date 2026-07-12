@@ -12,34 +12,29 @@ isDraft: false
 exposures:
   - title: Astonishingly large housecat
     image: DispatchesFromTheFarthestReaches-221006-11.jpg
-    body: Checking the mount alignment before committing to anything longer than a thirty-second exposure.
+    body: At the height of last summer, when the evenings were seldom a relief, due to the medical leave of absence of the university's sole camera operator, I was asked to assist in documenting the sudden appearance, and outright refusal to leave, of a small but dedicated band of creatures.
     tags:
       - pets
   - title: Astonishingly large housecat - II
     image: DispatchesFromTheFarthestReaches-210119-10.jpg
-    body: Checking the mount alignment before committing to anything longer than a thirty-second exposure.
+    body: Mary Cresswinkle had returned from a trip to Africa only two nights prior.  The creatures seemed to not care or even notice our interest.  While standoffish, they were never outright aggressive toward any of us.  They appeared to have two interests... lying in the shade staring at the house, or sitting at the front window staring into the parlor.  
     tags:
       - pets
   - title: Small varmit
     image: DispatchesFromTheFarthestReaches-190522-09.jpg
-    body: Checking the mount alignment before committing to anything longer than a thirty-second exposure.
+    body: The parlor held curio cabinets filled with small tokens from her husband's travels.  Among the various arrow heads, knives, shrunken heads, masks, and photographs, there was nothing that was new to the home.  There was the matter of the crate in the corner, stenciled with "do not open".  Her husband, still exploring the jungles, would be returning later, but sent this parcel home with Mary.  
     tags:
       - pets
   - title: Aloof
     image: DispatchesFromTheFarthestReaches-110107-05.jpg
-    body: Checking the mount alignment before committing to anything longer than a thirty-second exposure.
+    body: We had of course, gently pushed the issue, but she refused to disobey her husband,  or strangely,  look at the crate directly. I was secretly glad.  They had used a needlessly excessive number of nails to secure the lid and that would have taken most of the evening to open.
     tags:
       - pets
 
 
-
-
-
 ---
-At the height of last summer, when the evenings were seldom a relief, due to the medical leave of absence of the university's sole camera operator, I was asked to assist in documenting the sudden appearance, and outright refusal to leave, of a small but dedicated band of creatures.
 
-Mary Cresswinkle had returned from a trip to Africa only two nights prior.  The creatures seemed to not care or even notice our interest.  While standoffish, they were never outright aggressive toward any of us.  They appeared to have two interests... lying in the shade staring at the house, or sitting at the front window staring into the parlor.  
 
-The parlor herd curio cabinets filled with small tokens from her husband's travels.  Among the various arrow heads, knives, shrunken heads, masks, and photographs, there was nothing that was new to the home.  There was the matter of the crate in the corner, stenciled with "do not open".  Her husband, still exploring the jungles, would be returning later, but sent this parcel home with Mary.  
 
-We had of course, gently pushed the issue, but she refused to disobey her husband,  or strangely,  look at the crate directly. I was secretly glad.  They had used a needlessly excessive number of nails to secure the lid and that would have taken most of the evening to open.
+
+

@@ -13,11 +13,15 @@ module.exports = async function (eleventyConfig) {
   const { findMissingThumbnails } = require("./scripts/photos/lib/validate-refs");
   const { photoMetaKey, SITE_CONTENT_ROOT } = require("./scripts/photos/lib/categories");
 
+  // Hoisted out of the validation block below so the exposureEntries
+  // collection (further down) can reuse the same parsed data instead of
+  // re-reading the file.
+  const photoMetaPath = "_data/photoMeta.json";
+  const photoMeta = fs.existsSync(photoMetaPath)
+    ? JSON.parse(fs.readFileSync(photoMetaPath, "utf8"))
+    : {};
+
   {
-    const photoMetaPath = "_data/photoMeta.json";
-    const photoMeta = fs.existsSync(photoMetaPath)
-      ? JSON.parse(fs.readFileSync(photoMetaPath, "utf8"))
-      : {};
     const refs = scanVaultForImageRefs(SITE_CONTENT_ROOT)
       .filter((ref) => showDrafts || !ref.isDraft);
     const missing = findMissingThumbnails(refs, (key) => Boolean(photoMeta[key]));
@@ -86,16 +90,23 @@ module.exports = async function (eleventyConfig) {
     return rewriteInlinePhotos(content, { category, projectSlug, cdnBase: siteData.photosCdnBase });
   });
 
-  const { toRoman, sortExposuresByCaptured } = require("./scripts/photos/lib/exposure-order");
+  const { toRoman } = require("./scripts/photos/lib/exposure-order");
   eleventyConfig.addFilter("toRoman", toRoman);
-  eleventyConfig.addFilter("sortExposuresByCaptured", (exposures, photoMeta, category, seriesSlug) =>
-    sortExposuresByCaptured(exposures, photoMeta, { category, seriesSlug })
-  );
 
   eleventyConfig.addFilter("date", (value, format) => {
     const d = new Date(value);
     const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    return `${d.getUTCDate()} ${months[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
+    const day = d.getUTCDate();
+    const tokens = {
+      yyyy: String(d.getUTCFullYear()),
+      MMMM: months[d.getUTCMonth()],
+      MM: String(d.getUTCMonth() + 1).padStart(2, "0"),
+      dd: String(day).padStart(2, "0"),
+      d: String(day),
+    };
+    // `format` is a token string (e.g. "dd MMMM yyyy", "MMMM yyyy") — replace
+    // longest tokens first so "dd"/"MMMM" aren't partially eaten by "d"/"MM".
+    return (format || "d MMMM yyyy").replace(/yyyy|MMMM|MM|dd|d/g, (token) => tokens[token]);
   });
 
   eleventyConfig.addFilter("addLedeClass", (content) => {
@@ -216,6 +227,58 @@ module.exports = async function (eleventyConfig) {
       }
     }
     return bySlug;
+  });
+
+  // Flattens every Exposure Series' `exposures` frontmatter array into one
+  // entry per photo, each carrying its own real URL
+  // (/exposures/<series-slug>/<n>/) plus prev/next links within that
+  // series — consumed by exposure-pages.njk's pagination to generate one
+  // full-screen page per exposure. Order is the frontmatter's own written
+  // order (matches exposure-series.njk's listing), not EXIF capture date —
+  // captured date sorting was tried first but the author prefers to control
+  // display order directly in the markdown.
+  eleventyConfig.addCollection("exposureEntries", (collectionApi) => {
+    const entries = [];
+    for (const item of collectionApi.getAll()) {
+      if (item.data.category !== "exposures" || item.data.isCategoryIndex) continue;
+      if (item.data.isDraft && !showDrafts) continue;
+      const seriesSlug = item.page.fileSlug;
+      const written = item.data.exposures || [];
+      const total = written.length;
+      written.forEach((exposure, index) => {
+        const num = index + 1;
+        const meta = exposure.image
+          ? photoMeta[photoMetaKey({ category: "exposures", projectSlug: seriesSlug, filename: exposure.image })]
+          : null;
+        entries.push({
+          seriesTitle: item.data.title,
+          seriesSlug,
+          seriesUrl: item.url,
+          accession: item.data.accession,
+          num,
+          numeral: toRoman(num),
+          total,
+          title: exposure.title,
+          body: exposure.body,
+          tags: exposure.tags || [],
+          image: exposure.image,
+          // The detail page shows the true-color CloudFront original (same
+          // source the old dialog enlarged to), not the treated/sepia
+          // thumbnail used inline on the grid.
+          imageSrc: exposure.image
+            ? `${siteData.photosCdnBase}/exposures/${seriesSlug}/${exposure.image}`
+            : null,
+          meta,
+          hasSpecs: Boolean(
+            meta && (meta.camera || meta.lens || meta.exposureTime || meta.aperture || meta.iso || meta.captured)
+          ),
+          url: `/exposures/${seriesSlug}/${num}/`,
+          prevUrl: num > 1 ? `/exposures/${seriesSlug}/${num - 1}/` : null,
+          nextUrl: num < total ? `/exposures/${seriesSlug}/${num + 1}/` : null,
+        });
+      });
+    }
+    return entries;
   });
 
   return {

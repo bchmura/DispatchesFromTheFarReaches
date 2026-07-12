@@ -32,7 +32,11 @@
   <div class="proj-grid">
     {% for entry in collections.postsByCategory[cat.key] %}
     <a class="proj-card" href="{{ entry.url }}">
+      {% if entry.data.coverImageSrc %}
+      <div class="proj-media"><img src="{{ entry.data.coverImageSrc }}" alt=""></div>
+      {% else %}
       <div class="proj-media" style="background:#0f1109;"></div>
+      {% endif %}
       <div class="proj-body">
         <span class="plate-meta"><span class="n">{{ entry.data.exposures.length }} exposures</span> · {{ entry.date | date("MMMM yyyy") }}</span>
         <h3>{{ entry.data.title }}</h3>

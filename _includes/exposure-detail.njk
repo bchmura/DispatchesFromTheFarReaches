@@ -1,0 +1,66 @@
+{% extends "base.njk" %}
+{% block content %}
+<div class="exposure-view" data-prev="{{ item.prevUrl }}" data-next="{{ item.nextUrl }}" data-exit="{{ item.seriesUrl }}">
+  <div class="exposure-stage">
+    {% if item.imageSrc %}
+    <img class="exposure-photo" src="{{ item.imageSrc }}" alt="{{ item.title }}">
+    {% else %}
+    <div class="exposure-photo exposure-photo-empty"></div>
+    {% endif %}
+    {% if item.prevUrl %}
+    <a class="exposure-nav-btn exposure-nav-prev" href="{{ item.prevUrl }}" aria-label="Previous exposure">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg>
+    </a>
+    {% else %}
+    <span class="exposure-nav-btn exposure-nav-prev is-disabled" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M15 5l-7 7 7 7"/></svg>
+    </span>
+    {% endif %}
+    {% if item.nextUrl %}
+    <a class="exposure-nav-btn exposure-nav-next" href="{{ item.nextUrl }}" aria-label="Next exposure">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>
+    </a>
+    {% else %}
+    <span class="exposure-nav-btn exposure-nav-next is-disabled" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M9 5l7 7-7 7"/></svg>
+    </span>
+    {% endif %}
+    <span class="exposure-caption">Exposure {{ item.numeral }} of {{ item.total | toRoman }}</span>
+  </div>
+
+  <aside class="exposure-sidebar">
+    <a class="exit-link" href="{{ item.seriesUrl }}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+      Return to the collection
+    </a>
+
+    <p class="accession accession-project">Miskatonic University</p>
+    <p class="accession">Special Collections · {{ item.accession }}</p>
+    <p class="exposure-label">Exposure {{ item.numeral }}</p>
+    <h1>{{ item.title }}</h1>
+    <p class="exposure-body">{{ item.body }}</p>
+
+    {% if item.tags.length %}
+    <div class="exposure-tags">{% for t in item.tags %}<a href="#">{{ t }}</a>{% endfor %}</div>
+    {% endif %}
+
+    <hr class="exposure-rule">
+
+    <p class="exposure-specs-label">Capture data</p>
+    <div class="exposure-specs">
+      <div class="spec-row"><span class="k">Camera</span><span class="v{% if not item.meta.camera %} is-missing{% endif %}">{{ item.meta.camera or "missing" }}</span></div>
+      <div class="spec-row"><span class="k">Lens</span><span class="v{% if not item.meta.lens %} is-missing{% endif %}">{{ item.meta.lens or "missing" }}</span></div>
+      <div class="spec-row"><span class="k">Exposure</span><span class="v{% if not item.meta.exposureTime %} is-missing{% endif %}">{{ item.meta.exposureTime or "missing" }}</span></div>
+      <div class="spec-row"><span class="k">Aperture</span><span class="v{% if not item.meta.aperture %} is-missing{% endif %}">{{ item.meta.aperture or "missing" }}</span></div>
+      <div class="spec-row"><span class="k">ISO</span><span class="v{% if not item.meta.iso %} is-missing{% endif %}">{{ item.meta.iso or "missing" }}</span></div>
+      <div class="spec-row"><span class="k">Captured</span><span class="v{% if not item.meta.captured %} is-missing{% endif %}">{{ (item.meta.captured | date("dd MMMM yyyy")) if item.meta.captured else "missing" }}</span></div>
+    </div>
+
+    <p class="exposure-keyhint">
+      <span>Navigate with the on screen arrows</span>
+      <span>or <kbd>&larr;</kbd> / <kbd>&rarr;</kbd>, <kbd>Esc</kbd> to return.</span>
+    </p>
+  </aside>
+</div>
+<script src="/assets/js/exposure-nav.js"></script>
+{% endblock %}
