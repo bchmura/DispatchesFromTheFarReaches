@@ -348,17 +348,34 @@ h1{font-family:var(--serif-display);font-weight:400;font-size:clamp(1.9rem,3.6vw
 .plate-tags a:hover,.plate-tags a:focus-visible{color:var(--brass);border-color:var(--brass-dim);background:var(--bg-raised);}
 @media (max-width:760px){ .plate-text{height:auto;} .plate-tags{margin-top:0;} }
 
-dialog.plate-dialog{position:relative;border:1px solid var(--brass-dim);background:var(--bg-raised);color:var(--ink);border-radius:2px;padding:0;max-width:920px;width:94vw;max-height:88vh;}
+/* No explicit `position` here — leave the browser's native dialog:modal
+   UA-stylesheet centering (position:fixed; inset:0; margin:auto) in place.
+   An earlier `position:relative` override here was suspected of causing the
+   page to scroll when the dialog opened/closed, since it stopped the dialog
+   from being fixed to the viewport. `position:fixed` still establishes a
+   containing block for .dialog-close's `position:absolute`, so that's
+   unaffected. */
+dialog.plate-dialog{border:1px solid var(--brass-dim);background:var(--bg-raised);color:var(--ink);border-radius:2px;padding:0;max-width:min(1200px,95vw);max-height:94vh;overflow:auto;}
 dialog.plate-dialog::backdrop{background:rgba(6,7,4,.82);}
-.dialog-media{aspect-ratio:16/9;}
-.dialog-media svg{width:100%;height:100%;display:block;}
-.dialog-media img{width:100%;height:100%;display:block;object-fit:cover;}
-.dialog-specs{display:grid;grid-template-columns:repeat(6,1fr);gap:16px 22px;padding:26px 30px;border-top:1px solid var(--rule);}
-.dialog-specs div{font-family:var(--mono);font-size:.78rem;color:var(--ink-faint);}
+/* The real photo (an <img class="dialog-media">) sizes itself to its own
+   natural dimensions, capped so it never overflows the dialog/viewport —
+   deliberately NOT a fixed aspect-ratio box, since photos come in whatever
+   shape they came in (portrait, square, panoramic, ...). The no-photo-yet
+   placeholder (a plain <div class="dialog-media">) has no intrinsic size of
+   its own, so it keeps a fixed 16:9 box to occupy sensible space. */
+img.dialog-media{display:block;width:auto;height:auto;max-width:min(1160px,92vw);max-height:86vh;margin:0 auto;}
+div.dialog-media{aspect-ratio:16/9;width:100%;}
+/* Each field's width comes from its own content, not a fixed column slot —
+   a fixed grid-template-columns layout assumed all 6 fields (Camera/Lens/
+   Exposure/Aperture/ISO/Captured) are always present in that order, but a
+   photo missing one (e.g. a fixed-lens camera with no Lens data, or a photo
+   with no EXIF at all) shifts every later field into the wrong-sized slot,
+   causing the exact wrapping/misalignment this replaces. */
+.dialog-specs{display:flex;flex-wrap:wrap;gap:16px 28px;padding:26px 30px;border-top:1px solid var(--rule);}
+.dialog-specs div{font-family:var(--mono);font-size:.78rem;color:var(--ink-faint);white-space:nowrap;}
 .dialog-specs div span{display:block;font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint);opacity:.7;margin-bottom:4px;}
 .dialog-specs div b{color:var(--ink-dim);font-weight:400;}
 .dialog-close{position:absolute;top:16px;right:16px;width:38px;height:38px;border:1px solid var(--rule);background:var(--bg-raised-2);color:var(--ink-dim);border-radius:2px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .dialog-close:hover,.dialog-close:focus-visible{color:var(--brass);border-color:var(--brass-dim);}
 .dialog-close svg{width:18px;height:18px;}
-@media (max-width:760px){ .dialog-specs{grid-template-columns:repeat(3,1fr);} }
-@media (max-width:480px){ .dialog-specs{grid-template-columns:1fr 1fr;padding:20px 22px;} }
+@media (max-width:480px){ .dialog-specs{padding:20px 22px;} }
