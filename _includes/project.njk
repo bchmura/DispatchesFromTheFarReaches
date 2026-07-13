@@ -29,7 +29,7 @@
           <h3>{{ entry.data.title }}</h3>
           <span class="date-hover"><span class="dispatch-no">No. {{ entry.data.no }}</span> · {{ entry.date | date("d MMMM yyyy") }}</span>
         </div>
-        {{ entry.templateContent | safe }}
+        {{ entry.templateContent | firstParagraph | safe }}
         <div class="entry-actions"><a href="{{ entry.url }}">View this journal entry</a></div>
       </article>
       {% endfor %}

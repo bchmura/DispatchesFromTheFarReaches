@@ -4,8 +4,17 @@
 * [ ] Get NPM serve to watch the correct directories in the vault
 * [ ] Redirect other sites to this one... decide on holding page, or just plain redirect.
 * [x] Get something set up to upload big things to cloudfront instead of github, teach the site to refer to them correctly
+* [ ] Get categories set by having one real post and removing any placeholders
+	* [x] Professional
+	* [x] Philosophy
+	* [ ] Projects
+	* [ ] Exposures  - fix bad titles
+	* [x] Family
+	* [ ] Fiction
+	* [ ] Misc - set rendering test,  cult to isDraft true, delete rumours
+* [ ] Fix footer, wrapped when cross filing was added
 * [ ] Add project starts
-	* [ ] Radio 
+	* [x] Radio 
 	* [ ] Windchimes
 	* [ ] Cat wheel
 	* [ ] Home Automation
@@ -30,7 +39,7 @@
 	* [ ] write "The Cult That Gathers Where the Feed Never Sleeps"
 	* [ ] write about the AI experience building the new site
 	* [ ] Remove "rumours post"
-	* [ ] 
+
 
 
 

@@ -34,8 +34,6 @@
       Return to the collection
     </a>
 
-    <p class="accession accession-project">Miskatonic University</p>
-    <p class="accession">Special Collections · {{ item.accession }}</p>
     <p class="exposure-label">Exposure {{ item.numeral }}</p>
     <h1>{{ item.title }}</h1>
     <p class="exposure-body">{{ item.body }}</p>
@@ -50,9 +48,7 @@
     <div class="exposure-specs">
       <div class="spec-row"><span class="k">Camera</span><span class="v{% if not item.meta.camera %} is-missing{% endif %}">{{ item.meta.camera or "missing" }}</span></div>
       <div class="spec-row"><span class="k">Lens</span><span class="v{% if not item.meta.lens %} is-missing{% endif %}">{{ item.meta.lens or "missing" }}</span></div>
-      <div class="spec-row"><span class="k">Exposure</span><span class="v{% if not item.meta.exposureTime %} is-missing{% endif %}">{{ item.meta.exposureTime or "missing" }}</span></div>
-      <div class="spec-row"><span class="k">Aperture</span><span class="v{% if not item.meta.aperture %} is-missing{% endif %}">{{ item.meta.aperture or "missing" }}</span></div>
-      <div class="spec-row"><span class="k">ISO</span><span class="v{% if not item.meta.iso %} is-missing{% endif %}">{{ item.meta.iso or "missing" }}</span></div>
+      <div class="spec-row"><span class="k">Exposure</span><span class="v{% if not (item.meta.exposureTime and item.meta.aperture and item.meta.iso) %} is-missing{% endif %}">{% if item.meta.exposureTime and item.meta.aperture and item.meta.iso %}{{ item.meta.exposureTime }} @ {{ item.meta.aperture }}, ISO{{ item.meta.iso }}{% else %}missing{% endif %}</span></div>
       <div class="spec-row"><span class="k">Captured</span><span class="v{% if not item.meta.captured %} is-missing{% endif %}">{{ (item.meta.captured | date("dd MMMM yyyy")) if item.meta.captured else "missing" }}</span></div>
     </div>
 

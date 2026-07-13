@@ -154,6 +154,11 @@ module.exports = async function (eleventyConfig) {
     return content.replace("<p>", '<p class="lede">');
   });
 
+  eleventyConfig.addFilter("firstParagraph", (content) => {
+    const match = content.match(/<p[^>]*>[\s\S]*?<\/p>/);
+    return match ? match[0] : content;
+  });
+
   eleventyConfig.addFilter("readingTime", (content) => {
     const text = content.replace(/<[^>]*>/g, " ");
     const words = text.split(/\s+/).filter(Boolean);

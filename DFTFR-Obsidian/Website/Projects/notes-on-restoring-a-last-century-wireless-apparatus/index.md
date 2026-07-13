@@ -20,5 +20,3 @@ resources:
 ---
 In the summer of this year, a RCA Victor 4-X-644 table-top radio — manufactured in the year 1956, its provenance otherwise undocumented — came into my possession by means I need not elaborate upon here. What follows is a record of its restoration: the careful stripping and refinishing of the exterior to something nearer its original condition, and the quieter, more unsettling work of replacing its aging tubes and wiring with modern components — a necessity, I tell myself, for safety and function.
 
-This should work
-

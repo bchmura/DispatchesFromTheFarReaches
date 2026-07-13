@@ -283,11 +283,9 @@ footer .stamp{width:42px;height:42px;flex:none;color:var(--brass-dim);opacity:.6
 footer .fnav{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;font-size:.72rem;}
 footer .fnav a:hover,footer .fnav a.current{color:var(--brass);}
 
-.entry-actions{height:20px;margin-top:10px;display:flex;justify-content:space-between;align-items:center;gap:18px;overflow:hidden;font-family:var(--mono);font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;opacity:0;pointer-events:none;transition:opacity .15s ease;}
-.list article:hover .entry-actions,.list article:focus-within .entry-actions,.journal article:hover .entry-actions,.journal article:focus-within .entry-actions{opacity:1;pointer-events:auto;}
+.entry-actions{height:20px;margin-top:10px;display:flex;justify-content:space-between;align-items:center;gap:18px;overflow:hidden;font-family:var(--mono);font-size:.68rem;letter-spacing:.07em;text-transform:uppercase;}
 .entry-actions a{color:var(--brass);border-bottom:1px solid transparent;}
 .entry-actions a:hover,.entry-actions a:focus-visible{border-color:var(--brass-dim);}
-@media (prefers-reduced-motion:reduce){.entry-actions{transition:none;}}
 
 /* ---------- Article page ---------- */
 .art-header{border-bottom:1px solid var(--rule);padding:52px 0 40px;background:radial-gradient(ellipse 80% 120% at 94% 6%, rgba(193,154,75,.11) 0%, rgba(193,154,75,.04) 40%, transparent 70%),var(--bg);}
@@ -516,7 +514,7 @@ h1{font-family:var(--serif-display);font-weight:400;font-size:clamp(1.9rem,3.6vw
 .journal article:hover .date-hover,.journal article:focus-within .date-hover{opacity:1;}
 .journal p{color:var(--ink-dim);font-size:1.1rem;line-height:1.66;margin:0;}
 .journal .entry-actions{justify-content:flex-end;}
-@media (prefers-reduced-motion:reduce){ .journal .date-hover,.journal .entry-actions{transition:none;} }
+@media (prefers-reduced-motion:reduce){ .journal .date-hover{transition:none;} }
 
 .resources{border:1px solid var(--rule);background:var(--bg-raised);border-radius:2px;padding:26px 24px;}
 .resources h2.section-head{font-size:1.15rem;margin-bottom:20px;padding-left:0;}

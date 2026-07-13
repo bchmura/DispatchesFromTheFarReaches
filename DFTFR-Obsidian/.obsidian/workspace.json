@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Website/Misc/why-i-publish-what-i-ought-perhaps-burn.md",
+                "file": "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/arrival-of-the-package.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "why-i-publish-what-i-ought-perhaps-burn"
+              "title": "arrival-of-the-package"
             }
           },
           {
@@ -210,12 +210,21 @@
   },
   "active": "f87c6091e56973fb",
   "lastOpenFiles": [
+    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/index.md",
+    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/arrival-of-the-package.md",
+    "Site notes.md",
+    "Website/Misc/why-i-publish-what-i-ought-perhaps-burn.md",
+    "Website/Family/Untitled.md",
+    "Website/Exposures/Exposures.11tydata.json",
+    "Website/Misc/Misc.11tydata.json",
+    "Website/Fiction/Fiction.11tydata.json",
+    "Website/Family/Family.11tydata.json",
+    "Website/Philosophy/Philosophy.11tydata.json",
+    "Website/Professional/Professional.11tydata.json",
     "Website/Misc/rendering-test.md",
     "Website/About/about.md",
-    "Site notes.md",
     "Website/Misc/moth.jpg",
     "Website/Misc/DispatchesFromTheFarthestReaches-100710-04.jpg",
-    "Website/Misc/why-i-publish-what-i-ought-perhaps-burn.md",
     "Website/Misc/DispatchesFromTheFarthestReaches-240620-13.jpg",
     "Website/Misc/index.md",
     "Website/Misc/the-cult-that-gathers-where-the-feed-never-sleeps.md",
@@ -236,24 +245,16 @@
     "Website/Exposures/index.md",
     "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-221006-12.jpg",
     "Website/Exposures/preliminary-account-of-anomalous-decay",
-    "Website/Exposures/persistant-attendance-of-wild-animals",
     "Worldbuilding-Arkam/Places.md",
-    "Worldbuilding-Arkam/Untitled",
     "Worldbuilding-Arkam/People.md",
-    "Worldbuilding-Arkam",
     "Website/Exposures/coastal-fog-early-mornings.md",
-    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/arrival-of-the-package.md",
-    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/index.md",
     "Website/Contact/thankyou.md",
     "Website/Projects/building-a-weather-station-from-salvaged-instruments/01-two-barometers-and-a-ruined-sextant.md",
     "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/Project notes.md",
-    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus",
     "Website/Projects/building-a-weather-station-from-salvaged-instruments/index.md",
     "Website/Contact/contact.md",
     "Website/Professional/experiment_to_prevent_rigor_corpus_part_three.md",
     "Website/Projects/restoring-a-1930s-field-radio.md",
-    "Website/Projects/building-a-weather-station-from-salvaged-instruments.md",
-    "Website/Professional/sedYqkXVM",
-    "Website/Professional/sed4tVPcp"
+    "Website/Projects/building-a-weather-station-from-salvaged-instruments.md"
   ]
 }
