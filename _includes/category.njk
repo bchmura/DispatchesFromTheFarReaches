@@ -58,7 +58,7 @@
           <span class="date-hover"><span class="dispatch-no">No. {{ entry.data.dispatchNo }}</span> · {{ entry.date | date("d MMMM yyyy") }}</span>
           {% endif %}
         </div>
-        <div class="entry-tags">{% for t in entry.data.tags %}<a href="#">{{ t }}</a>{% endfor %}</div>
+        <div class="entry-tags">{% for t in entry.data.tags %}<a href="/tags/?tags={{ t | urlencode }}">{{ t }}</a>{% endfor %}</div>
         <p>{{ entry.data.description }}</p>
         <div class="entry-actions"><a href="{{ entry.url }}">View the account</a></div>
       </article>
