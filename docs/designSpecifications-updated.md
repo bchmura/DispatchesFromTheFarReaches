@@ -47,7 +47,7 @@ Only brass is used as an accent; variation (status, emphasis, frequency in the t
 
 ## Typography
 
-**Webfonts (Google Fonts), replacing the earlier system-font stacks.** The system stacks remain as fallbacks in each variable.
+**Webfonts (originally Google Fonts, now self-hosted), replacing the earlier system-font stacks.** The system stacks remain as fallbacks in each variable.
 
 ```
 --serif-display: 'IM Fell English','Iowan Old Style',Palatino,serif;
@@ -55,13 +55,7 @@ Only brass is used as an accent; variation (status, emphasis, frequency in the t
 --mono:          'Fragment Mono',ui-monospace,'Cascadia Mono',Menlo,monospace;
 ```
 
-Loaded per page via:
-
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Fragment+Mono:ital@0;1&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
-```
+Loaded via `@font-face` rules at the top of `assets/css/site.css`, pointing at woff2 files in `assets/fonts/` — no request to Google at page load. `_includes/partials/head.njk` preloads the three regular faces used on every page. See `docs/fonts.md` for the full mechanics (subsets, unicode-range lazy loading, how to add a face).
 
 - **IM Fell English** — display/headings only. A digitization of 17th-century Fell types; its inky, slightly irregular texture is a *feature at large sizes* and a legibility cost at small ones, so keep it to headings and the drop-cap.
 - **EB Garamond** — running prose. Warm and scholarly, but **runs small on the em** — body copy needed bumping (see below).
@@ -75,7 +69,7 @@ Loaded per page via:
 - Article "correspondence" line: `1.12rem` (CTA label `0.82rem`).
 - About body `p`: `1.18rem`. Project-detail: intro `1.14rem`, journal `h3` `1.28rem`, journal `p` `1.1rem`.
 
-> **Eleventy note:** these load from Google Fonts, so the built site needs network access at load. For offline/perf, **self-host the woff2 files** and swap the `<link>` for a local `@font-face` block; keep the same fallbacks.
+> **Eleventy note:** the fonts are self-hosted (woff2 + `@font-face`, same fallbacks) — the built site needs no network access for type. This was done after the original Google-Fonts version of this note recommended it.
 
 ## Layout system — the width/indent rule
 
@@ -124,6 +118,7 @@ This took several rounds to get right; the rule going forward is:
 - List-row calls to action: **"View the account"** and **"Open the [Category] file"** (homepage); **"View this journal entry"** (project journal entries); **"View the project"** / **"Open the exposure series"** (listing cards).
 - About page section label: **"A Biographical Note"** (period-appropriate framing, not "About" or "Bio").
 - Contact page: **"File a Dispatch"** (not "Contact" or "Get in Touch") — frames sending a message as filing your own entry into the archive, consistent with the site-wide cataloguing motif. The form now has a real backend (Web3Forms — see `docs/site-integrations.md`): submitting shows an inline status line, then a "Returning you to the main page in 5…4…3…2…1" countdown (the digit styled in brass, `var(--serif-display)`, standing out from the surrounding mono note text) before redirecting to `/`. A themed confirmation page also exists at `/contact/thankyou.html` (same seal-panel motif as the form's sidebar) as the Web3Forms dashboard's configured redirect target for non-JS fallback submissions. Linked only from the footer nav (not the main category nav) and from in-article links as needed. *Em-dashes in the intro/hint copy were removed to honor the no-em-dash voice rule.*
+- Tag index page: **"The Cross-Filing Index"** at `/tags/` (kicker: "Filed under many headings") — extends the per-post "Cross-filed under" language. All tag links site-wide point here as `/tags/?tags=<tag>`, pre-selecting that tag; the page filters client-side with multi-select **OR** logic (`assets/js/tags-filter.js`), shows everything when nothing is selected, and works as a plain full archive listing without JS. Linked from the footer nav as **"Cross-Filing Index"**. Deliberate exceptions still `#`: exposure-detail per-photo tags (not in the tag cloud, so a link would pre-select nothing) and the About page's three profile links (placeholders awaiting real URLs) — both by explicit decision, not oversight. **On this page an entry's category is unboxed text ("Filed under Professional", `.filed-under`, at the end of the tag row) rather than the usual `.tag` chip — on a page where every bordered box is a filter control, a boxed category label reads as a pressed chip.**
 
 ## Page templates built so far
 
@@ -146,16 +141,17 @@ The redesign comps carry a `-claudedesign` suffix and live beside the originals.
 | `style-1-archive-fiction-claudedesign.html` | Category page — Fiction (glyph: mask) |
 | `style-1-archive-misc-claudedesign.html` | Category page — Misc (glyph: filing tag) |
 
-**Linking (mockup phase):** all internal links were relative and same-directory, pointing at sibling `-claudedesign` files. Content-item links resolved to a representative template ("View the account"/"Read the entry" → article; "View this journal entry" → project detail; "Open the [Category] file" → that category; photo cards → exposure series; project cards → project detail). Genuinely target-less links stayed `#`: RSS, article prev/next, and individual tag links (no per-tag/per-article mock existed). **In the real build**, RSS now points at the real `/feed.xml` (see `docs/site-integrations.md`); individual tag links are still placeholder `#` (no per-tag listing page exists yet).
+**Linking (mockup phase):** all internal links were relative and same-directory, pointing at sibling `-claudedesign` files. Content-item links resolved to a representative template ("View the account"/"Read the entry" → article; "View this journal entry" → project detail; "Open the [Category] file" → that category; photo cards → exposure series; project cards → project detail). Genuinely target-less links stayed `#`: RSS, article prev/next, and individual tag links (no per-tag/per-article mock existed). **In the real build**, RSS now points at the real `/feed.xml` (see `docs/site-integrations.md`), and individual tag links now point at the Cross-Filing Index (`/tags/?tags=<tag>` — see Terminology below), except the exposure-detail per-photo tags (deliberately left `#`; not in the tag cloud); article prev/next are real category-sibling links.
 
 **Exposures redesign mockups (later addition):** `mockups/style-1-archive-photos-redesign-claudedesign.html` (the slide-mount collection grid) and `mockups/style-1-archive-plateset-redesign-claudedesign.html` (the full-screen single-exposure view) were built to preview the Exposures redesign described in the "Exposure Series pages (REDESIGNED)" bullet above, before it was implemented. **That redesign is now the real, built implementation** — `_includes/exposure-series.njk` and `_includes/exposure-detail.njk` — superseding both this table's original `style-1-archive-photos-claudedesign.html` / `style-1-archive-plateset-claudedesign.html` mockups and their own later redesign mockups alike. See `docs/site-integrations.md`'s photo pipeline section for how the real pages work.
 
 ## Technical constraints
 
-- **Fonts now require a network request** (Google Fonts) — this reverses the original "no external requests / system fonts only" rule. Everything else stays self-contained: all imagery is inline SVG or inline data-URI; no external scripts. **For the Eleventy build, self-host the fonts** to restore full offline behavior.
+- **Fonts are self-hosted** (woff2 in `assets/fonts/`, `@font-face` in `site.css`) — the site makes **no external requests at all**: all imagery is inline SVG or inline data-URI, no external scripts, no external fonts. (An earlier iteration loaded from Google Fonts; that reversal of the "no external requests" rule has itself been reversed.)
 - Respect `prefers-reduced-motion` on every transition/animation (including the new lantern flicker).
 - Single-theme by design (no light-mode variant) — this is a deliberate choice, not an oversight.
 - **Two markdown-it-related npm dependencies (NEW):** `markdown-it-mark` (registered as a markdown-it plugin, for `==highlight==`) and `mermaid` (used only as a source for the one self-hosted browser bundle copied to `assets/js/vendor/` — see the Mermaid bullet above; not otherwise used in the Node build). Both are regular `devDependencies` in `package.json`, fetched by `npm ci` same as everything else — no extra deploy-workflow changes needed.
+- **Every page emits head metadata** — meta description (frontmatter `description`, falling back to `site.description`), canonical URL, Open Graph tags (`og:type` is `article` for pages with both a category and a title, else `website`; `og:image` is the site-wide `android-chrome-512x512.png`), and `twitter:card` — all assembled in `_includes/partials/head.njk` from existing data.
 
 ## Open items / known gaps
 

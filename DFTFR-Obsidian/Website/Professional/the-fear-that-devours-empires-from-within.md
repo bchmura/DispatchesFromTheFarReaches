@@ -1,12 +1,9 @@
 ---
 title: "The Fear That Devours Empires From Within"
-category: professional
 dispatchNo: 216
 description: "An exploration of how fear — ancient, creeping, inherited from the top — calcifies organizations and strangles the will to change."
 date: 2022-09-30T01:03:03-04:00
-layout: post.njk
 tags: ["business"]
-isDraft: false
 ---
 I am not the first to wonder about maintaining a start-up mentality into later growth cycles.  A company rarely can. I postulate fear is one of the core issues.
 

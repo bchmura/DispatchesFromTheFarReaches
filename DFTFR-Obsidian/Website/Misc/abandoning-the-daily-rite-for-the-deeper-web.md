@@ -1,12 +1,9 @@
 ---
 title: "Abandoning the Daily Rite for the Deeper Web"
-category: misc
 dispatchNo: 221
 description: "On stepping back from daily publishing to pursue a Zettelkasten practice, trading raw output for slower, connected thought."
 date: 2022-10-22
-layout: post.njk
 tags: ["personal"]
-isDraft: false
 ---
 
 I'm no longer following my plan of publishing every day.  There are some good reasons for this.

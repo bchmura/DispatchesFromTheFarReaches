@@ -1,5 +1,4 @@
 ---
-category: family
 isCategoryIndex: true
 eleventyComputed:
   permalink: false

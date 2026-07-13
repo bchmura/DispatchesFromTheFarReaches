@@ -1,12 +1,9 @@
 ---
 title: "Rigor Corpus: The Stiffening of a Living Company"
-category: professional
 dispatchNo: 205
 description: "An introduction to Rigor Corpus — the slow, creeping inflexibility that sets into growing companies — and a vow to document its spread."
 date: 2022-09-19T01:03:03-04:00
-layout: post.njk
 tags: ["business"]
-isDraft: false
 ---
 
 Rigor Corpus is my term to reflect what happens to companies as they grow.  Like a body, the grow inflexible and all progress slows. Like Rigor Mortis... get it?

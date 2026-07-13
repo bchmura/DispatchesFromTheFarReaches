@@ -2,13 +2,10 @@
 title: On the Sudden and Persistent Attendance of Wild Animals
 description: I was asked to assist in cataloging a strange assortment of animals that came and simply did not leave. This is that account.
 date: 2025-08-01
-layout: exposure-series.njk
-category: exposures
 accession: EX-09
 tags:
   - photography
   - pets
-isDraft: false
 exposures:
   - title: Astonishingly large housecat
     image: DispatchesFromTheFarthestReaches-221006-11.jpg

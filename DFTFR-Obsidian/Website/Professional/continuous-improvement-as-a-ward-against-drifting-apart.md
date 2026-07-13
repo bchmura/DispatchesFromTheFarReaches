@@ -1,12 +1,9 @@
 ---
 title: "Continuous Improvement as a Ward Against Drifting Apart"
-category: professional
 dispatchNo: 213
 description: "Why continuous improvement isn't just about efficiency, but a way to release built-up pressure between departments before it erupts."
 date: 2022-09-27T01:03:03-04:00
-layout: post.njk
 tags: ["business"]
-isDraft: false
 ---
 
 Let's assume your continuous improvement program helps your team reach 100% effectiveness.  How long does that last?  Not long.  The world around you is a moving target.  Here is how to address it.

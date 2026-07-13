@@ -1,12 +1,9 @@
 ---
 title: "Notes from the Simulation That Watches Back"
-category: philosophy
 dispatchNo: 204
 description: "A cosmic-horror meditation on the Simulation Hypothesis — cheat codes, hidden loot, and the unsettling thought that something beyond the render distance is watching."
 date: 2022-09-18T01:03:03-04:00
-layout: post.njk
 tags: ["science", "random"]
-isDraft: false
 ---
 
 For a few moments let's assume the [Simulation Hypothesis](https://en.wikipedia.org/wiki/Simulation_hypothesis) is true.  The idea that we're all actually living inside a much larger simulation. For a fun diversion, as a programmer and avid gamer I have a few questions.

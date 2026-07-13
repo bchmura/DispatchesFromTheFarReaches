@@ -2,13 +2,13 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const { extractImageRefs } = require("../lib/content-scan");
 
-test("extractImageRefs returns nothing for a post with no category", () => {
+test("extractImageRefs returns nothing for a file outside any category folder", () => {
   assert.deepEqual(extractImageRefs({ frontmatter: {}, body: "![x](a.jpg)", filePath: "x.md" }), []);
 });
 
 test("extractImageRefs reads exposures[].image, defaults to the sepia treatment, and attaches the series slug", () => {
   const refs = extractImageRefs({
-    frontmatter: { category: "exposures", exposures: [{ image: "fog-01.jpg" }, { title: "no image" }] },
+    frontmatter: { exposures: [{ image: "fog-01.jpg" }, { title: "no image" }] },
     body: "",
     filePath: "DFTFR-Obsidian/Website/Exposures/coastal-series/index.md",
   });
@@ -26,7 +26,7 @@ test("extractImageRefs reads exposures[].image, defaults to the sepia treatment,
 
 test("extractImageRefs marks refs from a draft post as isDraft: true", () => {
   const refs = extractImageRefs({
-    frontmatter: { category: "family", isDraft: true },
+    frontmatter: { isDraft: true },
     body: "![a](porch.jpg)",
     filePath: "DFTFR-Obsidian/Website/Family/porch-day.md",
   });
@@ -35,7 +35,7 @@ test("extractImageRefs marks refs from a draft post as isDraft: true", () => {
 
 test("extractImageRefs honors a photoTreatment override", () => {
   const refs = extractImageRefs({
-    frontmatter: { category: "exposures", photoTreatment: "bw", exposures: [{ image: "fog-01.jpg" }] },
+    frontmatter: { photoTreatment: "bw", exposures: [{ image: "fog-01.jpg" }] },
     body: "",
     filePath: "DFTFR-Obsidian/Website/Exposures/coastal-series/index.md",
   });
@@ -44,7 +44,7 @@ test("extractImageRefs honors a photoTreatment override", () => {
 
 test("extractImageRefs scans inline markdown images in the body for non-exposure posts", () => {
   const refs = extractImageRefs({
-    frontmatter: { category: "family" },
+    frontmatter: {},
     body: "Some text.\n\n![The porch](porch.jpg)\n\nMore text ![Another](shed.png).",
     filePath: "DFTFR-Obsidian/Website/Family/porch-day.md",
   });
@@ -53,7 +53,7 @@ test("extractImageRefs scans inline markdown images in the body for non-exposure
 
 test("extractImageRefs skips absolute-path image references and only picks up bare filenames", () => {
   const refs = extractImageRefs({
-    frontmatter: { category: "family" },
+    frontmatter: {},
     body: "![a](porch.jpg) and ![b](/family/legacy.jpg)",
     filePath: "DFTFR-Obsidian/Website/Family/porch-day.md",
   });
@@ -62,7 +62,7 @@ test("extractImageRefs skips absolute-path image references and only picks up ba
 
 test("extractImageRefs skips a non-image extension and a nested path", () => {
   const refs = extractImageRefs({
-    frontmatter: { category: "family" },
+    frontmatter: {},
     body: "![a](porch.jpg) ![b](diagram.svg) ![c](sub/photo.jpg)",
     filePath: "DFTFR-Obsidian/Website/Family/porch-day.md",
   });
@@ -73,7 +73,7 @@ test("extractImageRefs throws a clear error naming the file when photoTreatment 
   assert.throws(
     () =>
       extractImageRefs({
-        frontmatter: { category: "family", photoTreatment: "sepai" },
+        frontmatter: { photoTreatment: "sepai" },
         body: "![a](porch.jpg)",
         filePath: "DFTFR-Obsidian/Website/Family/porch-day.md",
       }),
@@ -83,9 +83,20 @@ test("extractImageRefs throws a clear error naming the file when photoTreatment 
 
 test("extractImageRefs attaches the project slug for project journal entries", () => {
   const refs = extractImageRefs({
-    frontmatter: { category: "projects" },
+    frontmatter: {},
     body: "![Barometer](barometer.jpg)",
     filePath: "DFTFR-Obsidian/Website/Projects/weather-station/01-entry.md",
   });
   assert.equal(refs[0].projectSlug, "weather-station");
+});
+
+test("extractImageRefs derives category from the folder when frontmatter has no category", () => {
+  const refs = extractImageRefs({
+    frontmatter: { title: "Lean post" },
+    body: "![porch](porch.jpg)",
+    filePath: "DFTFR-Obsidian/Website/Family/porch-day.md",
+  });
+  assert.equal(refs.length, 1);
+  assert.equal(refs[0].category, "family");
+  assert.equal(refs[0].filename, "porch.jpg");
 });

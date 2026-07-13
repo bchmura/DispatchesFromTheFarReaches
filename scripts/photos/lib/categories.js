@@ -1,23 +1,18 @@
 const path = require("node:path");
 
-const FLAT_CATEGORY_DIRS = {
-  Professional: "professional",
-  Philosophy: "philosophy",
-  Family: "family",
-  Fiction: "fiction",
-  Misc: "misc",
-};
-
-// Categories where each post is its own subfolder (Exposures/<slug>/index.md,
-// Projects/<slug>/index.md) with its own image folder, as opposed to
-// FLAT_CATEGORY_DIRS' one-shared-folder-per-category model. Kept as its own
-// map (not merged into FLAT_CATEGORY_DIRS) so passthrough-copy and the photo
-// pipeline can tell at a glance which categories need the per-subfolder
-// treatment.
-const NESTED_CATEGORY_DIRS = {
-  Projects: "projects",
-  Exposures: "exposures",
-};
+// Derived from _data/categories.json — the single source of truth for the
+// category list (key/label/slug/glyph for templates; dir/nested for this
+// pipeline). Adding a category also needs the vault side: a `<Folder>.11tydata.json` directory data file (whose hardcoded category slug must match the key here) and a category index.md.
+// Kept as two maps (flat vs nested) because passthrough-copy and the photo
+// pipeline treat them differently: nested categories (Projects, Exposures)
+// give each post its own subfolder and image folder.
+const CATEGORIES = require("../../../_data/categories.json");
+const FLAT_CATEGORY_DIRS = Object.fromEntries(
+  CATEGORIES.filter((c) => !c.nested).map((c) => [c.dir, c.slug])
+);
+const NESTED_CATEGORY_DIRS = Object.fromEntries(
+  CATEGORIES.filter((c) => c.nested).map((c) => [c.dir, c.slug])
+);
 
 const SITE_CONTENT_ROOT = path.join("DFTFR-Obsidian", "Website");
 const PHOTOS_SOURCE_ROOT = "photos-source";
@@ -32,7 +27,11 @@ function projectSlugFromPath(mdOrImagePath) {
 // same way _data/eleventyComputed.js derives project slugs — used by the
 // Eleventy "photo-links" transform, which only has `this.page.inputPath`
 // available (not `this.category`; transforms don't expose custom template
-// data on `this`).
+// data on `this`). Note: a flat .md file sitting directly inside a nested-
+// category folder (e.g. Exposures/index.md, with no gallery subfolder of
+// its own) gets its own filename back as `projectSlug` here — harmless for
+// current callers (such files produce no photo refs), but don't build a
+// photo key from this return value without checking for that case first.
 function categoryRefFromInputPath(inputPath) {
   const rel = path.relative(SITE_CONTENT_ROOT, inputPath);
   const [dirName, second] = rel.split(path.sep);

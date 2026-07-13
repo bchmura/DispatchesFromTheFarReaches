@@ -1,12 +1,9 @@
 ---
 title: "A Reckoning After Two Weeks in the Dark"
-category: professional
 dispatchNo: 214
 description: "A candid retrospective on two weeks of daily writing, cataloguing what fed the habit and what threatened to consume it."
 date: 2022-09-28T01:03:03-04:00
-layout: post.njk
 tags: ["blogging"]
-isDraft: false
 ---
 
 Today is the two-week anniversary of my writing and posting every day.  I've been reflecting on it... this is mostly for me, but there may be some value for you.

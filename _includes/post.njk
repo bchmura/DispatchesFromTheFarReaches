@@ -28,7 +28,7 @@
     {% if tags.length %}
     <div class="cross-filed">
       <span class="cf-label">Cross-filed under</span>
-      {% for tag in tags %}<a href="#">{{ tag }}</a>{% endfor %}
+      {% for tag in tags %}<a href="/tags/?tags={{ tag | urlencode }}">{{ tag }}</a>{% endfor %}
     </div>
     {% endif %}
     <div class="art-contact">

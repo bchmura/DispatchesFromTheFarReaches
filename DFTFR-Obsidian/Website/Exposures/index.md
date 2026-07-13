@@ -1,5 +1,4 @@
 ---
-category: exposures
 isCategoryIndex: true
 eleventyComputed:
   permalink: false

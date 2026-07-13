@@ -1,12 +1,9 @@
 ---
 title: "Feeding on Chaos: An Antifragile Ward Against Rigidity"
-category: professional
 dispatchNo: 209
 description: "Applying Nassim Taleb's antifragility to corporate inflexibility, with a confession of one process that needed to grow stronger from its own failures."
 date: 2022-09-23T01:03:03-04:00
-layout: post.njk
 tags: ["rigorcorpus", "business"]
-isDraft: false
 ---
 
 A look at Nassim Taleb's concept of Antifragility as a remedy or preventive measure against Rigor Corpus (corporate inflexibility).  An example of one of my own mistakes.

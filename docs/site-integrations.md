@@ -39,14 +39,14 @@ credential actually lives.
 
 ## Favicons
 
-- Source files live in `assets/favicon/` (favicon.ico, favicon.svg, the 16/32/48 PNGs,
+- Source files live in `favicon/` at the repo root (favicon.ico, favicon.svg, the 16/32/48 PNGs,
   apple-touch-icon.png, android-chrome-*.png, site.webmanifest).
 - `eleventy.config.js` has a loop that adds one passthrough-copy rule per file in that folder,
-  copying each straight to the **site root** (`/favicon.ico`, not `/assets/favicon/favicon.ico`)
+  copying each straight to the **site root** (`/favicon.ico`, not `/favicon/favicon.ico`)
   — several of these are looked up at fixed root paths by browsers/OS regardless of `<link>`
   tags, and `site.webmanifest` already references its icons as root-relative paths.
 - Any generation/instruction notes for a new favicon set should go in `docs/`, not
-  `assets/favicon/` — a stray `favicon.md` in that folder would otherwise get copied straight
+  `favicon/` — a stray `favicon.md` in that folder would otherwise get copied straight
   onto the live site.
 - The `<link rel="icon">` / `<link rel="apple-touch-icon">` / `<link rel="manifest">` /
   `theme-color` tags live in `_includes/partials/head.njk`.
@@ -167,8 +167,15 @@ credential actually lives.
 
 ## Deployment — GitHub Actions → DreamHost
 
-`.github/workflows/deploy.yml` runs on every push to `main` (and manually via
-`workflow_dispatch`):
+Two workflows:
+
+- `.github/workflows/build.yml` runs `npm ci && npm run build` on every **pull request** —
+  no secrets, no deploy; it exists so a broken build (including the photo pipeline's
+  missing-thumbnail validator) is caught before merge instead of by a red deploy. It has
+  `permissions: contents: read` and its own per-PR concurrency group, so it can't interact
+  with the deploy below.
+- `.github/workflows/deploy.yml` runs on every push to `main` (and manually via
+  `workflow_dispatch`):
 
 1. `actions/checkout` → `actions/setup-node` (Node 24) → `npm ci` → `npm run build`
    (`eleventy && pagefind --site _site`).

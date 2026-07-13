@@ -37,6 +37,10 @@ npm run serve
 This starts a local preview server (prints a `localhost` address to open in your browser) and
 auto-rebuilds as you edit files. Press Ctrl+C to stop it.
 
+One caveat: the **search box does nothing under `npm run serve`** — the search index is built
+by a separate tool (Pagefind) that only runs as part of `npm run build` (and `npm run
+build:drafts`), not inside the live-reload server. That's expected, not broken.
+
 If you just want a one-off build without a live-reloading server:
 
 ```
@@ -54,13 +58,10 @@ Start it with this frontmatter block, then write the article underneath in plain
 ```markdown
 ---
 title: "Your Title Here"
-category: family
 dispatchNo: 224
 description: "One or two sentences — used wherever the post is teased/linked elsewhere on the site."
 date: 2026-07-11
-layout: post.njk
 tags: ["some-tag", "another-tag"]
-isDraft: false
 ---
 
 Your article text goes here, in normal markdown.
@@ -68,13 +69,17 @@ Your article text goes here, in normal markdown.
 
 Notes on each field:
 
-- **`category`** must be one of: `professional`, `philosophy`, `family`, `fiction`, `misc`
-  (lowercase, matches the folder you put the file in).
+- **Category and layout are automatic** — the folder you put the file in decides both (each
+  category folder has a `<Folder>.11tydata.json` directory-data file supplying them, invisible
+  in Obsidian). You never write `category:` or `layout:` in a post's frontmatter. A file also
+  needs a `title` to publish at all — an untitled stray `.md` dropped into a category folder is
+  ignored by the build entirely.
 - **`dispatchNo`** is the "MS-###" number shown on the article page and in listings. It's not
   automatic — look at the highest `dispatchNo` used anywhere in `DFTFR-Obsidian/Website/` and
   use the next number up.
-- **`tags`** show up as clickable-looking chips at the bottom of the article and feed the
-  homepage's "Browse by tag" list. Use whatever words make sense; there's no fixed list.
+- **`tags`** show up as clickable chips at the bottom of the article — each links to the
+  Cross-Filing Index (`/tags/`) with that tag pre-selected — and feed the homepage's
+  "Browse by tag" list. Use whatever words make sense; there's no fixed list.
 - **`isDraft`** — set to `true` to keep a post out of the normal site build entirely (no page,
   no listing, no RSS entry, no tag-cloud count). A normal `npm run serve` / `npm run build` /
   the live auto-deploy all skip it. To preview a draft yourself before it's ready, use
@@ -95,11 +100,8 @@ an `index.md` — same pattern as Projects. Create the folder and the file:
 title: "Your Gallery Title"
 description: "One or two sentences describing the series."
 date: 2026-07-11
-layout: exposure-series.njk
-category: exposures
 accession: "EX-12"
 tags: ["some-tag"]
-isDraft: false
 exposures:
   - title: "First Photo's Title"
     body: "A sentence or two about this specific shot."
@@ -225,7 +227,7 @@ gets built and deployed like any other file. It does **not** touch the internet 
 as often as you like while you're proofing things with `npm run serve`.
 
 **Changing the look of a photo:** add `photoTreatment: bw` (or `sepia`, `duotone-brass`,
-`darkened`) to the post's frontmatter (same level as `title`/`category`), then re-run
+`darkened`) to the post's frontmatter (same level as `title`), then re-run
 `npm run photos:thumbs`. It applies to every photo in that post/gallery.
 
 **Important:** if a post references a photo (`image:` field or `![alt](file.jpg)`) that hasn't

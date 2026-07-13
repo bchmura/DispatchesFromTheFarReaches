@@ -1,12 +1,9 @@
 ---
 title: "Rites Against the Rigor: Five Steps to Begin the Ritual"
-category: professional
 dispatchNo: 218
 description: "Five steps to set up a recurring cycle of small experiments that keep an organization from calcifying."
 date: 2022-10-05
-layout: post.njk
 tags: ["business"]
-isDraft: false
 ---
 
 These five steps get you ready to start the experiment cycle. This is only done once with a team, although anything decided here can be adjusted as needed.

@@ -1,5 +1,4 @@
 ---
-category: misc
 isCategoryIndex: true
 eleventyComputed:
   permalink: false

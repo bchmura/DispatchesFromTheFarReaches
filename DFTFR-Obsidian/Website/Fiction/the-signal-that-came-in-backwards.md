@@ -2,11 +2,8 @@
 title: "The Signal That Came in Backwards"
 description: "A dispatch about a shortwave transmission that only made sense played in reverse, and what it turned out to actually be."
 date: 2025-05-14
-layout: post.njk
-category: fiction
 dispatchNo: 223
 tags: ["fiction", "radio"]
-isDraft: false
 ---
 The transmission repeated every forty minutes, exactly, for six nights running. Recorded and slowed down, it sounded like static with a grudge. Recorded and played backwards, it sounded like someone reading a shipping manifest in a language that did not quite exist yet.
 

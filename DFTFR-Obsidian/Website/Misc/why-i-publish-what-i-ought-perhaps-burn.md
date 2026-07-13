@@ -1,13 +1,10 @@
 ---
 title: Why I Publish What I Ought Perhaps Burn
-category: misc
 dispatchNo: 222
 description: "It is not without considerable private debate that I have resolved to make these papers available to all. They were not written for a particular audience; I publish them now for reasons that will, I trust, become apparent to the patient reader: not for entertainment, and certainly not for credit, but because certain things once observed have a way of being quietly forgotten by everyone except the one who observed them — and a record, however incomplete, however unwelcome, seems to me the only honest defense against that particular kind of forgetting."
 date: 2026-07-12
-layout: post.njk
 tags:
   - personal
-isDraft: false
 ---
 Some may wonder, what the hell is going on here.  Who is this site for?  Why?  WHY????  For them, I have no good short answer, so a long poor one will have to do.  Some people have the drive to do something specific.  Something that becomes the brightest star in the sky.  Frank Herbert wrote books, Benicio Del Toro acts, and Guillermo del Toro makes movies.  All of these people have that drive in that one direction that drives them to greatness.  
 

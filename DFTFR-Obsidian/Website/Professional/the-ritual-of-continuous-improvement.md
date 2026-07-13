@@ -1,12 +1,9 @@
 ---
 title: "The Ritual of Continuous Improvement"
-category: professional
 dispatchNo: 208
 description: "A practical guide to standing up a recurring continuous improvement cycle, and the conditions that keep it safe to speak honestly within."
 date: 2022-09-22T01:03:03-04:00
-layout: post.njk
 tags: ["business"]
-isDraft: false
 ---
 
 Today I am going to give a quick overview of how to implement a simple continuous improvement protocol.  It is one of the best things you can do in your organization.  Especially if things are going well.  
