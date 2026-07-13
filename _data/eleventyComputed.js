@@ -1,5 +1,7 @@
 const path = require("node:path");
-const { photoMetaKey } = require("../scripts/photos/lib/categories");
+const { photoMetaKey, VIDEO_EXTENSIONS, videoThumbFilename } = require("../scripts/photos/lib/categories");
+
+const isVideoFile = (name) => Boolean(name) && VIDEO_EXTENSIONS.includes(path.extname(name).toLowerCase());
 
 // Drafts (isDraft: true) are skipped entirely during a normal build/serve —
 // no output file, and (via eleventy.config.js's isRealPost/collection
@@ -90,6 +92,7 @@ module.exports = {
     if (!filename) return undefined;
     const key = photoMetaKey({ category: "exposures", projectSlug: seriesSlug, filename });
     if (!data.photoMeta || !data.photoMeta[key]) return undefined;
-    return `/exposures/${seriesSlug}/${filename}`;
+    const servedFilename = isVideoFile(filename) ? videoThumbFilename(filename) : filename;
+    return `/exposures/${seriesSlug}/${servedFilename}`;
   },
 };

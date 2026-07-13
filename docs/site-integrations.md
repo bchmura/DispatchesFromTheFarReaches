@@ -115,14 +115,17 @@ credential actually lives.
   metadata is stripped, every video is remuxed with `remuxFaststart` (`ffmpeg -c copy -movflags
   +faststart`) — a lossless rewrite that moves the `moov` atom to the front so a browser can start
   playback before the whole file downloads — before the usual `aws s3 sync` of `photos-source/`.
-- **Lightbox behavior map:** any pipeline-managed video gets a lightbox everywhere it appears
-  (inline embeds and the Exposures grid alike) — `data-lightbox="video"` opens the native
-  `<dialog id="lightbox">` (`_includes/partials/lightbox.njk` + `assets/js/lightbox.js`) with an
-  autoplaying `<video controls>`. Photos get the same dialog treatment (`data-lightbox="image"`)
-  everywhere **except** inside Exposures, where photos keep their pre-existing new-tab behavior
-  (the series/single-photo pages already have their own viewing flow) — this carve-out applies to
-  photos only; a video inside an Exposures gallery still gets the video lightbox like anywhere
-  else. Without JS, or in a browser without `<dialog>.showModal()`, every lightbox anchor still
+- **Lightbox behavior map:** any pipeline-managed video used as an inline embed gets a lightbox
+  everywhere that embed appears, including on Exposures posts — `data-lightbox="video"` opens the
+  native `<dialog id="lightbox">` (`_includes/partials/lightbox.njk` + `assets/js/lightbox.js`)
+  with an autoplaying `<video controls>`. Photos get the same dialog treatment
+  (`data-lightbox="image"`) everywhere **except** inside Exposures, where photos keep their
+  pre-existing new-tab behavior (the series/single-photo pages already have their own viewing
+  flow) — this carve-out applies to photos only; an inline video still gets the video lightbox
+  like anywhere else. The Exposures grid itself is a different case: a grid mount (photo or
+  video) carries no `data-lightbox` at all and always links to that entry's own single-exposure
+  detail page, where a video plays in the stage pane instead of through the lightbox. Without JS,
+  or in a browser without `<dialog>.showModal()`, every lightbox anchor still
   works as a plain link to the CloudFront original, opened in a new tab. Separately, a video
   used as an **Exposure Series entry's own stage image** (`exposure-detail.njk`'s `<video
   class="exposure-photo" controls preload="metadata">`) is not autoplaying — that's the one place
