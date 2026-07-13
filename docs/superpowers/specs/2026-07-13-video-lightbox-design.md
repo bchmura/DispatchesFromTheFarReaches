@@ -10,15 +10,22 @@ same publish workflow as a photo: a treated thumbnail is generated and committed
 the video is uploaded to S3/CloudFront, and the post embeds the thumbnail. Clicking
 the thumbnail opens a lightbox overlay that plays the video. Photos **outside the
 Exposures category** adopt the same lightbox (showing the full-size CloudFront
-image); **Exposures pages keep their current behavior unchanged**.
+image); **Exposures pages keep their current page layout and behavior** — no
+lightbox there — but an Exposure Series entry may itself be a video, in which
+case the single-exposure page's stage plays the video in place of the photo
+(see §7).
 
 ## Decisions made during brainstorming
 
 - **Click behavior: lightbox overlay** (chosen over open-in-new-tab and
   inline-swap alternatives).
-- **Lightbox scope:** videos everywhere, plus photos outside Exposures.
+- **Lightbox scope:** video and photo refs inline in posts outside Exposures.
   Exposures (both the series grid and single-exposure pages, and any inline
-  refs on exposure posts) keep today's open-full-size-in-new-tab behavior.
+  refs on exposure posts) get **no lightbox**; inline photo refs there keep
+  today's open-full-size-in-new-tab behavior.
+- **Exposures can contain videos (added in review):** an exposure entry whose
+  `image:` is an mp4 plays in the single-exposure page's existing stage
+  (replacing the `<img>`, not the page layout).
 - **Lightbox chrome stays silent** — no in-voice terminology ("Kinetoscope
   record" etc.) was added; just a close control and aria-labels.
 - **Authoring flow is unchanged** — same folders, same embed syntax, same
@@ -108,6 +115,33 @@ image); **Exposures pages keep their current behavior unchanged**.
 - Videos get `photoMeta` entries like photos (treatment recorded; capture
   metadata read via exiftool where mp4s carry it, fields absent otherwise).
 
+### 7. Video exposures (Exposure Series pages)
+
+An Exposure Series frontmatter entry may reference a video with its existing
+`image:` field (e.g. `image: clip.mp4`) — no new frontmatter field.
+
+- **Collection (`eleventy.config.js`, `exposureEntries`):** detect the video
+  extension and add `isVideo` plus a CloudFront `videoSrc`
+  (`<cdnBase>/exposures/<series-slug>/clip.mp4`). For videos, the
+  grid-thumbnail path resolves to the derived `clip.mp4.jpg` name.
+- **Series grid (`exposure-series.njk`):** a video entry's slide mount shows
+  its treated thumbnail (`/exposures/<series-slug>/clip.mp4.jpg`) with the
+  same small brass play-badge inline SVG used for inline video refs. The
+  mount still links to the single-exposure page, exactly like a photo.
+- **Single-exposure page (`exposure-detail.njk`):** when `isVideo`, the stage
+  renders `<video class="exposure-photo" controls preload="metadata">`
+  pointed at `videoSrc`, in place of the `<img>`. **No autoplay** — arrowing
+  through a series shouldn't start sound unprompted; the reader presses play.
+  Everything around the stage (sidebar, prev/next arrows, caption, capture
+  data with its existing "missing" fallbacks, Esc-to-exit) is unchanged.
+- **Keyboard guard (`assets/js/exposure-nav.js`):** the document-level
+  keydown handler must ignore events targeting the `<video>` element (add
+  `video` to its existing ignore selector) — otherwise ArrowLeft/ArrowRight
+  while the player has focus would both seek the video and navigate to the
+  neighboring exposure.
+- Ordering, numbering, and pagination need no changes — video entries flow
+  through the written-order `exposures` list like any other entry.
+
 ## Error handling
 
 - A video that ffmpeg cannot read fails that file loudly (console error,
@@ -129,14 +163,21 @@ Extend the existing node test suites:
   refs untouched.
 - `thumbs.test.js` — video thumbnail regeneration rules and naming.
 - `upload.test.js` — video files included in the metadata-strip file list.
+- `exposure-order.test.js` (or the collection's covering tests) — a video
+  entry resolves `isVideo`, `videoSrc`, and the `.mp4.jpg` grid-thumbnail
+  path correctly.
 - Manual verification: build the site, click a video thumb (plays in
-  lightbox), a non-exposure photo (image in lightbox), an exposure photo
-  (new tab, unchanged), Esc/backdrop close, no-JS fallback.
+  lightbox), a non-exposure photo (image in lightbox), an inline exposure
+  photo (new tab, unchanged), Esc/backdrop close, no-JS fallback; open a
+  video exposure's page (player in the stage, no autoplay, arrows/Esc still
+  navigate when the player isn't focused, arrow keys seek without
+  navigating when it is), and its series grid mount (thumbnail + play
+  badge).
 
 ## Out of scope
 
-- Videos inside the Exposures gallery/stage templates (Exposures remain
-  photo-only and untouched).
+- Any lightbox on Exposures pages (video exposures play in the existing
+  stage per §7; the page layout is untouched).
 - Poster-frame selection UI (frame at ~1s is fixed; revisit only if a real
   video's first second is unusable).
 - Any video transcoding/resizing — the uploaded mp4 is served as-authored
