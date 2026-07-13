@@ -28,9 +28,9 @@
     {% set num = loop.index %}
     {% set meta = photoMeta[category + "/" + seriesSlug + "/" + ex.image] if ex.image else null %}
     <a class="slide" href="/exposures/{{ seriesSlug }}/{{ num }}/" aria-label="View Exposure {{ num | toRoman }}: {{ ex.title }}, full screen">
-      <div class="frame">
+      <div class="frame{% if ex.image and (ex.image | isVideoFile) %} has-play-badge{% endif %}">
         {% if meta %}
-        <img src="/{{ category }}/{{ seriesSlug }}/{{ ex.image }}" alt="">
+        <img src="/{{ category }}/{{ seriesSlug }}/{{ ex.image | mediaThumb }}" alt="">
         {% else %}
         <div class="no-image"></div>
         {% endif %}
