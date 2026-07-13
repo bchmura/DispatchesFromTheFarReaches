@@ -105,8 +105,12 @@ credential actually lives.
   poster image (`clip.mp4.jpg`). `npm run photos:thumbs` uses the bundled `ffmpeg-static` binary
   (`scripts/photos/lib/video.js`'s `extractVideoFrame`) to grab a poster frame ~1s into the clip
   (falling back to frame 0 for clips shorter than that), then runs that frame through the exact
-  same treatment/resize path as a photo, landing as `<slug>.mp4.jpg` in the vault. `EXIF` capture
-  metadata (camera/lens/etc.) isn't read for videos — only the treatment is recorded.
+  same treatment/resize path as a photo, landing as `<slug>.mp4.jpg` in the vault. Capture
+  metadata for videos is read via `exiftool` (exifr, the photo path's reader, can't parse mp4):
+  QuickTime containers realistically carry only a creation date and sometimes make/model, so a
+  video's photoMeta entry records `captured` and `camera` where present — lens/exposure/
+  aperture/ISO never exist for video and stay absent, rendering as "missing" in the exposure
+  sidebar like any photo without them.
 - `npm run photos:upload` strips a **video-specific** tag set before syncing —
   `VIDEO_STRIP_AND_SET_TAGS` in `upload.js` clears `GPSLatitude`/`GPSLongitude`/`GPSAltitude` plus
   QuickTime's own `GPSCoordinates` field (mp4/mov location isn't stored the same way EXIF stores

@@ -13,7 +13,7 @@ const {
 } = require("./lib/categories");
 const { scanVaultForImageRefs } = require("./lib/content-scan");
 const { applyTreatment } = require("./lib/treatment");
-const { readCaptureMeta } = require("./lib/exif");
+const { readCaptureMeta, readVideoCaptureMeta, endExiftool } = require("./lib/exif");
 const { extractVideoFrame } = require("./lib/video");
 
 const PHOTO_META_PATH = path.join("_data", "photoMeta.json");
@@ -52,35 +52,42 @@ async function run() {
   const sourceMedia = findSourceMedia(PHOTOS_SOURCE_ROOT);
   let processed = 0;
 
-  for (const sourcePath of sourceMedia) {
-    const relativePath = path.relative(PHOTOS_SOURCE_ROOT, sourcePath);
-    const { category, projectSlug, filename, siteDir } = resolveDestination(relativePath);
-    const key = photoMetaKey({ category, projectSlug, filename });
-    const ref = refsByKey.get(key);
-    const treatment = ref ? ref.treatment : DEFAULT_TREATMENT;
-    const isVideo = VIDEO_EXTENSIONS.includes(path.extname(filename).toLowerCase());
-    const destPath = path.join(siteDir, isVideo ? videoThumbFilename(filename) : filename);
+  // readVideoCaptureMeta spins up exiftool's process pool — the finally
+  // makes sure it's shut down even on a mid-run failure, or node hangs.
+  try {
+    for (const sourcePath of sourceMedia) {
+      const relativePath = path.relative(PHOTOS_SOURCE_ROOT, sourcePath);
+      const { category, projectSlug, filename, siteDir } = resolveDestination(relativePath);
+      const key = photoMetaKey({ category, projectSlug, filename });
+      const ref = refsByKey.get(key);
+      const treatment = ref ? ref.treatment : DEFAULT_TREATMENT;
+      const isVideo = VIDEO_EXTENSIONS.includes(path.extname(filename).toLowerCase());
+      const destPath = path.join(siteDir, isVideo ? videoThumbFilename(filename) : filename);
 
-    if (!ref) {
-      console.warn(`No post references ${key} yet — processing with the default "${DEFAULT_TREATMENT}" treatment.`);
+      if (!ref) {
+        console.warn(`No post references ${key} yet — processing with the default "${DEFAULT_TREATMENT}" treatment.`);
+      }
+
+      const needsImage = needsRegeneration(sourcePath, destPath) || hasTreatmentChanged(photoMeta[key], treatment);
+      const needsMeta = !photoMeta[key];
+      if (!needsImage && !needsMeta) continue;
+
+      if (needsImage) {
+        fs.mkdirSync(siteDir, { recursive: true });
+        const pixelSource = isVideo ? extractVideoFrame(sourcePath) : sourcePath;
+        await applyTreatment(sharp(pixelSource), treatment)
+          .resize({ width: 640, withoutEnlargement: true })
+          .jpeg({ quality: 82 })
+          .toFile(destPath);
+        if (isVideo) fs.rmSync(pixelSource, { force: true });
+      }
+
+      const captureMeta = await (isVideo ? readVideoCaptureMeta(sourcePath) : readCaptureMeta(sourcePath));
+      photoMeta[key] = { ...captureMeta, treatment };
+      processed += 1;
     }
-
-    const needsImage = needsRegeneration(sourcePath, destPath) || hasTreatmentChanged(photoMeta[key], treatment);
-    const needsMeta = !photoMeta[key];
-    if (!needsImage && !needsMeta) continue;
-
-    if (needsImage) {
-      fs.mkdirSync(siteDir, { recursive: true });
-      const pixelSource = isVideo ? extractVideoFrame(sourcePath) : sourcePath;
-      await applyTreatment(sharp(pixelSource), treatment)
-        .resize({ width: 640, withoutEnlargement: true })
-        .jpeg({ quality: 82 })
-        .toFile(destPath);
-      if (isVideo) fs.rmSync(pixelSource, { force: true });
-    }
-
-    photoMeta[key] = { ...(await readCaptureMeta(sourcePath)), treatment };
-    processed += 1;
+  } finally {
+    await endExiftool();
   }
 
   fs.mkdirSync("_data", { recursive: true });
