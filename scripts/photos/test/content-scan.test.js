@@ -2,7 +2,7 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const { extractImageRefs } = require("../lib/content-scan");
 
-test("extractImageRefs returns nothing for a post with no category", () => {
+test("extractImageRefs returns nothing for a file outside any category folder", () => {
   assert.deepEqual(extractImageRefs({ frontmatter: {}, body: "![x](a.jpg)", filePath: "x.md" }), []);
 });
 
@@ -88,4 +88,15 @@ test("extractImageRefs attaches the project slug for project journal entries", (
     filePath: "DFTFR-Obsidian/Website/Projects/weather-station/01-entry.md",
   });
   assert.equal(refs[0].projectSlug, "weather-station");
+});
+
+test("extractImageRefs derives category from the folder when frontmatter has no category", () => {
+  const refs = extractImageRefs({
+    frontmatter: { title: "Lean post" },
+    body: "![porch](porch.jpg)",
+    filePath: "DFTFR-Obsidian/Website/Family/porch-day.md",
+  });
+  assert.equal(refs.length, 1);
+  assert.equal(refs[0].category, "family");
+  assert.equal(refs[0].filename, "porch.jpg");
 });

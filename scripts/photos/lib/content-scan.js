@@ -4,13 +4,11 @@ const matter = require("gray-matter");
 const {
   SITE_CONTENT_ROOT,
   DEFAULT_TREATMENT,
-  NESTED_CATEGORY_DIRS,
-  projectSlugFromPath,
+  categoryRefFromInputPath,
   isPipelineManagedFilename,
 } = require("./categories");
 const { TREATMENTS } = require("./treatment");
 
-const NESTED_CATEGORY_SLUGS = new Set(Object.values(NESTED_CATEGORY_DIRS));
 // Matches both standard Markdown image syntax (`![alt](target)`) and
 // Obsidian's own wikilink embed syntax (`![[target]]`, optionally
 // `![[target|alt]]`) — Obsidian inserts the latter automatically when you
@@ -20,15 +18,18 @@ const NESTED_CATEGORY_SLUGS = new Set(Object.values(NESTED_CATEGORY_DIRS));
 const IMAGE_MARKDOWN_PATTERN = /!\[[^\]]*\]\(([^)\s]+)\)|!\[\[([^\]|]+)(?:\|[^\]]*)?\]\]/g;
 
 function extractImageRefs({ frontmatter, body, filePath }) {
-  if (!frontmatter.category) return [];
-  const category = String(frontmatter.category).toLowerCase();
+  // Category comes from where the file sits in the vault, not frontmatter —
+  // directory data files supply `category` to Eleventy the same way, so the
+  // folder is the single source of truth on both sides (matches the
+  // "photo-links" transform, which already derives from inputPath).
+  const { category, projectSlug } = categoryRefFromInputPath(filePath);
+  if (!category) return [];
   const treatment = frontmatter.photoTreatment || DEFAULT_TREATMENT;
   if (!TREATMENTS.has(treatment)) {
     throw new Error(
       `Invalid photoTreatment "${treatment}" in ${filePath} — must be one of: ${[...TREATMENTS].join(", ")}`
     );
   }
-  const projectSlug = NESTED_CATEGORY_SLUGS.has(category) ? projectSlugFromPath(filePath) : undefined;
   const isDraft = Boolean(frontmatter.isDraft);
 
   if (Array.isArray(frontmatter.exposures)) {
