@@ -64,8 +64,10 @@ module.exports = async function (eleventyConfig) {
   eleventyConfig.addPlugin(rssPlugin);
 
   eleventyConfig.addPassthroughCopy({ "assets": "assets" });
-  for (const file of fs.readdirSync("assets/favicon")) {
-    eleventyConfig.addPassthroughCopy({ [`assets/favicon/${file}`]: file });
+  // Favicon sources live at the repo root (NOT under assets/) so the blanket
+  // assets passthrough above doesn't ship a second copy to /assets/favicon/.
+  for (const file of fs.readdirSync("favicon")) {
+    eleventyConfig.addPassthroughCopy({ [`favicon/${file}`]: file });
   }
 
   const IMAGE_GLOB = "*.{jpg,jpeg,png,gif,webp}";

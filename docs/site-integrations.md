@@ -39,14 +39,14 @@ credential actually lives.
 
 ## Favicons
 
-- Source files live in `assets/favicon/` (favicon.ico, favicon.svg, the 16/32/48 PNGs,
+- Source files live in `favicon/` at the repo root (favicon.ico, favicon.svg, the 16/32/48 PNGs,
   apple-touch-icon.png, android-chrome-*.png, site.webmanifest).
 - `eleventy.config.js` has a loop that adds one passthrough-copy rule per file in that folder,
-  copying each straight to the **site root** (`/favicon.ico`, not `/assets/favicon/favicon.ico`)
+  copying each straight to the **site root** (`/favicon.ico`, not `/favicon/favicon.ico`)
   — several of these are looked up at fixed root paths by browsers/OS regardless of `<link>`
   tags, and `site.webmanifest` already references its icons as root-relative paths.
 - Any generation/instruction notes for a new favicon set should go in `docs/`, not
-  `assets/favicon/` — a stray `favicon.md` in that folder would otherwise get copied straight
+  `favicon/` — a stray `favicon.md` in that folder would otherwise get copied straight
   onto the live site.
 - The `<link rel="icon">` / `<link rel="apple-touch-icon">` / `<link rel="manifest">` /
   `theme-color` tags live in `_includes/partials/head.njk`.
