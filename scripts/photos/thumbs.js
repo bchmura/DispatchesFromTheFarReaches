@@ -6,20 +6,24 @@ const {
   PHOTOS_SOURCE_ROOT,
   DEFAULT_TREATMENT,
   IMAGE_EXTENSIONS,
+  VIDEO_EXTENSIONS,
   photoMetaKey,
   resolveDestination,
+  videoThumbFilename,
 } = require("./lib/categories");
 const { scanVaultForImageRefs } = require("./lib/content-scan");
 const { applyTreatment } = require("./lib/treatment");
 const { readCaptureMeta } = require("./lib/exif");
+const { extractVideoFrame } = require("./lib/video");
 
 const PHOTO_META_PATH = path.join("_data", "photoMeta.json");
+const MEDIA_EXTENSIONS = [...IMAGE_EXTENSIONS, ...VIDEO_EXTENSIONS];
 
-function findSourceImages(rootDir) {
+function findSourceMedia(rootDir) {
   if (!fs.existsSync(rootDir)) return [];
   return fs
     .readdirSync(rootDir, { recursive: true })
-    .filter((entry) => IMAGE_EXTENSIONS.includes(path.extname(entry).toLowerCase()))
+    .filter((entry) => MEDIA_EXTENSIONS.includes(path.extname(entry).toLowerCase()))
     .map((entry) => path.join(rootDir, entry));
 }
 
@@ -45,16 +49,17 @@ async function run() {
     ? JSON.parse(fs.readFileSync(PHOTO_META_PATH, "utf8"))
     : {};
 
-  const sourceImages = findSourceImages(PHOTOS_SOURCE_ROOT);
+  const sourceMedia = findSourceMedia(PHOTOS_SOURCE_ROOT);
   let processed = 0;
 
-  for (const sourcePath of sourceImages) {
+  for (const sourcePath of sourceMedia) {
     const relativePath = path.relative(PHOTOS_SOURCE_ROOT, sourcePath);
     const { category, projectSlug, filename, siteDir } = resolveDestination(relativePath);
     const key = photoMetaKey({ category, projectSlug, filename });
     const ref = refsByKey.get(key);
     const treatment = ref ? ref.treatment : DEFAULT_TREATMENT;
-    const destPath = path.join(siteDir, filename);
+    const isVideo = VIDEO_EXTENSIONS.includes(path.extname(filename).toLowerCase());
+    const destPath = path.join(siteDir, isVideo ? videoThumbFilename(filename) : filename);
 
     if (!ref) {
       console.warn(`No post references ${key} yet — processing with the default "${DEFAULT_TREATMENT}" treatment.`);
@@ -66,10 +71,12 @@ async function run() {
 
     if (needsImage) {
       fs.mkdirSync(siteDir, { recursive: true });
-      await applyTreatment(sharp(sourcePath), treatment)
+      const pixelSource = isVideo ? extractVideoFrame(sourcePath) : sourcePath;
+      await applyTreatment(sharp(pixelSource), treatment)
         .resize({ width: 640, withoutEnlargement: true })
         .jpeg({ quality: 82 })
         .toFile(destPath);
+      if (isVideo) fs.rmSync(pixelSource, { force: true });
     }
 
     photoMeta[key] = { ...(await readCaptureMeta(sourcePath)), treatment };
@@ -78,10 +85,10 @@ async function run() {
 
   fs.mkdirSync("_data", { recursive: true });
   fs.writeFileSync(PHOTO_META_PATH, JSON.stringify(photoMeta, null, 2) + "\n");
-  console.log(`photos:thumbs — processed ${processed} photo(s), ${sourceImages.length} total in photos-source/.`);
+  console.log(`photos:thumbs — processed ${processed} media file(s), ${sourceMedia.length} total in photos-source/.`);
 }
 
-module.exports = { run, needsRegeneration, hasTreatmentChanged };
+module.exports = { run, needsRegeneration, hasTreatmentChanged, findSourceMedia };
 
 if (require.main === module) {
   run().catch((err) => {
