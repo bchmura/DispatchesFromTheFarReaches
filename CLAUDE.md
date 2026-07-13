@@ -12,9 +12,10 @@ This repo is the live Eleventy build for a personal blog ("Dispatches from the F
 
 - `_includes/` — the real Nunjucks templates (layouts + partials) that render the site. This is where design/behavior changes actually happen now.
 - `assets/css/site.css` — the single shared stylesheet (this replaced the old per-mockup inline `<style>` blocks; there's only one place to fix a token or component now).
-- `DFTFR-Obsidian/Website/` — the Obsidian vault; markdown content + frontmatter live here.
-- `eleventy.config.js` — collections, passthrough copy (including per-category and per-favicon-file rules), filters.
-- `.github/workflows/deploy.yml` — builds and deploys to DreamHost on every push to `main`; see `docs/site-integrations.md`.
+- `DFTFR-Obsidian/Website/` — the Obsidian vault; markdown content + frontmatter live here. Each category folder carries a `<Folder>.11tydata.json` directory data file supplying `layout`/`category` (posts don't repeat them), and a file must have a `title` to publish at all.
+- `eleventy.config.js` — collections, passthrough copy (including per-category and per-favicon-file rules), filters. `_data/categories.json` is the single source for the category list (labels, vault dir names, flat-vs-nested) — the photo pipeline derives its maps from it.
+- `favicon/` — favicon sources, copied file-by-file to the site root at build; kept at the repo root (not under `assets/`) so the blanket assets passthrough doesn't ship a duplicate copy.
+- `.github/workflows/deploy.yml` — builds and deploys to DreamHost on every push to `main`; `.github/workflows/build.yml` runs the same build (no deploy) on pull requests as a merge gate. See `docs/site-integrations.md`.
 - `mockups/` — historical HTML/CSS mockup files from before the real build existed. Superseded; don't edit these expecting it to affect the live site.
 - `docs/designSpecifications-updated.md` — the design system reference described above. Keep it in sync when a design decision changes (renamed terminology, new component pattern, palette tweak, etc.) rather than letting it go stale.
 - `docs/site-integrations.md` — RSS feed, contact form (Web3Forms), favicons, and the GitHub Actions → DreamHost deploy pipeline. Keep in sync the same way.

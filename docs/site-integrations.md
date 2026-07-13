@@ -167,8 +167,15 @@ credential actually lives.
 
 ## Deployment — GitHub Actions → DreamHost
 
-`.github/workflows/deploy.yml` runs on every push to `main` (and manually via
-`workflow_dispatch`):
+Two workflows:
+
+- `.github/workflows/build.yml` runs `npm ci && npm run build` on every **pull request** —
+  no secrets, no deploy; it exists so a broken build (including the photo pipeline's
+  missing-thumbnail validator) is caught before merge instead of by a red deploy. It has
+  `permissions: contents: read` and its own per-PR concurrency group, so it can't interact
+  with the deploy below.
+- `.github/workflows/deploy.yml` runs on every push to `main` (and manually via
+  `workflow_dispatch`):
 
 1. `actions/checkout` → `actions/setup-node` (Node 24) → `npm ci` → `npm run build`
    (`eleventy && pagefind --site _site`).
