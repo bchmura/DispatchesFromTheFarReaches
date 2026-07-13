@@ -1,23 +1,18 @@
 const path = require("node:path");
 
-const FLAT_CATEGORY_DIRS = {
-  Professional: "professional",
-  Philosophy: "philosophy",
-  Family: "family",
-  Fiction: "fiction",
-  Misc: "misc",
-};
-
-// Categories where each post is its own subfolder (Exposures/<slug>/index.md,
-// Projects/<slug>/index.md) with its own image folder, as opposed to
-// FLAT_CATEGORY_DIRS' one-shared-folder-per-category model. Kept as its own
-// map (not merged into FLAT_CATEGORY_DIRS) so passthrough-copy and the photo
-// pipeline can tell at a glance which categories need the per-subfolder
-// treatment.
-const NESTED_CATEGORY_DIRS = {
-  Projects: "projects",
-  Exposures: "exposures",
-};
+// Derived from _data/categories.json — the single source of truth for the
+// category list (key/label/slug/glyph for templates; dir/nested for this
+// pipeline). Adding a category means editing that one file only.
+// Kept as two maps (flat vs nested) because passthrough-copy and the photo
+// pipeline treat them differently: nested categories (Projects, Exposures)
+// give each post its own subfolder and image folder.
+const CATEGORIES = require("../../../_data/categories.json");
+const FLAT_CATEGORY_DIRS = Object.fromEntries(
+  CATEGORIES.filter((c) => !c.nested).map((c) => [c.dir, c.slug])
+);
+const NESTED_CATEGORY_DIRS = Object.fromEntries(
+  CATEGORIES.filter((c) => c.nested).map((c) => [c.dir, c.slug])
+);
 
 const SITE_CONTENT_ROOT = path.join("DFTFR-Obsidian", "Website");
 const PHOTOS_SOURCE_ROOT = "photos-source";
