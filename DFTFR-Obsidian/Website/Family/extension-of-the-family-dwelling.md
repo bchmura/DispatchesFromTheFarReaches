@@ -8,42 +8,50 @@ tags:
 ---
 
 
-The excitement
+## The idea
 
 
 
 
-The wait
+## The wait
+
+
+
+## The excitement
 
 
 
 
-The despair
+## The despair
 
 
 
 
-The oncoming train, not a light
+## The oncoming train, not a light
 
 
 
 
-Nearing completion
+## Nearing completion
 
 
 
-Those worth mentioning
+## Those worth mentioning
 
-Erin Boughammer
+Family and friends... Erin Boughammer, My Dad, Rocco Parente, Nick, Jason Veil
+
+https://sunroomsbybrady.com/
+
+Marak Brothers
 
 [George Dudac Plumbing – High Quality Service at Affordable Prices](https://georgedudacplumbing.com/)
 
-Shaw
-
-Mike Shaw
+Ben Shaw
 
 Bosse
 
-https://sunroomsbybrady.com/
+Mike Shaw
+
+
 
 
