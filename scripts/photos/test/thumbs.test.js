@@ -34,3 +34,13 @@ test("hasTreatmentChanged is false when the treatment is unchanged", () => {
 test("hasTreatmentChanged is true when a photoTreatment override changes the recorded treatment", () => {
   assert.equal(hasTreatmentChanged({ treatment: "sepia" }, "bw"), true);
 });
+
+test("findSourceMedia picks up both images and videos, nothing else", () => {
+  const { findSourceMedia } = require("../thumbs");
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "photos-test-"));
+  fs.writeFileSync(path.join(tmp, "a.jpg"), "x");
+  fs.writeFileSync(path.join(tmp, "b.mp4"), "x");
+  fs.writeFileSync(path.join(tmp, "notes.txt"), "x");
+  const found = findSourceMedia(tmp).map((f) => path.basename(f)).sort();
+  assert.deepEqual(found, ["a.jpg", "b.mp4"]);
+});

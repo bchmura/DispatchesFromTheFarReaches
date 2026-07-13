@@ -6,6 +6,7 @@ const {
   DEFAULT_TREATMENT,
   categoryRefFromInputPath,
   isPipelineManagedFilename,
+  isPipelineManagedVideoFilename,
 } = require("./categories");
 const { TREATMENTS } = require("./treatment");
 
@@ -51,12 +52,12 @@ function extractImageRefs({ frontmatter, body, filePath }) {
   IMAGE_MARKDOWN_PATTERN.lastIndex = 0;
   while ((match = IMAGE_MARKDOWN_PATTERN.exec(body))) {
     const filename = match[1] || match[2];
-    // Only bare, relative filenames with a recognized image extension are
+    // Only bare, relative filenames with a recognized image or video extension are
     // managed by this pipeline — skip absolute paths, external URLs, nested
     // paths, and non-image extensions. Shared with rewriteInlinePhotos' own
     // check in inline-photo-transform.js via isPipelineManagedFilename, so
     // the two can't drift out of sync.
-    if (!isPipelineManagedFilename(filename)) continue;
+    if (!isPipelineManagedFilename(filename) && !isPipelineManagedVideoFilename(filename)) continue;
     refs.push({
       filename,
       category,

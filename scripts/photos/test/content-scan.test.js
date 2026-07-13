@@ -100,3 +100,22 @@ test("extractImageRefs derives category from the folder when frontmatter has no 
   assert.equal(refs[0].category, "family");
   assert.equal(refs[0].filename, "porch.jpg");
 });
+
+test("extractImageRefs picks up a bare inline video embed", () => {
+  const refs = extractImageRefs({
+    frontmatter: {},
+    body: "A short film.\n\n![The tide](clip.mp4)",
+    filePath: "DFTFR-Obsidian/Website/Family/porch-day.md",
+  });
+  assert.deepEqual(refs.map((r) => r.filename), ["clip.mp4"]);
+  assert.equal(refs[0].kind, "inline");
+});
+
+test("extractImageRefs still skips nested/absolute video paths and unknown extensions", () => {
+  const refs = extractImageRefs({
+    frontmatter: {},
+    body: "![a](clip.mp4) ![b](/family/old.mp4) ![c](sub/clip.mp4) ![d](clip.mov)",
+    filePath: "DFTFR-Obsidian/Website/Family/porch-day.md",
+  });
+  assert.deepEqual(refs.map((r) => r.filename), ["clip.mp4"]);
+});

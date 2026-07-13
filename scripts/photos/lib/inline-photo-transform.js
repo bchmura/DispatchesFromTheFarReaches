@@ -1,5 +1,5 @@
 const path = require("node:path");
-const { isPipelineManagedFilename, siteUrlForVaultImage } = require("./categories");
+const { isPipelineManagedFilename, siteUrlForVaultImage, isPipelineManagedVideoFilename, videoThumbFilename } = require("./categories");
 
 const IMG_TAG_PATTERN = /<img src="([^"]+)"([^>]*)>/gi;
 
@@ -16,12 +16,20 @@ function isExternalOrAbsolute(src) {
 // /misc/Exposures/x.jpg, which doesn't exist).
 function rewriteInlinePhotos(html, { category, projectSlug, cdnBase, pageInputPath }) {
   return html.replace(IMG_TAG_PATTERN, (fullMatch, src, restAttrs) => {
-    if (isPipelineManagedFilename(src)) {
+    const isVideo = isPipelineManagedVideoFilename(src);
+    if (isPipelineManagedFilename(src) || isVideo) {
       if (!category || !cdnBase) return fullMatch;
       const categoryPath = projectSlug ? `${category}/${projectSlug}` : category;
-      const thumbSrc = `/${categoryPath}/${src}`;
       const fullUrl = `${cdnBase}/${categoryPath}/${src}`;
-      return `<a href="${fullUrl}" class="photo-link" target="_blank" rel="noopener"><img src="${thumbSrc}" class="treated-photo"${restAttrs}></a>`;
+      if (isVideo) {
+        const thumbSrc = `/${categoryPath}/${videoThumbFilename(src)}`;
+        return `<a href="${fullUrl}" class="photo-link video-link has-play-badge" data-lightbox="video" target="_blank" rel="noopener"><img src="${thumbSrc}" class="treated-photo"${restAttrs}></a>`;
+      }
+      const thumbSrc = `/${categoryPath}/${src}`;
+      // Exposures keep their pre-lightbox behavior for photos by explicit
+      // decision — the series/stage pages have their own viewing flow.
+      const lightboxAttr = category === "exposures" ? "" : ' data-lightbox="image"';
+      return `<a href="${fullUrl}" class="photo-link"${lightboxAttr} target="_blank" rel="noopener"><img src="${thumbSrc}" class="treated-photo"${restAttrs}></a>`;
     }
     if (!isExternalOrAbsolute(src) && pageInputPath) {
       const resolved = path.resolve(path.dirname(pageInputPath), src);

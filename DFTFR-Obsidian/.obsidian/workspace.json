@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Website/Family/extension-of-the-family-dwelling.md",
+                "file": "Website/Exposures/preliminary-account-of-anomalous-decay/index.md",
                 "mode": "source",
-                "source": false
+                "source": true
               },
               "icon": "lucide-file",
-              "title": "extension-of-the-family-dwelling"
+              "title": "index"
             }
           },
           {
@@ -210,10 +210,19 @@
   },
   "active": "f87c6091e56973fb",
   "lastOpenFiles": [
+    "Website/Exposures/preliminary-account-of-anomalous-decay/DispatchesFromTheFarReaches-ant-swarming-home.mp4.jpg",
     "Website/Exposures/extension-of-the-family-dwelling/index.md",
+    "Website/Misc/plan-meta-clip.mp4.jpg",
+    "Website/Exposures/extension-of-the-family-dwelling/DispatchesFromTheFarthestReaches-110107-05.jpg",
+    "Website/Family/extension-of-the-family-dwelling.md",
+    "Website/Exposures/persistant-attendance-of-wild-animals/plan-fix-clip.mp4.jpg",
+    "Website/Exposures/persistant-attendance-of-wild-animals/plan-test-clip.mp4.jpg",
+    "Website/Family/plan-test-clip.mp4.jpg",
+    "Website/Exposures/extension-of-the-family-dwelling/DispatchesFromTheFarthestReaches-221006-11.jpg",
+    "Website/Exposures/extension-of-the-family-dwelling/DispatchesFromTheFarthestReaches-210119-10.jpg",
+    "Website/Exposures/extension-of-the-family-dwelling/DispatchesFromTheFarthestReaches-190522-09.jpg",
     "Website/Misc/rendering-test.md",
     "Website/Exposures/persistant-attendance-of-wild-animals/index.md",
-    "Website/Family/extension-of-the-family-dwelling.md",
     "Website/Exposures/extension-of-the-family-dwelling",
     "Website/Family/the-tide-pools-that-remember.md",
     "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/arrival-of-the-package.md",
@@ -229,8 +238,6 @@
     "Website/Professional/Professional.11tydata.json",
     "Website/About/about.md",
     "Website/Misc/moth.jpg",
-    "Website/Misc/DispatchesFromTheFarthestReaches-100710-04.jpg",
-    "Website/Misc/DispatchesFromTheFarthestReaches-240620-13.jpg",
     "Website/Misc/index.md",
     "Website/Misc/the-cult-that-gathers-where-the-feed-never-sleeps.md",
     "Templates/Template for posts.md",
@@ -238,23 +245,15 @@
     "Templates",
     "Website/Exposures/preliminary-account-of-anomalous-decay/index.md",
     "Website/Exposures/preliminary-account-of-anomalous-decay.md",
-    "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-221006-11.jpg",
-    "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-210119-10.jpg",
-    "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-190522-09.jpg",
-    "Website/Exposures/misc/DispatchesFromTheFarthestReaches-100710-04.jpg",
     "Website/Exposures/misc",
-    "Website/Exposures/mechanisms/DispatchesFromTheFarthestReaches-110118-07.jpg",
-    "Website/Exposures/mechanisms/DispatchesFromTheFarthestReaches-110118-06.jpg",
     "Website/Exposures/mechanisms",
     "Website/Exposures/index.md",
-    "Website/Exposures/persistant-attendance-of-wild-animals/DispatchesFromTheFarthestReaches-221006-12.jpg",
     "Worldbuilding-Arkam/Places.md",
     "Worldbuilding-Arkam/People.md",
     "Website/Exposures/coastal-fog-early-mornings.md",
     "Website/Contact/thankyou.md",
     "Website/Projects/building-a-weather-station-from-salvaged-instruments/01-two-barometers-and-a-ruined-sextant.md",
     "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/Project notes.md",
-    "Website/Projects/building-a-weather-station-from-salvaged-instruments/index.md",
-    "Website/Contact/contact.md"
+    "Website/Projects/building-a-weather-station-from-salvaged-instruments/index.md"
   ]
 }

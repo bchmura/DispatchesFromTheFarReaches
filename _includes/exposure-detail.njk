@@ -2,7 +2,9 @@
 {% block content %}
 <div class="exposure-view" data-prev="{{ item.prevUrl }}" data-next="{{ item.nextUrl }}" data-exit="{{ item.seriesUrl }}">
   <div class="exposure-stage">
-    {% if item.imageSrc %}
+    {% if item.isVideo %}
+    <video class="exposure-photo" controls preload="metadata" src="{{ item.videoSrc }}" aria-label="{{ item.title }}"></video>
+    {% elif item.imageSrc %}
     <img class="exposure-photo" src="{{ item.imageSrc }}" alt="{{ item.title }}">
     {% else %}
     <div class="exposure-photo exposure-photo-empty"></div>

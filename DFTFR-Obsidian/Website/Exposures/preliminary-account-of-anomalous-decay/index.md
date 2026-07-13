@@ -31,6 +31,12 @@ exposures:
     tags:
       - photography
       - decay
+  - title: Swarming of Hymenoptera Formicidae on the southern approaches to the home.
+    image: DispatchesFromTheFarReaches-ant-swarming-home.mp4
+    body: The team noticed large numbers of ants forming a moat like pattern around the home.
+    tags:
+      - photography
+      - decay
 ---
  
  

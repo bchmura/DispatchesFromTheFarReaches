@@ -134,6 +134,13 @@ module.exports = async function (eleventyConfig) {
   const { toRoman } = require("./scripts/photos/lib/exposure-order");
   eleventyConfig.addFilter("toRoman", toRoman);
 
+  const { VIDEO_EXTENSIONS, videoThumbFilename } = require("./scripts/photos/lib/categories");
+  const isVideoFile = (name) => Boolean(name) && VIDEO_EXTENSIONS.includes(path.extname(name).toLowerCase());
+  eleventyConfig.addFilter("isVideoFile", isVideoFile);
+  // The series grid always shows a committed thumbnail: a photo's own
+  // treated file, or a video's derived poster jpg (clip.mp4 -> clip.mp4.jpg).
+  eleventyConfig.addFilter("mediaThumb", (name) => (isVideoFile(name) ? videoThumbFilename(name) : name));
+
   eleventyConfig.addFilter("date", (value, format) => {
     const d = new Date(value);
     const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
@@ -292,6 +299,7 @@ module.exports = async function (eleventyConfig) {
   // order (matches exposure-series.njk's listing), not EXIF capture date —
   // captured date sorting was tried first but the author prefers to control
   // display order directly in the markdown.
+  const { exposureMediaFields } = require("./scripts/photos/lib/exposure-media");
   eleventyConfig.addCollection("exposureEntries", (collectionApi) => {
     const entries = [];
     for (const item of collectionApi.getAll()) {
@@ -319,10 +327,13 @@ module.exports = async function (eleventyConfig) {
           image: exposure.image,
           // The detail page shows the true-color CloudFront original (same
           // source the old dialog enlarged to), not the treated/sepia
-          // thumbnail used inline on the grid.
-          imageSrc: exposure.image
-            ? `${siteData.photosCdnBase}/exposures/${seriesSlug}/${exposure.image}`
-            : null,
+          // thumbnail used inline on the grid. A video entry gets videoSrc
+          // instead of imageSrc — see exposure-media.js.
+          ...exposureMediaFields({
+            image: exposure.image,
+            seriesSlug,
+            cdnBase: siteData.photosCdnBase,
+          }),
           meta,
           hasSpecs: Boolean(
             meta && (meta.camera || meta.lens || meta.exposureTime || meta.aperture || meta.iso || meta.captured)

@@ -98,6 +98,43 @@ credential actually lives.
   before enlarged-photo links will work in production.
 - CI never touches `photos-source/` or AWS: the GitHub Actions build only ever sees what's
   already committed (the treated thumbnails + `_data/photoMeta.json`).
+- **Video clips (mp4) are pipeline-managed media too**, living in the same category folders as
+  photos (`photos-source/<category>/*.mp4`, or the nested `<category>/<slug>/*.mp4` form) and
+  tracked in `_data/photoMeta.json` under the same key scheme — the key is always the **video's
+  own filename** (e.g. `family/clip.mp4`), even though the committed artifact in the vault is the
+  poster image (`clip.mp4.jpg`). `npm run photos:thumbs` uses the bundled `ffmpeg-static` binary
+  (`scripts/photos/lib/video.js`'s `extractVideoFrame`) to grab a poster frame ~1s into the clip
+  (falling back to frame 0 for clips shorter than that), then runs that frame through the exact
+  same treatment/resize path as a photo, landing as `<slug>.mp4.jpg` in the vault. Capture
+  metadata for videos is read via `exiftool` (exifr, the photo path's reader, can't parse mp4):
+  QuickTime containers realistically carry only a creation date and sometimes make/model, so a
+  video's photoMeta entry records `captured` and `camera` where present — lens/exposure/
+  aperture/ISO never exist for video and stay absent, rendering as "missing" in the exposure
+  sidebar like any photo without them.
+- `npm run photos:upload` strips a **video-specific** tag set before syncing —
+  `VIDEO_STRIP_AND_SET_TAGS` in `upload.js` clears `GPSLatitude`/`GPSLongitude`/`GPSAltitude` plus
+  QuickTime's own `GPSCoordinates` field (mp4/mov location isn't stored the same way EXIF stores
+  it in a photo) and sets `Copyright`/`Artist`, deliberately a smaller set than photos get since
+  serial-number/lens tags aren't writable on video and would make `exiftool` error out. After
+  metadata is stripped, every video is remuxed with `remuxFaststart` (`ffmpeg -c copy -movflags
+  +faststart`) — a lossless rewrite that moves the `moov` atom to the front so a browser can start
+  playback before the whole file downloads — before the usual `aws s3 sync` of `photos-source/`.
+- **Lightbox behavior map:** any pipeline-managed video used as an inline embed gets a lightbox
+  everywhere that embed appears, including on Exposures posts — `data-lightbox="video"` opens the
+  native `<dialog id="lightbox">` (`_includes/partials/lightbox.njk` + `assets/js/lightbox.js`)
+  with an autoplaying `<video controls>`. Photos get the same dialog treatment
+  (`data-lightbox="image"`) everywhere **except** inside Exposures, where photos keep their
+  pre-existing new-tab behavior (the series/single-photo pages already have their own viewing
+  flow) — this carve-out applies to photos only; an inline video still gets the video lightbox
+  like anywhere else. The Exposures grid itself is a different case: a grid mount (photo or
+  video) carries no `data-lightbox` at all and always links to that entry's own single-exposure
+  detail page, where a video plays in the stage pane instead of through the lightbox. Without JS,
+  or in a browser without `<dialog>.showModal()`, every lightbox anchor still
+  works as a plain link to the CloudFront original, opened in a new tab. Separately, a video
+  used as an **Exposure Series entry's own stage image** (`exposure-detail.njk`'s `<video
+  class="exposure-photo" controls preload="metadata">`) is not autoplaying — that's the one place
+  a video plays inline in the page itself rather than through the lightbox, and it waits for the
+  reader to press play.
 - Exposure Series entries have no manual `num` field — "Exposure I/II/III…" labels come from each
   entry's **position in the frontmatter's own `exposures` list** (via the `toRoman` filter), the
   same order the author wrote them in. An earlier version sorted by each photo's EXIF capture date
