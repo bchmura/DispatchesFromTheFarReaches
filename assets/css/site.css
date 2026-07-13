@@ -249,6 +249,7 @@ h2.section-head::after{
 .cloud a.freq-2{font-size:.88rem;color:var(--brass-dim);border-color:var(--brass-dim);}
 .cloud button{background:none;cursor:pointer;}
 .cloud button.freq-2{font-size:.88rem;color:var(--brass-dim);border-color:var(--brass-dim);}
+.cloud button[aria-pressed="true"]{color:var(--brass);border-color:var(--brass);background:var(--bg-raised-2);}
 .tag-filter{margin:0 0 36px;}
 .article-index article > .tag{margin-bottom:10px;}
 @media (max-width:900px){ .aside-stack{margin-top:8px;} }

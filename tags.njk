@@ -31,7 +31,7 @@ eleventyExcludeFromCollections: true
       <button type="button" data-tag="{{ tag.name }}" aria-pressed="false"{% if tag.count > 1 %} class="freq-2"{% endif %}>{{ tag.name }}</button>
       {% endfor %}
     </div>
-    <div class="list" id="tag-list">
+    <div class="list" id="tag-list" data-pagefind-ignore>
       {% for entry in collections.posts %}
       <article data-tags="{{ (entry.data.tags or []) | join(",") }}">
         <a class="stretched-link" href="{{ entry.url }}" aria-hidden="true" tabindex="-1"></a>
