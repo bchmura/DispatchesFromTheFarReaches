@@ -114,3 +114,22 @@ test("isPipelineManagedFilename rejects a nested path", () => {
 test("isPipelineManagedFilename rejects a non-image extension", () => {
   assert.equal(isPipelineManagedFilename("diagram.svg"), false);
 });
+
+test("isPipelineManagedVideoFilename accepts a bare mp4 filename", () => {
+  const { isPipelineManagedVideoFilename } = require("../lib/categories");
+  assert.equal(isPipelineManagedVideoFilename("clip.mp4"), true);
+  assert.equal(isPipelineManagedVideoFilename("CLIP.MP4"), true);
+});
+
+test("isPipelineManagedVideoFilename rejects paths, URLs, and non-video extensions", () => {
+  const { isPipelineManagedVideoFilename } = require("../lib/categories");
+  assert.equal(isPipelineManagedVideoFilename("/family/clip.mp4"), false);
+  assert.equal(isPipelineManagedVideoFilename("https://example.com/clip.mp4"), false);
+  assert.equal(isPipelineManagedVideoFilename("sub/clip.mp4"), false);
+  assert.equal(isPipelineManagedVideoFilename("porch.jpg"), false);
+});
+
+test("videoThumbFilename appends .jpg so it can never collide with a real photo", () => {
+  const { videoThumbFilename } = require("../lib/categories");
+  assert.equal(videoThumbFilename("clip.mp4"), "clip.mp4.jpg");
+});

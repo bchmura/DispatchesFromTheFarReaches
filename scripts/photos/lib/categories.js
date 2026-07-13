@@ -18,6 +18,7 @@ const SITE_CONTENT_ROOT = path.join("DFTFR-Obsidian", "Website");
 const PHOTOS_SOURCE_ROOT = "photos-source";
 const DEFAULT_TREATMENT = "sepia";
 const IMAGE_EXTENSIONS = [".jpg", ".jpeg", ".png", ".gif", ".webp"];
+const VIDEO_EXTENSIONS = [".mp4"];
 
 function projectSlugFromPath(mdOrImagePath) {
   return path.basename(path.dirname(mdOrImagePath));
@@ -42,6 +43,10 @@ function categoryRefFromInputPath(inputPath) {
   return slug ? { category: slug } : {};
 }
 
+function isBareFilename(filename) {
+  return !(filename.startsWith("/") || filename.includes(":") || filename.includes("/"));
+}
+
 // Single source of truth for what counts as a "bare filename" the photo
 // pipeline manages: no leading slash, no scheme (":"), no nested path
 // ("/" in the middle), and a recognized image extension. Shared by
@@ -49,8 +54,21 @@ function categoryRefFromInputPath(inputPath) {
 // inline-photo-transform.js (deciding what to rewrite) so the two can't
 // silently disagree about what's pipeline-managed.
 function isPipelineManagedFilename(filename) {
-  if (filename.startsWith("/") || filename.includes(":") || filename.includes("/")) return false;
-  return IMAGE_EXTENSIONS.includes(path.extname(filename).toLowerCase());
+  return isBareFilename(filename) && IMAGE_EXTENSIONS.includes(path.extname(filename).toLowerCase());
+}
+
+// Same bare-filename rules as isPipelineManagedFilename, matched against
+// video extensions instead — videos are pipeline-managed too (thumbnailed
+// by thumbs.js, uploaded by upload.js), they just never land in the vault.
+function isPipelineManagedVideoFilename(filename) {
+  return isBareFilename(filename) && VIDEO_EXTENSIONS.includes(path.extname(filename).toLowerCase());
+}
+
+// A video's committed poster thumbnail appends .jpg to the FULL video
+// filename (clip.mp4 -> clip.mp4.jpg) so it can never collide with a real
+// photo named clip.jpg, and the mapping is derivable in both directions.
+function videoThumbFilename(filename) {
+  return `${filename}.jpg`;
 }
 
 function photoMetaKey({ category, projectSlug, filename }) {
@@ -114,10 +132,13 @@ module.exports = {
   PHOTOS_SOURCE_ROOT,
   DEFAULT_TREATMENT,
   IMAGE_EXTENSIONS,
+  VIDEO_EXTENSIONS,
   projectSlugFromPath,
   categoryRefFromInputPath,
   isPipelineManagedFilename,
+  isPipelineManagedVideoFilename,
   photoMetaKey,
   resolveDestination,
   siteUrlForVaultImage,
+  videoThumbFilename,
 };
