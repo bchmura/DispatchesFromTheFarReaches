@@ -30,6 +30,21 @@ module.exports = {
     if (data.category && data.page && data.page.fileSlug) {
       return `/${data.category}/${data.page.fileSlug}/`;
     }
+    // Safety net: publishing vault markdown is opt-in. Anything under
+    // DFTFR-Obsidian/ that isn't a recognized page type (no `category`
+    // above, no explicit `permalink` of its own like About/Contact) never
+    // gets an output page — otherwise working notes fall through to
+    // Eleventy's default input-path-mirroring permalink and end up deployed
+    // (and Pagefind-indexed) at /DFTFR-Obsidian/... URLs. Falsy check, not
+    // === undefined: Eleventy passes "" (not undefined) here for a file
+    // with no frontmatter at all (seen with a frontmatter-less vault note).
+    if (
+      !data.permalink &&
+      data.page &&
+      data.page.inputPath.startsWith("./DFTFR-Obsidian/")
+    ) {
+      return false;
+    }
     return data.permalink;
   },
 
