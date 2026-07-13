@@ -37,6 +37,10 @@ npm run serve
 This starts a local preview server (prints a `localhost` address to open in your browser) and
 auto-rebuilds as you edit files. Press Ctrl+C to stop it.
 
+One caveat: the **search box does nothing under `npm run serve`** — the search index is built
+by a separate tool (Pagefind) that only runs as part of `npm run build` (and `npm run
+build:drafts`), not inside the live-reload server. That's expected, not broken.
+
 If you just want a one-off build without a live-reloading server:
 
 ```

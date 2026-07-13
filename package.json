@@ -8,11 +8,10 @@
   },
   "scripts": {
     "build": "eleventy && pagefind --site _site",
-    "build:drafts": "cross-env SHOW_DRAFTS=true eleventy",
+    "build:drafts": "cross-env SHOW_DRAFTS=true eleventy && pagefind --site _site",
     "serve": "eleventy --serve",
     "serve:drafts": "cross-env SHOW_DRAFTS=true eleventy --serve",
     "test": "node --test scripts/photos/test/*.test.js",
-    "start": "npx @11ty/eleventy --serve",
     "photos:thumbs": "node scripts/photos/thumbs.js",
     "photos:upload": "node scripts/photos/upload.js",
     "photos:publish": "node scripts/photos/publish.js"
