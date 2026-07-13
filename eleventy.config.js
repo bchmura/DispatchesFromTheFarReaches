@@ -164,9 +164,12 @@ module.exports = async function (eleventyConfig) {
   // Professional/index.md) nor a project journal entry (Task-14 addition:
   // Projects/<slug>/<entry>.md) — both have their own dedicated collections
   // below and must not leak into post listings, the home feed, or the tag
-  // cloud.
+  // cloud. Directory data gives every file in a category folder a
+  // `category` automatically, so `title` is what actually separates a real
+  // post from a stray/untitled note sitting in that same folder.
   const isRealPost = (item) =>
     item.data.category &&
+    item.data.title &&
     !item.data.isCategoryIndex &&
     !item.data.isJournalEntry &&
     (showDrafts || !item.data.isDraft);

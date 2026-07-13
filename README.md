@@ -71,7 +71,9 @@ Notes on each field:
 
 - **Category and layout are automatic** — the folder you put the file in decides both (each
   category folder has a `<Folder>.11tydata.json` directory-data file supplying them, invisible
-  in Obsidian). You never write `category:` or `layout:` in a post's frontmatter.
+  in Obsidian). You never write `category:` or `layout:` in a post's frontmatter. A file also
+  needs a `title` to publish at all — an untitled stray `.md` dropped into a category folder is
+  ignored by the build entirely.
 - **`dispatchNo`** is the "MS-###" number shown on the article page and in listings. It's not
   automatic — look at the highest `dispatchNo` used anywhere in `DFTFR-Obsidian/Website/` and
   use the next number up.

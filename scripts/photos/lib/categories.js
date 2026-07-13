@@ -32,7 +32,11 @@ function projectSlugFromPath(mdOrImagePath) {
 // same way _data/eleventyComputed.js derives project slugs — used by the
 // Eleventy "photo-links" transform, which only has `this.page.inputPath`
 // available (not `this.category`; transforms don't expose custom template
-// data on `this`).
+// data on `this`). Note: a flat .md file sitting directly inside a nested-
+// category folder (e.g. Exposures/index.md, with no gallery subfolder of
+// its own) gets its own filename back as `projectSlug` here — harmless for
+// current callers (such files produce no photo refs), but don't build a
+// photo key from this return value without checking for that case first.
 function categoryRefFromInputPath(inputPath) {
   const rel = path.relative(SITE_CONTENT_ROOT, inputPath);
   const [dirName, second] = rel.split(path.sep);

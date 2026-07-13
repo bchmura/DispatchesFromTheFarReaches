@@ -9,11 +9,16 @@ const { photoMetaKey } = require("../scripts/photos/lib/categories");
 const showDrafts = process.env.SHOW_DRAFTS === "true";
 
 module.exports = {
-  // Migrated vault posts carry a `category` frontmatter field but no
-  // permalink of their own; derive one here so /professional/<slug>/ etc.
-  // wins over the default output path mirroring the source directory tree
-  // (DFTFR-Obsidian/Website/<Dir>/...). Pages without a `category` are left
-  // alone and fall back to Eleventy's normal permalink behavior.
+  // Category now comes from each folder's `<Folder>.11tydata.json` directory
+  // data file (frontmatter can still override it), so every .md file sitting
+  // in a category folder carries a `category` automatically — a page must
+  // ALSO have a `title` to get a category permalink here, so
+  // /professional/<slug>/ etc. wins over the default output path mirroring
+  // the source directory tree (DFTFR-Obsidian/Website/<Dir>/...). An
+  // untitled stray .md in a category folder has `category` but no `title`,
+  // so it falls through to the safety net below and never publishes. Pages
+  // without a `category` are left alone and fall back to Eleventy's normal
+  // permalink behavior.
   //
   // Project journal entries (Projects/<project-slug>/<entry>.md) nest one
   // level deeper, under their own project: /projects/<project-slug>/<entry>/.
@@ -27,13 +32,13 @@ module.exports = {
       const projectSlug = path.basename(path.dirname(data.page.inputPath));
       return `/${data.category}/${projectSlug}/${data.page.fileSlug}/`;
     }
-    if (data.category && data.page && data.page.fileSlug) {
+    if (data.category && data.title && data.page && data.page.fileSlug) {
       return `/${data.category}/${data.page.fileSlug}/`;
     }
     // Safety net: publishing vault markdown is opt-in. Anything under
-    // DFTFR-Obsidian/ that isn't a recognized page type (no `category`
-    // above, no explicit `permalink` of its own like About/Contact) never
-    // gets an output page — otherwise working notes fall through to
+    // DFTFR-Obsidian/ that isn't a recognized page type (no `category`+
+    // `title` above, no explicit `permalink` of its own like About/Contact)
+    // never gets an output page — otherwise working notes fall through to
     // Eleventy's default input-path-mirroring permalink and end up deployed
     // (and Pagefind-indexed) at /DFTFR-Obsidian/... URLs. Falsy check, not
     // === undefined: Eleventy passes "" (not undefined) here for a file
