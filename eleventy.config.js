@@ -165,6 +165,7 @@ module.exports = async function (eleventyConfig) {
   // Drafts are visible only when SHOW_DRAFTS=true (serve:drafts /
   // build:drafts). _data/eleventyComputed.js applies the same rule to
   // permalinks — change both together.
+  // The photo-validation ref filter near the top of this file encodes the same rule on scan refs (ref.isDraft) — three sites total.
   const isLiveItem = (item) => showDrafts || !item.data.isDraft;
 
   // A "real post" carries a `category` but is neither a category-index page

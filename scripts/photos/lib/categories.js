@@ -2,7 +2,7 @@ const path = require("node:path");
 
 // Derived from _data/categories.json — the single source of truth for the
 // category list (key/label/slug/glyph for templates; dir/nested for this
-// pipeline). Adding a category means editing that one file only.
+// pipeline). Adding a category also needs the vault side: a `<Folder>.11tydata.json` directory data file (whose hardcoded category slug must match the key here) and a category index.md.
 // Kept as two maps (flat vs nested) because passthrough-copy and the photo
 // pipeline treat them differently: nested categories (Projects, Exposures)
 // give each post its own subfolder and image folder.
