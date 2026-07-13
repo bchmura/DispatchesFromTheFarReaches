@@ -1,5 +1,4 @@
 ---
-category: philosophy
 isCategoryIndex: true
 eleventyComputed:
   permalink: false

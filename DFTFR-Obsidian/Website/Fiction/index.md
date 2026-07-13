@@ -1,5 +1,4 @@
 ---
-category: fiction
 isCategoryIndex: true
 eleventyComputed:
   permalink: false

@@ -1,12 +1,9 @@
 ---
 title: "Five Truths Before You Enter the AltMBA Crucible"
-category: professional
 dispatchNo: 215
 description: "An honest accounting of Seth Godin's intense AltMBA program — the toll it takes, who it suits, and why it isn't for everyone."
 date: 2022-09-29T01:03:03-04:00
-layout: post.njk
 tags: ["business"]
-isDraft: false
 ---
 
 A few years ago I took Seth Godin's AltMBA program.  If you are considering the AltMBA please read.  The course is awesome but not for everyone.

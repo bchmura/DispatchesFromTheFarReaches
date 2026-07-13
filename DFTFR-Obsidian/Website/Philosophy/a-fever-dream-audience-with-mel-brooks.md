@@ -1,12 +1,9 @@
 ---
 title: "A Fever-Dream Audience With Mel Brooks"
-category: philosophy
 dispatchNo: 202
 description: "A vivid, comic dream starring Mel Brooks and his security detail, followed by a detour into why dreams may exist to keep the mind flexible."
 date: 2022-09-15T01:03:03-04:00
-layout: post.njk
 tags: ["dreams", "random"]
-isDraft: false
 ---
 
 I don't often remember my dreams.  When I do they feel like something in my subconscious stirring around.   Having a vivid dream is notable, having one about Mel Brooks is something else.  

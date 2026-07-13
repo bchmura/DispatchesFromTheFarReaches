@@ -1,13 +1,10 @@
 ---
 title: Rendering test
-category: misc
 dispatchNo: 221
 description: Test to confirm Obsidian to Eleventy conversions
 date: 2026-07-12
-layout: post.njk
 tags:
   - personal
-isDraft: false
 ---
 
 

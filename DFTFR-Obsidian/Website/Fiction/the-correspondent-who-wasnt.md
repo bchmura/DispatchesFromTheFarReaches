@@ -2,11 +2,8 @@
 title: "The Correspondent Who Wasn't"
 description: "A short story about a research assistant who answers every letter promptly, correctly, and without ever once being seen."
 date: 2025-07-08
-layout: post.njk
-category: fiction
 dispatchNo: 222
 tags: ["fiction", "ai"]
-isDraft: false
 ---
 Every letter to the department got a reply within the hour, typed in the same even hand, signed only "the correspondent." No one had met them. No one had been told to expect them. The mail simply started arriving answered.
 

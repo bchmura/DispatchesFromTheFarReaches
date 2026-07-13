@@ -1,12 +1,9 @@
 ---
 title: "Small Rites, Grown Slowly, Devour Less"
-category: professional
 dispatchNo: 212
 description: "On resisting the urge to build sprawling, over-engineered processes from the start, and why small rituals that grow over time survive longer."
 date: 2022-09-26T01:03:03-04:00
-layout: post.njk
 tags: ["business"]
-isDraft: false
 ---
 
 Too often we try to solve things in one big swoop.  The seldom results in a really good process and more often wastes a lot of time. Here are some ways to do it better. 

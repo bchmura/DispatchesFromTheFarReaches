@@ -1,12 +1,9 @@
 ---
 title: "The Word-Craft That Sets You Apart"
-category: professional
 dispatchNo: 206
 description: "A case for developers to sharpen their writing as much as their code, and why the written word carries the furthest."
 date: 2022-09-20T01:03:03-04:00
-layout: post.njk
 tags: ["writing", "business"]
-isDraft: false
 ---
 
 Even the best software developers ignore writing skills. Improving how to communicate what is in their heads with others through the written word.  

@@ -1,12 +1,9 @@
 ---
 title: "The Tide Pools That Remember"
-category: family
 dispatchNo: 203
 description: "A family's return to an ageless Rhode Island shoreline, where weathered stones and tidal pools hold memories across generations."
 date: 2022-09-17T14:02:14-04:00
-layout: post.njk
 tags: ["Travel"]
-isDraft: false
 ---
 There is a short road on the Rhode Island coast that ends right where the waves crash up onto the rocks.  These are not breakers, but massive stones that have lasted for eons.  It is also home to many fantastic tidal pools.
 

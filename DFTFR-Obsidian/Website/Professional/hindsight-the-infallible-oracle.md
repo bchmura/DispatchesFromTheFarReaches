@@ -1,12 +1,9 @@
 ---
 title: "Hindsight, the Infallible Oracle"
-category: professional
 dispatchNo: 210
 description: "On why hindsight's perfect clarity is a false judge of past decisions, and two questions to escape its cruel verdict."
 date: 2022-09-24T01:03:03-04:00
-layout: post.njk
 tags: ["business"]
-isDraft: false
 ---
 
 Why do we take it badly when we make a good decision that turns out bad?  Why do we think we made the wrong call?  Hindsight is more than 20/20.  **Hindsight is infallible.  Perfect.**  

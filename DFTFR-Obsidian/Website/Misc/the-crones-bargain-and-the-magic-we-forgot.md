@@ -1,12 +1,9 @@
 ---
 title: "The Crone's Bargain and the Magic We Forgot"
-category: misc
 dispatchNo: 211
 description: "An old witch's ritual, a fearful village, and the unsettling realization that ancient magic may just be modern science wearing a cloak."
 date: 2022-09-25T01:03:03-04:00
-layout: post.njk
 tags: ["selfhelp"]
-isDraft: false
 ---
 
 Magic has left this world long ago. The days of seeking witches and warlocks to change the very nature of reality has passed.  Or has it? 

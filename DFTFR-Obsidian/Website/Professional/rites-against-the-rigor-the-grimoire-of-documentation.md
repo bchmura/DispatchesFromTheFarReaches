@@ -1,12 +1,9 @@
 ---
 title: "Rites Against the Rigor: The Grimoire of Documentation"
-category: professional
 dispatchNo: 220
 description: "The final dispatch in the series, laying out the documentation that turns a small experiment into a repeatable ritual."
 date: 2022-10-21
-layout: post.njk
 tags: ["business"]
-isDraft: false
 ---
 
 I describe the documentation needed to facilitate a good experiment.  This is the final post in this series.

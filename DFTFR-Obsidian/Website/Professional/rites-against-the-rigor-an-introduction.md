@@ -1,12 +1,9 @@
 ---
 title: "Rites Against the Rigor: An Introduction"
-category: professional
 dispatchNo: 217
 description: "The first of four dispatches on fighting corporate rigor mortis through small, deliberate experiments instead of sweeping change."
 date: 2022-10-01T01:03:03-04:00
-layout: post.njk
 tags: ["business"]
-isDraft: false
 ---
 
 The focus can be on creating a culture where people can make a change... as needed. 

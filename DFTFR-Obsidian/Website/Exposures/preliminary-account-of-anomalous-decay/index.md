@@ -2,13 +2,10 @@
 title: A Preliminary Account of Anomalous Decay
 description: A chance overheard conversation between two faculty members reveals that something long feared by a distant mountain people may now be stirring far closer to home  - and that the mind itself seems eager to forget it
 date: 2025-06-10
-layout: exposure-series.njk
-category: exposures
 accession: EX-11
 tags:
   - decay
   - photography
-isDraft: false
 exposures:
   - title: Nothing but Grey, and That's Fine
     image: DispatchesFromTheFarthestReaches-090419-01.jpg

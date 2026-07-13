@@ -1,12 +1,9 @@
 ---
 title: "Rites Against the Rigor: The Obstacles Along the Way"
-category: professional
 dispatchNo: 219
 description: "Challenges to expect when introducing a culture of small experiments, from learned helplessness to the weight of leadership's words."
 date: 2022-10-14
-layout: post.njk
 tags: ["business"]
-isDraft: false
 ---
 
 This section covers some challenges you may face during the implementation of an experiment framework.

@@ -54,13 +54,10 @@ Start it with this frontmatter block, then write the article underneath in plain
 ```markdown
 ---
 title: "Your Title Here"
-category: family
 dispatchNo: 224
 description: "One or two sentences — used wherever the post is teased/linked elsewhere on the site."
 date: 2026-07-11
-layout: post.njk
 tags: ["some-tag", "another-tag"]
-isDraft: false
 ---
 
 Your article text goes here, in normal markdown.
@@ -68,8 +65,9 @@ Your article text goes here, in normal markdown.
 
 Notes on each field:
 
-- **`category`** must be one of: `professional`, `philosophy`, `family`, `fiction`, `misc`
-  (lowercase, matches the folder you put the file in).
+- **Category and layout are automatic** — the folder you put the file in decides both (each
+  category folder has a `<Folder>.11tydata.json` directory-data file supplying them, invisible
+  in Obsidian). You never write `category:` or `layout:` in a post's frontmatter.
 - **`dispatchNo`** is the "MS-###" number shown on the article page and in listings. It's not
   automatic — look at the highest `dispatchNo` used anywhere in `DFTFR-Obsidian/Website/` and
   use the next number up.
@@ -95,11 +93,8 @@ an `index.md` — same pattern as Projects. Create the folder and the file:
 title: "Your Gallery Title"
 description: "One or two sentences describing the series."
 date: 2026-07-11
-layout: exposure-series.njk
-category: exposures
 accession: "EX-12"
 tags: ["some-tag"]
-isDraft: false
 exposures:
   - title: "First Photo's Title"
     body: "A sentence or two about this specific shot."

@@ -1,5 +1,4 @@
 ---
-category: professional
 isCategoryIndex: true
 eleventyComputed:
   permalink: false
