@@ -35,14 +35,16 @@ eleventyExcludeFromCollections: true
       {% for entry in collections.posts %}
       <article data-tags="{{ (entry.data.tags or []) | join(",") }}">
         <a class="stretched-link" href="{{ entry.url }}" aria-hidden="true" tabindex="-1"></a>
-        <span class="tag">{{ categoryLabels[entry.data.category] }}</span>
         <div class="entry-head">
           <h3>{{ entry.data.title }}</h3>
           {% if entry.data.dispatchNo %}
           <span class="date-hover"><span class="dispatch-no">No. {{ entry.data.dispatchNo }}</span> · {{ entry.date | date("d MMMM yyyy") }}</span>
           {% endif %}
         </div>
-        <div class="entry-tags">{% for t in entry.data.tags %}<a href="/tags/?tags={{ t | urlencode }}">{{ t }}</a>{% endfor %}</div>
+        {# Category rides the tag row as unboxed text, not a chip — on this
+           page every bordered box reads as a filter control, and a boxed
+           category label looks nearly identical to a pressed chip. #}
+        <div class="entry-tags">{% for t in entry.data.tags %}<a href="/tags/?tags={{ t | urlencode }}">{{ t }}</a>{% endfor %}<span class="filed-under">Filed under {{ categoryLabels[entry.data.category] }}</span></div>
         <p>{{ entry.data.description }}</p>
         <div class="entry-actions"><a href="{{ entry.url }}">View the account</a></div>
       </article>

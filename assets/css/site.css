@@ -251,7 +251,9 @@ h2.section-head::after{
 .cloud button.freq-2{font-size:.88rem;color:var(--brass-dim);border-color:var(--brass-dim);}
 .cloud button[aria-pressed="true"]{color:var(--brass);border-color:var(--brass);background:var(--bg-raised-2);}
 .tag-filter{margin:0 0 36px;}
-.article-index article > .tag{margin-bottom:10px;}
+/* Category note in a tag-page entry's tag row — deliberately unboxed so it
+   can't be mistaken for a (pressed) filter chip. */
+.entry-tags .filed-under{font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--brass-dim);align-self:center;}
 @media (max-width:900px){ .aside-stack{margin-top:8px;} }
 
 .search-aside{flex:none;border:1px solid var(--rule);background:var(--bg-raised);border-radius:2px;padding:26px 26px;}
