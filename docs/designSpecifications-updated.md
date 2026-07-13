@@ -151,6 +151,7 @@ The redesign comps carry a `-claudedesign` suffix and live beside the originals.
 - Respect `prefers-reduced-motion` on every transition/animation (including the new lantern flicker).
 - Single-theme by design (no light-mode variant) — this is a deliberate choice, not an oversight.
 - **Two markdown-it-related npm dependencies (NEW):** `markdown-it-mark` (registered as a markdown-it plugin, for `==highlight==`) and `mermaid` (used only as a source for the one self-hosted browser bundle copied to `assets/js/vendor/` — see the Mermaid bullet above; not otherwise used in the Node build). Both are regular `devDependencies` in `package.json`, fetched by `npm ci` same as everything else — no extra deploy-workflow changes needed.
+- **Every page emits head metadata** — meta description (frontmatter `description`, falling back to `site.description`), canonical URL, Open Graph tags (`og:type` is `article` for pages with both a category and a title, else `website`; `og:image` is the site-wide `android-chrome-512x512.png`), and `twitter:card` — all assembled in `_includes/partials/head.njk` from existing data.
 
 ## Open items / known gaps
 
