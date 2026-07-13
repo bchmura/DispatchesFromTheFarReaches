@@ -27,6 +27,7 @@ module.exports = {
   // already resolves fileSlug to that same directory name, so its permalink
   // (/projects/<slug>/) needs no special case here.
   permalink: (data) => {
+    // Same rule as isLiveItem in eleventy.config.js — change both together.
     if (data.isDraft && !showDrafts) return false;
     if (data.isJournalEntry && data.category && data.page) {
       const projectSlug = path.basename(path.dirname(data.page.inputPath));

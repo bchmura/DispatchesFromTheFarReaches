@@ -92,6 +92,9 @@ module.exports = async function (eleventyConfig) {
   // collide, one overwriting the other. Register one passthrough mapping
   // per actual subfolder instead, so each post's images land at their own
   // /<category>/<slug>/ path.
+  // NOTE: subfolders are enumerated once at config load — a NEW project or
+  // gallery folder created while `npm run serve` is running won't get a
+  // passthrough rule (its images 404) until the dev server restarts.
   for (const [dir, slug] of Object.entries(nestedCategoryDirs)) {
     const categoryDir = `DFTFR-Obsidian/Website/${dir}`;
     if (!fs.existsSync(categoryDir)) continue;
@@ -159,6 +162,11 @@ module.exports = async function (eleventyConfig) {
 
   eleventyConfig.addFilter("indexOfPost", (arr, url) => arr.findIndex((item) => item.url === url));
 
+  // Drafts are visible only when SHOW_DRAFTS=true (serve:drafts /
+  // build:drafts). _data/eleventyComputed.js applies the same rule to
+  // permalinks — change both together.
+  const isLiveItem = (item) => showDrafts || !item.data.isDraft;
+
   // A "real post" carries a `category` but is neither a category-index page
   // (Task-14 addition: per-category description content, e.g.
   // Professional/index.md) nor a project journal entry (Task-14 addition:
@@ -172,7 +180,7 @@ module.exports = async function (eleventyConfig) {
     item.data.title &&
     !item.data.isCategoryIndex &&
     !item.data.isJournalEntry &&
-    (showDrafts || !item.data.isDraft);
+    isLiveItem(item);
 
   eleventyConfig.addCollection("postsByCategory", (collectionApi) => {
     const byCategory = {};
@@ -242,7 +250,7 @@ module.exports = async function (eleventyConfig) {
     const byProject = {};
     for (const item of collectionApi.getAll()) {
       if (!item.data.isJournalEntry) continue;
-      if (item.data.isDraft && !showDrafts) continue;
+      if (!isLiveItem(item)) continue;
       const projectSlug = path.basename(path.dirname(item.inputPath));
       (byProject[projectSlug] ??= []).push(item);
     }
@@ -262,7 +270,7 @@ module.exports = async function (eleventyConfig) {
         item.data.category === "projects" &&
         !item.data.isJournalEntry &&
         !item.data.isCategoryIndex &&
-        (showDrafts || !item.data.isDraft)
+        isLiveItem(item)
       ) {
         bySlug[item.page.fileSlug] = item;
       }
@@ -282,7 +290,7 @@ module.exports = async function (eleventyConfig) {
     const entries = [];
     for (const item of collectionApi.getAll()) {
       if (item.data.category !== "exposures" || item.data.isCategoryIndex) continue;
-      if (item.data.isDraft && !showDrafts) continue;
+      if (!isLiveItem(item)) continue;
       const seriesSlug = item.page.fileSlug;
       const written = item.data.exposures || [];
       const total = written.length;
