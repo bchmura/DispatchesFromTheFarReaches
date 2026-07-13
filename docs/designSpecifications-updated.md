@@ -47,7 +47,7 @@ Only brass is used as an accent; variation (status, emphasis, frequency in the t
 
 ## Typography
 
-**Webfonts (Google Fonts), replacing the earlier system-font stacks.** The system stacks remain as fallbacks in each variable.
+**Webfonts (originally Google Fonts, now self-hosted), replacing the earlier system-font stacks.** The system stacks remain as fallbacks in each variable.
 
 ```
 --serif-display: 'IM Fell English','Iowan Old Style',Palatino,serif;
@@ -55,13 +55,7 @@ Only brass is used as an accent; variation (status, emphasis, frequency in the t
 --mono:          'Fragment Mono',ui-monospace,'Cascadia Mono',Menlo,monospace;
 ```
 
-Loaded per page via:
-
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Fragment+Mono:ital@0;1&family=Kalam:wght@400;700&display=swap" rel="stylesheet" />
-```
+Loaded via `@font-face` rules at the top of `assets/css/site.css`, pointing at woff2 files in `assets/fonts/` — no request to Google at page load. `_includes/partials/head.njk` preloads the three regular faces used on every page. See `docs/fonts.md` for the full mechanics (subsets, unicode-range lazy loading, how to add a face).
 
 - **IM Fell English** — display/headings only. A digitization of 17th-century Fell types; its inky, slightly irregular texture is a *feature at large sizes* and a legibility cost at small ones, so keep it to headings and the drop-cap.
 - **EB Garamond** — running prose. Warm and scholarly, but **runs small on the em** — body copy needed bumping (see below).
@@ -75,7 +69,7 @@ Loaded per page via:
 - Article "correspondence" line: `1.12rem` (CTA label `0.82rem`).
 - About body `p`: `1.18rem`. Project-detail: intro `1.14rem`, journal `h3` `1.28rem`, journal `p` `1.1rem`.
 
-> **Eleventy note:** these load from Google Fonts, so the built site needs network access at load. For offline/perf, **self-host the woff2 files** and swap the `<link>` for a local `@font-face` block; keep the same fallbacks.
+> **Eleventy note:** the fonts are self-hosted (woff2 + `@font-face`, same fallbacks) — the built site needs no network access for type. This was done after the original Google-Fonts version of this note recommended it.
 
 ## Layout system — the width/indent rule
 
@@ -152,7 +146,7 @@ The redesign comps carry a `-claudedesign` suffix and live beside the originals.
 
 ## Technical constraints
 
-- **Fonts now require a network request** (Google Fonts) — this reverses the original "no external requests / system fonts only" rule. Everything else stays self-contained: all imagery is inline SVG or inline data-URI; no external scripts. **For the Eleventy build, self-host the fonts** to restore full offline behavior.
+- **Fonts are self-hosted** (woff2 in `assets/fonts/`, `@font-face` in `site.css`) — the site makes **no external requests at all**: all imagery is inline SVG or inline data-URI, no external scripts, no external fonts. (An earlier iteration loaded from Google Fonts; that reversal of the "no external requests" rule has itself been reversed.)
 - Respect `prefers-reduced-motion` on every transition/animation (including the new lantern flicker).
 - Single-theme by design (no light-mode variant) — this is a deliberate choice, not an oversight.
 - **Two markdown-it-related npm dependencies (NEW):** `markdown-it-mark` (registered as a markdown-it plugin, for `==highlight==`) and `mermaid` (used only as a source for the one self-hosted browser bundle copied to `assets/js/vendor/` — see the Mermaid bullet above; not otherwise used in the Node build). Both are regular `devDependencies` in `package.json`, fetched by `npm ci` same as everything else — no extra deploy-workflow changes needed.

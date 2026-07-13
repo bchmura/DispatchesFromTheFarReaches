@@ -1,14 +1,15 @@
 # Fonts in use — "Dispatches from the Far Reaches" (redesign pass)
 
-All three families are Google Fonts. Sizes are in `rem` (root = browser default 16px). Body/prose sizes were deliberately bumped from the originals because EB Garamond runs small on the em. For an offline/perf Eleventy build, self-host the woff2 files and swap the `<link>` for a local `@font-face` block (keep the same fallbacks).
+All families originate from Google Fonts but are **self-hosted** — no request to Google at page load. Sizes are in `rem` (root = browser default 16px). Body/prose sizes were deliberately bumped from the originals because EB Garamond runs small on the em.
 
-## Load (every page, in `<head>`)
+## Load (self-hosted)
 
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Fragment+Mono:ital@0;1&display=swap" rel="stylesheet" />
-```
+- The woff2 files live in `assets/fonts/` (latin + latin-ext subsets, downloaded from Google Fonts' css2 API with a woff2-capable user agent, `font-display: swap` preserved).
+- The `@font-face` rules sit at the **top of `assets/css/site.css`** (single-stylesheet convention). Each rule keeps Google's original `unicode-range`, so a subset file only downloads when a page actually uses its characters — latin-ext, italics, and Kalam cost nothing on a typical page view.
+- `_includes/partials/head.njk` preloads the three faces every page renders with (IM Fell English 400, EB Garamond 400, Fragment Mono 400 — latin subsets). Font preloads need the `crossorigin` attribute even same-origin.
+- **EB Garamond is a variable font**: one file covers weights 400–500, declared as `font-weight: 400 500;` in a single rule per subset.
+- **Kalam** (400 + 700) is used only inside Mermaid diagrams (`assets/js/mermaid-render.js` sets it as the diagram `fontFamily`); the browser fetches it on demand the first time a diagram renders — it is deliberately *not* preloaded.
+- To add a weight/family: fetch the css2 URL for it with a browser user agent, save the woff2(s) into `assets/fonts/`, and append the rewritten `@font-face` block(s) to the top section of `site.css`.
 
 ## CSS variables
 
