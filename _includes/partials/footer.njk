@@ -7,6 +7,12 @@
 </section>
 
 <footer class="wrap">
+  <span class="fnav">
+    <a href="/feed.xml">RSS</a>
+    <a href="/tags/"{% if page.url == "/tags/" %} class="current"{% endif %}>Cross-Filing Index</a>
+    <a href="/about/"{% if page.url == "/about/" %} class="current"{% endif %}>About</a>
+    <a href="/contact/"{% if page.url == "/contact/" %} class="current"{% endif %}>File a Dispatch</a>
+  </span>
   <span class="foot-credit">
     <svg class="stamp" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
       <circle cx="20" cy="20" r="17"/>
@@ -15,11 +21,5 @@
       <path d="M20 14l3 6-3 6-3-6z" fill="currentColor" stroke="none"/>
     </svg>
     {{ site.footerCredit }}
-  </span>
-  <span class="fnav">
-    <a href="/feed.xml">RSS</a>
-    <a href="/tags/"{% if page.url == "/tags/" %} class="current"{% endif %}>Cross-Filing Index</a>
-    <a href="/about/"{% if page.url == "/about/" %} class="current"{% endif %}>About</a>
-    <a href="/contact/"{% if page.url == "/contact/" %} class="current"{% endif %}>File a Dispatch</a>
   </span>
 </footer>
