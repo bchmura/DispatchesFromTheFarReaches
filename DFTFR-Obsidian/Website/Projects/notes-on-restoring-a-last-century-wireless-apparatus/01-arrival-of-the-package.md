@@ -1,6 +1,6 @@
 ---
 title: Arrival of the package
-date: 2025-08-03
+date: 2026-07-19
 no: 1
 isJournalEntry: true
 category: projects
@@ -8,6 +8,7 @@ layout: project-journal-entry.njk
 isDraft: false
 tag: DIY
 ---
+
 The delivery, which was left with some haste, remained untouched for several days.  Having been relieved of the weeks pressing matters I moved the device into my workshop.  Closer inspection, and no little research, reveal it to be a Victor 4-X-644 table-top radio — manufactured in the year 1956 by RCA.  The only providence allowed to me is that it was manufactured in Camden New Jersey.  A glyph on the back leads one to believe it produces the tone of the "golden throat" as certified by one J L (last name illegible) which the glyph goes to assure, holds considerable prestige at the RCA Radio Division.
 
 The apparatus does not hide the 70 odd years of its existence.  The shell is covered in dust , the surfaces scratched, and knobs missing.  I find it disconcerting that someone saw the need, I assume the last use, to completely sever the electrical plug - leaving only a frayed wire remaining.

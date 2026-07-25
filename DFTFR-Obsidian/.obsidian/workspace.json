@@ -27,26 +27,44 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Website/Exposures/preliminary-account-of-anomalous-decay/index.md",
+                "file": "Website/Misc/rendering-test.md",
                 "mode": "source",
                 "source": true
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "rendering-test"
             }
           },
           {
             "id": "0651a032772c1cc4",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/01-arrival-of-the-package.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "01-arrival-of-the-package"
+            }
+          },
+          {
+            "id": "a57bdc5e37de4012",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/02-intial-breakdown.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "02-intial-breakdown"
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -103,7 +121,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 480.5
+    "width": 326.5
   },
   "right": {
     "id": "671657907fbf017d",
@@ -208,8 +226,13 @@
       "bases:Create new base": false
     }
   },
-  "active": "f87c6091e56973fb",
+  "active": "3af8932cef3e9d59",
   "lastOpenFiles": [
+    "Website/Misc/rendering-test.md",
+    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/02-intial-breakdown.md",
+    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/01-arrival-of-the-package.md",
+    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/index.md",
+    "Website/Exposures/preliminary-account-of-anomalous-decay/index.md",
     "Website/Exposures/preliminary-account-of-anomalous-decay/DispatchesFromTheFarReaches-ant-swarming-home.mp4.jpg",
     "Website/Exposures/extension-of-the-family-dwelling/index.md",
     "Website/Misc/plan-meta-clip.mp4.jpg",
@@ -221,12 +244,9 @@
     "Website/Exposures/extension-of-the-family-dwelling/DispatchesFromTheFarthestReaches-221006-11.jpg",
     "Website/Exposures/extension-of-the-family-dwelling/DispatchesFromTheFarthestReaches-210119-10.jpg",
     "Website/Exposures/extension-of-the-family-dwelling/DispatchesFromTheFarthestReaches-190522-09.jpg",
-    "Website/Misc/rendering-test.md",
     "Website/Exposures/persistant-attendance-of-wild-animals/index.md",
     "Website/Exposures/extension-of-the-family-dwelling",
     "Website/Family/the-tide-pools-that-remember.md",
-    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/arrival-of-the-package.md",
-    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/index.md",
     "Site notes.md",
     "Website/Misc/why-i-publish-what-i-ought-perhaps-burn.md",
     "Website/Family/Untitled.md",
@@ -243,7 +263,6 @@
     "Templates/Template for posts.md",
     "Website/Misc/abandoning-the-daily-rite-for-the-deeper-web.md",
     "Templates",
-    "Website/Exposures/preliminary-account-of-anomalous-decay/index.md",
     "Website/Exposures/preliminary-account-of-anomalous-decay.md",
     "Website/Exposures/misc",
     "Website/Exposures/mechanisms",
