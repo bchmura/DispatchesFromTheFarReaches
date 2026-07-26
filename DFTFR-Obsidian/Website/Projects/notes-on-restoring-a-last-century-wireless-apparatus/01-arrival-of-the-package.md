@@ -15,6 +15,9 @@ The apparatus does not hide the 70 odd years of its existence.  The shell is cov
 
 Thoughts that the last time human hands touched these components was seven decades ago, and those hands had, with fair certainty, passed from this realm to the next haunt the fringes of my thoughts. 
 
+![[DispatchesFromTheFarthestReaches-260719-01.jpg]]
+
+
 Late that night, while my mind wandered, I developed a plan.  A plan, maybe born of madness, maybe a plan seeded by my wife is reading the original 1813 version of Frankenstein. This device with was built to pull electrical fields from the ether and transform them into sound - and I plan to honor that.
 
 My plan is to:

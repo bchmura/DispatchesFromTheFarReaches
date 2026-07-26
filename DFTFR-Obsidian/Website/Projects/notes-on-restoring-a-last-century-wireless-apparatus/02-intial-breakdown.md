@@ -8,7 +8,6 @@ layout: project-journal-entry.njk
 isDraft: false
 tag: DIY
 ---
-
 Maybe it was the late hour, maybe it was the emerging regret of tampering with something so ancient, but a combination of reverence and awe settled over me.  Seven decades ago, a worker in Camden NJ had assembled these components.  My hands were the first to touch this assembly since a worker, most likely passed into the beyond at this point,  None the less, I proceeded with the plan.
 
 > [!note] Nothing will go to waste
@@ -20,14 +19,23 @@ The entire internal assembly slides in to the back of the case, and much like a 
 
 The back exposes several ports and switches.  A switch for radio / phono, a RCA jack for the phono one would assume, and an external antenna connector.  Only the latter is attached to the rear plate, the remainder being holes to expose the main assembly.
 
-The antenna is an arrangement of copper wire glued to the back plate, which is fiber board of some sort.  I do not believe I will be able to separate them without damaging either part.  I may implement an radio to use the antenna as an option.  My grandparents always having an AM channel playing in their kitchen comes to mind.
+The antenna is an arrangement of copper wire glued to the back plate, which is fiber board of some sort.  I do not believe I will be able to separate them without damaging either part.  I may implement an radio to use the antenna as an option.  My grandparents always having an AM channel playing in their kitchen comes to mind
+
+![[DispatchesFromTheFarthestReaches-260719-05.jpg]]
+
+
+
+![[DispatchesFromTheFarthestReaches-260719-04.jpg]]
+
+
+
+![[DispatchesFromTheFarthestReaches-260719-03.jpg]]
 
 
 
 
 
-
-
+![[DispatchesFromTheFarthestReaches-260719-02.jpg]]
 
 
 For whoever comes next, so we'll see how that goes, I'm trying to puzzle through what some of this stuff does. For instance, there is a looks like a resistor or something going to A Something attached to the back just Possibly the screw, so the mounting screw or oh. That is for an external antenna, okay? 
@@ -48,9 +56,7 @@ So the entire assembly slides in from the back and the back ends up being the pl
 
 So Oh, no, sorry. That's a switch that switches between phono and radio. Which is probably this other thing in the back, so there is already an external Maybe possibly implement a software to find radio for the external antenna. 
 
-We'll see, but the back came off very easily. Leaving just the the thing exposed. So And second thoughts, I don't think I'm going to take the tuning assembly out, it's Locked in place by the potentiometers for the tuning and the volume I think it would be reall... Read more
-
-
+We'll see, but the back came off very easily. Leaving just the the thing exposed. I don't think I'm going to take the tuning assembly out, it's Locked in place by the potentiometers for the tuning and the volume.
 
 
 

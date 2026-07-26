@@ -121,7 +121,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 326.5
+    "width": 616
   },
   "right": {
     "id": "671657907fbf017d",
@@ -226,11 +226,14 @@
       "bases:Create new base": false
     }
   },
-  "active": "3af8932cef3e9d59",
+  "active": "a57bdc5e37de4012",
   "lastOpenFiles": [
-    "Website/Misc/rendering-test.md",
+    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/DispatchesFromTheFarthestReaches-260719-02.jpg",
     "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/02-intial-breakdown.md",
+    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/DispatchesFromTheFarthestReaches-260719-01.jpg",
     "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/01-arrival-of-the-package.md",
+    "Website/Projects/restoring-a-1930s-field-radio/index.md",
+    "Website/Misc/rendering-test.md",
     "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/index.md",
     "Website/Exposures/preliminary-account-of-anomalous-decay/index.md",
     "Website/Exposures/preliminary-account-of-anomalous-decay/DispatchesFromTheFarReaches-ant-swarming-home.mp4.jpg",
@@ -243,7 +246,6 @@
     "Website/Family/plan-test-clip.mp4.jpg",
     "Website/Exposures/extension-of-the-family-dwelling/DispatchesFromTheFarthestReaches-221006-11.jpg",
     "Website/Exposures/extension-of-the-family-dwelling/DispatchesFromTheFarthestReaches-210119-10.jpg",
-    "Website/Exposures/extension-of-the-family-dwelling/DispatchesFromTheFarthestReaches-190522-09.jpg",
     "Website/Exposures/persistant-attendance-of-wild-animals/index.md",
     "Website/Exposures/extension-of-the-family-dwelling",
     "Website/Family/the-tide-pools-that-remember.md",
@@ -257,7 +259,6 @@
     "Website/Philosophy/Philosophy.11tydata.json",
     "Website/Professional/Professional.11tydata.json",
     "Website/About/about.md",
-    "Website/Misc/moth.jpg",
     "Website/Misc/index.md",
     "Website/Misc/the-cult-that-gathers-where-the-feed-never-sleeps.md",
     "Templates/Template for posts.md",
@@ -271,8 +272,6 @@
     "Worldbuilding-Arkam/People.md",
     "Website/Exposures/coastal-fog-early-mornings.md",
     "Website/Contact/thankyou.md",
-    "Website/Projects/building-a-weather-station-from-salvaged-instruments/01-two-barometers-and-a-ruined-sextant.md",
-    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/Project notes.md",
-    "Website/Projects/building-a-weather-station-from-salvaged-instruments/index.md"
+    "Website/Projects/building-a-weather-station-from-salvaged-instruments/01-two-barometers-and-a-ruined-sextant.md"
   ]
 }
