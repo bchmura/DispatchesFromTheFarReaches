@@ -55,12 +55,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/02-intial-breakdown.md",
+                "file": "Website/Misc/rolling-in-the-depths-building-underwater-in-the-last-caretaker.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "02-intial-breakdown"
+              "title": "rolling-in-the-depths-building-underwater-in-the-last-caretaker"
             }
           }
         ],
@@ -121,7 +121,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 616
+    "width": 616,
+    "collapsed": true
   },
   "right": {
     "id": "671657907fbf017d",
@@ -228,8 +229,9 @@
   },
   "active": "a57bdc5e37de4012",
   "lastOpenFiles": [
-    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/DispatchesFromTheFarthestReaches-260719-02.jpg",
     "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/02-intial-breakdown.md",
+    "Website/Misc/rolling-in-the-depths-building-underwater-in-the-last-caretaker.md",
+    "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/DispatchesFromTheFarthestReaches-260719-02.jpg",
     "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/DispatchesFromTheFarthestReaches-260719-01.jpg",
     "Website/Projects/notes-on-restoring-a-last-century-wireless-apparatus/01-arrival-of-the-package.md",
     "Website/Projects/restoring-a-1930s-field-radio/index.md",
