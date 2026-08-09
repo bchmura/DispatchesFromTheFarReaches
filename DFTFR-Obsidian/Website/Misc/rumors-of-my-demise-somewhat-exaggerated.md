@@ -1,16 +1,12 @@
 ---
-title: "Rumors of My Demise, Somewhat Exaggerated"
+title: Rumors of My Demise, Somewhat Exaggerated
 dispatchNo: 201
-description: "A meditation on the multi-armed bandit problem, exploration versus exploitation, and why the search never truly ends."
-date: 2022-09-01T14:02:14-04:00
-tags: ["foo", "bar", "fiction"]
+description: A meditation on doing stuff, resurrecting ones interests, and the long journeys in between.
+date: 2026-07-01T14:02:14-04:00
+tags:
+  - me
+isDraft: true
 ---
-Without going too much into the math, the solution to the bandit problem is easy to understand: the optimal strategy is to start with a period of exploration, where you pull levers at random and gather information. When you have more information about what works and what doesn't, you shift to spending the majority of your time pulling the best lever (exploitation), but you keep exploring the other options in case your current best option isn't the very best that exists.
-Here's the thing: the exploration phase never stops. Even if, in your heart of hearts, you're positively certain you've found the best possible option, you never stop experimenting, because the information you gather by experimenting is still valuable.
+As the final act of my career play... my priorities have changed.  No longer am I keeping half an eye on how an action would impact my hire ability or promotability.  Maybe this is an error in judgement... I have witnessed people who deserved to stay with a company let go unexpectedly.  I have no doubts that I am often something stuck in the craw of those I work for.
 
-The only way to beat the bandit is to keep trying new things.
-
-Ac ut consequat **semper viverra nam**. Hac habitasse platea dictumst vestibulum 
-rhoncus. Amet porttitor eget dolor morbi non. Justo eget magna fermentum 
-iaculis eu non. Id eu nisl nunc mi ipsum faucibus vitae aliquet nec. Aliquam 
-id diam maecenas ultricies. Non sodales neque sodales ut etiam. Amet massa 
+But for now, I assume that even if this were to happen, I could make retirement work.
