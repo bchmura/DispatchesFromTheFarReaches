@@ -2,7 +2,7 @@
 title: Instructions for subsurface development in the Last Caretaker
 dispatchNo: 212
 description: Hard lessons learned whilst constructing where the old ones lurk.
-date: 2026-07-27T01:03:03-04:00
+date: 2026-08-20
 tags:
   - games
 ---
@@ -16,6 +16,9 @@ tags:
  I am committing these instructions to page because while I searched, I could not find any such learning out there.  
 
 I have seen several Care Takers mount large amounts of fluid tanks to the underside of their boat.  They indicated that there was no penalty to doing so, and the tanks on the deck do get in the way a little bit.  Being one to over engineer and also having enough resources to make storage an issue, I decided to do this.  It was not as easy as it seemed.  I finally got through it, and here is my lessons learned.
+
+> [!danger] Warning before you continue
+> After writing these notes, almost the entire underside of my boat was detroyed or otherwise removed.  A few connector ports remain, but all tanks were missing.  I've since started to experiment with placement and if they were not simply to close to the sides.  
 
 ## Pick the right place to do the work
 
@@ -46,6 +49,8 @@ Another good reason to do this work in a bunker is that the bottom surface is ac
 They stay anchored until you try to move them, then they suddenly become buoyant and drift out of place.  Unless you want to be cracking glow sticks faster than a New York City rave, here is how I recommend it.
 
 Find the centerline of the boat (the middle going down the long access).   Down the centerline on the bottom hanger, put more electrical blocks.  Maybe every 10 meters... the distance is up to you... this will determine how many lights to you end up with.
+
+![If implemented properly, you should have a well lit hull](lc_bottomofboat.png)
 
 Connect all of them together in a line, then attach the one nearest to the dock end to the surface and a connector there.  Helps to be able to turn them all of.
 
